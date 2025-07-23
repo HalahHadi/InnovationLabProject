@@ -36,7 +36,7 @@ namespace WepApp2.Controllers
 
                 // عدد الأجهزة التي تحتاج صيانة
                 var devicesNeedMaintenance = _context.Devices
-                    .Where(d => d.DeviceStatus == "صيانة" || d.DeviceStatus == "Maintenance" ||
+                    .Where(d => d.DeviceStatus == "معطل" || d.DeviceStatus == "Maintenance" ||
                                d.DeviceStatus == "maintenance" || d.DeviceStatus == "تحت الصيانة")
                     .Count();
 

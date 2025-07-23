@@ -37,4 +37,4 @@ public partial class User
     [NotMapped]
     public string? OtherFaculty { get; set; }
 }
-}
+

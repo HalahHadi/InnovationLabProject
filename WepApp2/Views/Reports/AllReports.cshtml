@@ -136,11 +136,11 @@
                     data.push(count);
 
                     // تحديد اللون حسب الحالة
-                    if (status === 'عاملة' || status === 'Active' || status === 'active') {
+                    if (status === 'متاح' || status === 'Active' || status === 'active') {
                         backgroundColor.push('#38a169');
-                    } else if (status === 'صيانة' || status === 'Maintenance' || status === 'maintenance') {
+                    } else if (status === 'معطل' || status === 'Maintenance' || status === 'maintenance') {
                         backgroundColor.push('#ed8936');
-                    } else if (status === 'غير متصل' || status === 'Offline' || status === 'offline') {
+                    } else if (status === 'معار' || status === 'Offline' || status === 'offline') {
                         backgroundColor.push('#e53e3e');
                     } else {
                         backgroundColor.push('#6b7280'); // لون رمادي للحالات غير المعروفة
