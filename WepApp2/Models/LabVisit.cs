@@ -9,7 +9,7 @@ public partial class LabVisit
 
     public int NumberOfVisitors { get; set; }
 
-    public DateOnly VisitDate { get; set; }
+    public DateTime VisitDate { get; set; }
 
     public TimeOnly PreferredTime { get; set; }
 

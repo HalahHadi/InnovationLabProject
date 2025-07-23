@@ -1,7 +1,7 @@
 ﻿@model List<WepApp2.Models.Request>
 
 @{
-Layout = "~/Views/Shared/_LayoutSupervisor.cshtml";
+    Layout = "~/Views/Shared/_LayoutSupervisor.cshtml";
     ViewBag.Title = "صفحة المشرف";
 }
 
@@ -20,9 +20,9 @@ Layout = "~/Views/Shared/_LayoutSupervisor.cshtml";
             <label for="statusFilter" class="supervisor-filter-label">فلتر حسب الحالة:</label>
             <select id="statusFilter" class="supervisor-filter-dropdown form-select">
                 <option value="">جميع الحالات</option>
-                <option value="قيد الانتظار">قيد الانتظار</option>
-                <option value="موافق عليه">موافق عليه</option>
-                <option value="مرفوض">مرفوض</option>
+                <option value="بانتظار موافقة المشرف">بانتظار موافقة المشرف</option>
+                <option value="موافق عليه من قبل المشرف">موافق عليه من قبل المشرف</option>
+                <option value="مرفوض من قبل المشرف">مرفوض من قبل المشرف</option>
             </select>
         </div>
         <div class="col-md-4">
@@ -31,7 +31,7 @@ Layout = "~/Views/Shared/_LayoutSupervisor.cshtml";
                 <option value="">جميع الأنواع</option>
                 <option value="حجز أجهزة">حجز أجهزة</option>
                 <option value="إعارة">إعارة</option>
-                <option value="زيارة معمل">زيارة معمل</option>
+                <option value="زيارة">زيارة</option>
                 <option value="استشارة">استشارة</option>
                 <option value="دورات تدريبية">دورات تدريبية</option>
             </select>
@@ -70,7 +70,7 @@ Layout = "~/Views/Shared/_LayoutSupervisor.cshtml";
                     <td class="status">@request.SupervisorStatus</td>
                     <td class="actions">
                         <div class="d-flex justify-content-start gap-2">
-                            @if (request.SupervisorStatus == "موافق عليه" || request.SupervisorStatus == "مرفوض")
+                            @if (request.SupervisorStatus == "موافق عليه من قبل المشرف" || request.SupervisorStatus == "مرفوض من قبل المشرف")
                             {
                                 <span>تم الإجراء</span>
                             }
@@ -88,7 +88,7 @@ Layout = "~/Views/Shared/_LayoutSupervisor.cshtml";
                                 data-user-name="@request.User?.UserName"
                                 data-request-date="@request.RequestDate.ToString("yyyy-MM-dd")"
                                 data-status="@request.SupervisorStatus"
-                                data-device-name="@(request.RequestType == "حجز جهاز" || request.RequestType == "إعارة جهاز" ? request.Device?.DeviceName : "غير متاح")">
+                                data-device-name="@(request.RequestType == "حجز أجهزة" || request.RequestType == "إعارة" ? request.Device?.DeviceName : "غير متاح")">
                             <i class="fas fa-eye"></i>
                         </button>
                     </td>
@@ -165,7 +165,7 @@ Layout = "~/Views/Shared/_LayoutSupervisor.cshtml";
             btn.addEventListener("click", function () {
                 const row = this.closest("tr");
                 const requestId = this.getAttribute("data-request-id");
-                updateStatus(requestId, "موافق عليه", row);
+                updateStatus(requestId, "موافق عليه من قبل المشرف", row);
             });
         });
 
@@ -194,7 +194,7 @@ Layout = "~/Views/Shared/_LayoutSupervisor.cshtml";
                 document.getElementById("detailRequestDate").textContent = requestDate;
                 document.getElementById("detailStatus").textContent = status;
 
-                if (requestType === "زيارة معمل") {
+                if (requestType === "زيارة") {
                     fetch(`/Supervisor/GetVisitType?id=${requestId}`)
                         .then(response => response.json())
                         .then(data => {
@@ -203,7 +203,7 @@ Layout = "~/Views/Shared/_LayoutSupervisor.cshtml";
                         .catch(() => {
                             document.getElementById("detailRequestInfo").textContent = "خطأ في جلب نوع الزيارة";
                         });
-                } else if (requestType === "استشارة تقنية") {
+                } else if (requestType === "استشارة") {
                     fetch(`/Supervisor/GetConsultationDescription?id=${requestId}`)
                         .then(response => response.json())
                         .then(data => {
@@ -212,7 +212,7 @@ Layout = "~/Views/Shared/_LayoutSupervisor.cshtml";
                         .catch(() => {
                             document.getElementById("detailRequestInfo").textContent = "خطأ في جلب وصف الاستشارة";
                         });
-                        } else if (requestType === "دورة تدريبية") {
+                        } else if (requestType === "دورات تدريبية") {
             fetch(`/Supervisor/GetCourseName?id=${requestId}`)
                 .then(response => response.json())
                 .then(data => {
@@ -222,8 +222,10 @@ Layout = "~/Views/Shared/_LayoutSupervisor.cshtml";
                     document.getElementById("detailRequestInfo").textContent = "خطأ في جلب اسم الدورة";
                 });
         }
-        else {
+                else if (requestType === "حجز أجهزة" || requestType === "إعارة") {
             document.getElementById("detailRequestInfo").textContent = deviceName;
+        } else {
+            document.getElementById("detailRequestInfo").textContent = "غير متاح";
         }
 
                 document.getElementById("detailsModal").style.display = "block";
@@ -238,7 +240,7 @@ Layout = "~/Views/Shared/_LayoutSupervisor.cshtml";
                 alert("يرجى إدخال سبب الرفض.");
                 return;
             }
-            updateStatus(selectedRequestId, "مرفوض", selectedRow, reason); // ✨ أرسل السبب هنا
+            updateStatus(selectedRequestId, "مرفوض من قبل المشرف", selectedRow, reason); // ✨ أرسل السبب هنا
             closeModal();
         }
 
