@@ -30,6 +30,7 @@ public partial class User
 
     public bool IsActive { get; set; }
 
+    
 
     public virtual ICollection<Request> Requests { get; set; } = new List<Request>();
 
@@ -37,4 +38,3 @@ public partial class User
     [NotMapped]
     public string? OtherFaculty { get; set; }
 }
-

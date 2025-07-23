@@ -1,5 +1,4 @@
-﻿// SupervisorController.cs (بعد التعديلات)
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WepApp2.Data;
 using WepApp2.Models;
@@ -17,15 +16,12 @@ namespace WepApp2.Controllers
 
         public IActionResult IndexSuper()
         {
-            // ✅ استخراج UserId من Claims
             var userIdClaim = User.FindFirst("UserId")?.Value;
-
             if (string.IsNullOrEmpty(userIdClaim) || !int.TryParse(userIdClaim, out int currentUserId))
             {
                 return RedirectToAction("Login", "Auth");
             }
 
-            // ✅ جلب الطلبات المخصصة لهذا المشرف فقط
             var requests = _context.Requests
                 .Include(r => r.User)
                 .Include(r => r.Device)
@@ -57,11 +53,11 @@ namespace WepApp2.Controllers
         public IActionResult GetVisitType(int id)
         {
             var request = _context.Requests
-                                  .Include(r => r.LabVisits)
-                                  .ThenInclude(lv => lv.VisitDetails)
-                                  .FirstOrDefault(r => r.RequestId == id);
+                .Include(r => r.LabVisits)
+                .ThenInclude(lv => lv.VisitDetails)
+                .FirstOrDefault(r => r.RequestId == id);
 
-            if (request == null || request.RequestType != "زيارة معمل")
+            if (request == null || request.RequestType != "زيارة")
             {
                 return Json(new { visitType = "غير متاح" });
             }
@@ -73,15 +69,11 @@ namespace WepApp2.Controllers
         [HttpGet]
         public IActionResult GetCourseName(int id)
         {
-            // نجيب الطلب أولًا
             var request = _context.Requests.FirstOrDefault(r => r.RequestId == id);
-
             if (request == null || request.CourseId == null)
                 return Json(new { courseName = "غير متاح" });
 
-            // نجيب الدورة المرتبطة بـ CourseId الموجود في الطلب
             var course = _context.Courses.FirstOrDefault(c => c.CourseId == request.CourseId);
-
             if (course != null)
             {
                 return Json(new { courseName = course.CourseName });
@@ -89,7 +81,6 @@ namespace WepApp2.Controllers
 
             return Json(new { courseName = "اسم الدورة غير متاح" });
         }
-
 
         [HttpGet]
         public IActionResult GetConsultationDescription(int id)
@@ -106,7 +97,6 @@ namespace WepApp2.Controllers
         public IActionResult GetMyRequests()
         {
             var userId = User.FindFirst("UserId")?.Value;
-
             if (string.IsNullOrEmpty(userId) || !int.TryParse(userId, out int currentUserId))
                 return Unauthorized();
 
@@ -120,8 +110,6 @@ namespace WepApp2.Controllers
 
             return Json(requests);
         }
-
-
 
         public class UpdateStatusRequest
         {
