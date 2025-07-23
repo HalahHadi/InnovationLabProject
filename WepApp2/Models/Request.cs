@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-//-----00
+
 namespace WepApp2.Models;
 
 public partial class Request
 {
-    public int RequestID { get; set; }
+    public int RequestId { get; set; }
 
     public string RequestType { get; set; } = null!;
 
@@ -25,9 +23,9 @@ public partial class Request
 
     public int ServiceId { get; set; }
 
-    public int DeviceId { get; set; }
+    public int? DeviceId { get; set; }
 
-    public int? CourseID { get; set; }
+    public int? CourseId { get; set; }
 
     public virtual ICollection<BookingDevice> BookingDevices { get; set; } = new List<BookingDevice>();
 
@@ -35,7 +33,7 @@ public partial class Request
 
     public virtual Course? Course { get; set; }
 
-    public virtual Device Device { get; set; } = null!;
+    public virtual Device? Device { get; set; }
 
     public virtual ICollection<DeviceLoan> DeviceLoans { get; set; } = new List<DeviceLoan>();
 

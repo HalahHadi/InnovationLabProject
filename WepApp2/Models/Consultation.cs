@@ -1,15 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-//------------00
 
 namespace WepApp2.Models;
 
 public partial class Consultation
 {
-
-    public int ConsultationID { get; set; }
+    public int ConsultationId { get; set; }
 
     public string ConsultationDescription { get; set; } = null!;
 

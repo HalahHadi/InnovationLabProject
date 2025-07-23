@@ -70,47 +70,47 @@ Description: Form to input new device information into the system
                         "اختر نوع التقنية",
                         new { @class = "form-select", required = "required" })
 
-            </div>
-
-
-            <!-- الرقم التسلسلي -->
-            <!-- Serial number -->
-            <div class="col-md-6">
-                @Html.LabelFor(m => m.SerialNumber, "الرقم التسلسلي")
-                @Html.TextBoxFor(m => m.SerialNumber, new { @class = "form-control", required = "required" })
-            </div>
-
-
-            <!-- موقع الجهاز -->
-            <!-- Device location -->
-            <div class="col-md-6">
-                @Html.LabelFor(m => m.DeviceLocation, "الموقع")
-                @Html.TextBoxFor(m => m.DeviceLocation, new { @class = "form-control", required = "required" })
-            </div>
-
-
-            <!-- اسم الشركة المصنعة -->
-            <!-- Manufacturer name -->
-            <div class="col-md-6">
-                @Html.LabelFor(m => m.BrandName, "الشركة المصنعة")
-                @Html.TextBoxFor(m => m.BrandName, new { @class = "form-control", required = "required" })
-            </div>
-
-
-            <!-- الطراز -->
-            <!-- Device model -->
-            <div class="col-md-6">
-                @Html.LabelFor(m => m.DeviceModel, "الطراز")
-                @Html.TextBoxFor(m => m.DeviceModel, new { @class = "form-control", required = "required" })
-            </div>
         </div>
 
 
-        <!-- أزرار التحكم -->
-        <!-- Form action buttons -->
-        <div class="mt-4 d-flex gap-2">
-            <button type="submit" class="btn btn-primary">إضافة</button>
+        <!-- الرقم التسلسلي -->
+        <!-- Serial number -->
+        <div class="col-md-6">
+            @Html.LabelFor(m => m.SerialNumber, "الرقم التسلسلي")
+            @Html.TextBoxFor(m => m.SerialNumber, new { @class = "form-control", required = "required" })
+        </div>
+
+
+        <!-- موقع الجهاز -->
+        <!-- Device location -->
+        <div class="col-md-6">
+            @Html.LabelFor(m => m.DeviceLocation, "الموقع")
+            @Html.TextBoxFor(m => m.DeviceLocation, new { @class = "form-control", required = "required" })
+        </div>
+
+
+        <!-- اسم الشركة المصنعة -->
+        <!-- Manufacturer name -->
+        <div class="col-md-6">
+            @Html.LabelFor(m => m.BrandName, "الشركة المصنعة")
+            @Html.TextBoxFor(m => m.BrandName, new { @class = "form-control", required = "required" })
+        </div>
+
+
+        <!-- الطراز -->
+        <!-- Device model -->
+        <div class="col-md-6">
+            @Html.LabelFor(m => m.DeviceModel, "الطراز")
+            @Html.TextBoxFor(m => m.DeviceModel, new { @class = "form-control", required = "required" })
+        </div>
+    </div>
+
+
+    <!-- أزرار التحكم -->
+    <!-- Form action buttons -->
+    <div class="mt-4 d-flex gap-2">
+        <button type="submit" class="btn btn-primary">إضافة</button>
         <a href="@Url.Action("Devices", "Devices")" class="btn btn-secondary">↩ رجوع</a>
-        </div>
-    }
+    </div>
+        }
 </div>

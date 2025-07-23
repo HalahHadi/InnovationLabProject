@@ -13,11 +13,11 @@ namespace WepApp2.Controllers
 {
     public class AuthController : Controller
     {
-        private readonly AppDbContext _context;
+        private readonly ApplicationDbContext _context;
         private readonly IEmailService _emailService;
         private readonly IDataProtector _protector;
 
-        public AuthController(AppDbContext context, IEmailService emailService, IDataProtectionProvider dataProtectionProvider)
+        public AuthController(ApplicationDbContext context, IEmailService emailService, IDataProtectionProvider dataProtectionProvider)
         {
             _context = context;
             _emailService = emailService;
@@ -52,7 +52,7 @@ namespace WepApp2.Controllers
                     new Claim(ClaimTypes.Role, existingUser.UserRole ?? "Student"),
                     new Claim("FirstName", existingUser.FirstName ?? "")  // ✅ هنا نضيف الاسم الأول
                     ,
-            new Claim("UserID", existingUser.UserID.ToString()) // <-- هنا أضفنا الـ UserId
+            new Claim("UserID", existingUser.UserId.ToString()) // <-- هنا أضفنا الـ UserId
                 };
 
                 var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
@@ -66,9 +66,16 @@ namespace WepApp2.Controllers
                     return RedirectToAction("Index", "Dashboard");
 
                 if (existingUser.UserRole == "مشرف")
-                    return RedirectToAction("Index", "Supervisor");
+                    return RedirectToAction("IndexSuper", "Supervisor");
 
-                return RedirectToAction("HomePage", "Auth");
+                if (existingUser.UserRole == "طالب")
+                    return RedirectToAction("Bookings", "Home");
+
+                if (existingUser.UserRole == "عضو هيئة تدريس")
+                    return RedirectToAction("Bookings", "Home");
+
+
+               // return RedirectToAction("HomePage", "Auth");
             }
 
             ViewBag.LoginFailed = true;
@@ -158,7 +165,7 @@ namespace WepApp2.Controllers
             if (user != null)
             {
                 // إنشاء token مشفر
-                var tokenData = $"{user.UserID}|{DateTime.UtcNow.AddHours(1):yyyy-MM-dd HH:mm:ss}";
+                var tokenData = $"{user.UserId}|{DateTime.UtcNow.AddHours(1):yyyy-MM-dd HH:mm:ss}";
                 var encryptedToken = _protector.Protect(tokenData);
 
                 // تحويل Token إلى Base64 URL-safe
@@ -319,7 +326,7 @@ namespace WepApp2.Controllers
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            return RedirectToAction("Login");
+            return RedirectToAction("Index","Home");
         }
     }
 }

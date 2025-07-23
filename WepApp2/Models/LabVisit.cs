@@ -1,20 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-//-----00
 
 namespace WepApp2.Models;
 
 public partial class LabVisit
 {
-    public int LabVisitID { get; set; }
+    public int LabVisitId { get; set; }
 
     public int NumberOfVisitors { get; set; }
 
-    public DateTime VisitDate { get; set; }
+    public DateOnly VisitDate { get; set; }
 
-    public TimeSpan PreferredTime { get; set; }
+    public TimeOnly PreferredTime { get; set; }
 
     public string? PreferredContactMethod { get; set; }
 

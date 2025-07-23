@@ -8,14 +8,14 @@ namespace WepApp2.Controllers
 {
     public class SupervisorController : Controller
     {
-        private readonly AppDbContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public SupervisorController(AppDbContext context)
+        public SupervisorController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        public IActionResult Index()
+        public IActionResult IndexSuper()
         {
             // ✅ استخراج UserId من Claims
             var userIdClaim = User.FindFirst("UserId")?.Value;
@@ -39,7 +39,7 @@ namespace WepApp2.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult UpdateStatus([FromBody] UpdateStatusRequest request)
         {
-            var req = _context.Requests.FirstOrDefault(r => r.RequestID == request.RequestId);
+            var req = _context.Requests.FirstOrDefault(r => r.RequestId == request.RequestId);
             if (req != null)
             {
                 req.SupervisorStatus = request.Status;
@@ -59,7 +59,7 @@ namespace WepApp2.Controllers
             var request = _context.Requests
                                   .Include(r => r.LabVisits)
                                   .ThenInclude(lv => lv.VisitDetails)
-                                  .FirstOrDefault(r => r.RequestID == id);
+                                  .FirstOrDefault(r => r.RequestId == id);
 
             if (request == null || request.RequestType != "زيارة معمل")
             {
@@ -74,13 +74,13 @@ namespace WepApp2.Controllers
         public IActionResult GetCourseName(int id)
         {
             // نجيب الطلب أولًا
-            var request = _context.Requests.FirstOrDefault(r => r.RequestID == id);
+            var request = _context.Requests.FirstOrDefault(r => r.RequestId == id);
 
-            if (request == null || request.CourseID == null)
+            if (request == null || request.CourseId == null)
                 return Json(new { courseName = "غير متاح" });
 
             // نجيب الدورة المرتبطة بـ CourseId الموجود في الطلب
-            var course = _context.Courses.FirstOrDefault(c => c.CourseID == request.CourseID);
+            var course = _context.Courses.FirstOrDefault(c => c.CourseId == request.CourseId);
 
             if (course != null)
             {
@@ -114,7 +114,7 @@ namespace WepApp2.Controllers
                 .Where(r => r.SupervisorAssigned == currentUserId)
                 .Select(r => new
                 {
-                    r.RequestID,
+                    r.RequestId,
                     r.RequestType
                 }).ToList();
 

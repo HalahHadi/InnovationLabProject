@@ -1,32 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-
 
 namespace WepApp2.Models;
 
 public partial class User
 {
-    [Key]
-    public int UserID { get; set; }
+    public int UserId { get; set; }
 
-    [Required]
     public string FirstName { get; set; } = null!;
 
-    [Required]
     public string LastName { get; set; } = null!;
 
-    [Required]
     public string Email { get; set; } = null!;
 
-    [Required]
     public string UserName { get; set; } = null!;
 
-    [Required]
     public string PhoneNumber { get; set; } = null!;
 
-    [Required]
     public string UserRole { get; set; } = null!;
 
     public string Faculty { get; set; } = null!;
@@ -39,8 +30,12 @@ public partial class User
 
     public bool IsActive { get; set; }
 
+    public bool IsDeleted { get; set; }
+
     public virtual ICollection<Request> Requests { get; set; } = new List<Request>();
-    
+
+
     [NotMapped]
     public string? OtherFaculty { get; set; }
+}
 }

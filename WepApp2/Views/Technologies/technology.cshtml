@@ -1,4 +1,6 @@
-﻿@{
+﻿ 
+
+@* @{
     ViewBag.Title = "إدارة الفئات التقنية";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
@@ -40,7 +42,7 @@ Description: Page to create, edit, and delete technology categories used in devi
 
                 <!-- المعرف -->
                 <!-- Category ID (hidden) -->
-                @Html.HiddenFor(m => m.Technology.TechnologyID)
+                @Html.HiddenFor(m => m.Technology.TechnologyId)
 
 
                 <!-- حقل اسم الفئة -->
@@ -91,12 +93,12 @@ Description: Page to create, edit, and delete technology categories used in devi
             @foreach (var tech in Model.Technologies)
             {
                 <tr>
-                    <td>@tech.TechnologyID</td>
+                    <td>@tech.TechnologyId</td>
                     <td>@tech.TechnologyName</td>
                     <td>@tech.TechnologyDescription</td>
                     <td>
-                        <a href="@Url.Action("Edit", "Technologies", new { id = tech.TechnologyID })" class="btn btn-sm custom-edit-btn">تعديل</a>
-                        <a href="@Url.Action("Delete", "Technologies", new { id = tech.TechnologyID })"
+                        <a href="@Url.Action("Edit", "Technologies", new { id = tech.TechnologyId })" class="btn btn-sm custom-edit-btn">تعديل</a>
+                        <a href="@Url.Action("Delete", "Technologies", new { id = tech.TechnologyId })"
                            onclick="return confirm('هل تريد حذف هذه الفئة؟');"
                            class="btn btn-sm btn-danger btn-del">حذف</a>
                     </td>
@@ -105,3 +107,4 @@ Description: Page to create, edit, and delete technology categories used in devi
         </tbody>
     </table>
 </div>
+ 

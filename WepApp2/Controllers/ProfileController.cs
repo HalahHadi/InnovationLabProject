@@ -7,9 +7,9 @@ namespace WepApp2.Controllers
 {
     public class ProfileController : Controller
     {
-        private readonly AppDbContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public ProfileController(AppDbContext context)
+        public ProfileController(ApplicationDbContext context)
         {
             _context = context;
         }

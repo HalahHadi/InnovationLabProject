@@ -1,15 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-//----00
-
 
 namespace WepApp2.Models;
 
 public partial class DeviceLoan
 {
-    public int DeviceLoanID { get; set; }
+    public int DeviceLoanId { get; set; }
 
     public string Purpose { get; set; } = null!;
 

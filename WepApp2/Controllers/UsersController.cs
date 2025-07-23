@@ -6,11 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 // ✅ Users Controller
 public class UsersController : Controller
 {
-    private readonly AppDbContext _context;
+    private readonly ApplicationDbContext _context;
 
     // ✅ التهيئة باستخدام قاعدة البيانات
     // ✅ Inject database context via constructor
-    public UsersController(AppDbContext context)
+    public UsersController(ApplicationDbContext context)
     {
         _context = context;
     }
@@ -48,10 +48,10 @@ public class UsersController : Controller
 
         // ✅ إذا اختار المستخدم "أخرى"، يتم استخدام النص المدخل
         // ✅ Handle "Other" faculty case
-        if (user.Faculty == "أخرى")
-        {
-            user.Faculty = user.OtherFaculty;
-        }
+        //if (user.Faculty == "أخرى")
+        //{
+        //    user.Faculty = user.OtherFaculty;
+        //}
 
         // ✅ تعيين وقت تسجيل الدخول الأخير للحظة الإضافة
         // ✅ Set initial LastLogin date
@@ -77,15 +77,15 @@ public class UsersController : Controller
         var user = _context.Users.Find(id);
 
         // ✅ إعداد قيمة OtherFaculty حسب نوع الجهة
-        // ✅ Setup OtherFaculty based on current Faculty value
-        if (user.Faculty == "أخرى")
-        {
-            user.OtherFaculty = ""; // يملأها المستخدم لاحقًا
-        }
-        else
-        {
-            user.OtherFaculty = user.Faculty; // عرضها مباشرة
-        }
+        //// ✅ Setup OtherFaculty based on current Faculty value
+        //if (user.Faculty == "أخرى")
+        //{
+        //    user.OtherFaculty = ""; // يملأها المستخدم لاحقًا
+        //}
+        //else
+        //{
+        //    user.OtherFaculty = user.Faculty; // عرضها مباشرة
+        //}
 
 
         if (user == null)
@@ -150,7 +150,7 @@ public class UsersController : Controller
 
         // ✅ إيجاد المستخدم من قاعدة البيانات
         // ✅ Retrieve existing user from database
-        var existingUser = _context.Users.Find(updatedUser.UserID);
+        var existingUser = _context.Users.Find(updatedUser.UserId);
         if (existingUser == null)
         {
             return NotFound();
@@ -178,6 +178,6 @@ public class UsersController : Controller
         return RedirectToAction("Users");
     }
 
-   
+
 
 }

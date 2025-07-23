@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-//----00
+
 namespace WepApp2.Models;
 
 public partial class Service
 {
-    public int ServiceID { get; set; }
+    public int ServiceId { get; set; }
 
     public string ServiceName { get; set; } = null!;
 
@@ -24,4 +22,6 @@ public partial class Service
     public virtual ICollection<LabVisit> LabVisits { get; set; } = new List<LabVisit>();
 
     public virtual ICollection<Request> Requests { get; set; } = new List<Request>();
+
+    public virtual ICollection<ServiceDevice> ServiceDevices { get; set; } = new List<ServiceDevice>();
 }

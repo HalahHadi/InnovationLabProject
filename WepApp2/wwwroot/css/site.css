@@ -1,0 +1,277 @@
+﻿/*تنسيق الخلفية والخط الأساسي*/
+body {
+    font-family: 'Tajawal', sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa;
+}
+
+
+
+
+/* --------------------------------------------------
+   🟢 الشريط العلوي (Topbar)
+-------------------------------------------------- */
+.topbar {
+    background: linear-gradient(135deg, #199d4d 0%, #0d6d2a 100%);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+/* القائمة المنسدلة للبروفايل */
+.profile-dropdown {
+    position: absolute;
+    top: 60px;
+    right: -200px;
+    width: 250px;
+    background-color: #fff;
+    border-radius: 10px;
+    z-index: 1050;
+    display: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* --------------------------------------------------
+   🟡 القائمة الجانبية (Sidebar)
+-------------------------------------------------- */
+.sidebar {
+    background: linear-gradient(135deg, #199d4d 0%, #0d6d2a 100%);
+    color: white;
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.08);
+    min-height: 100vh;
+}
+
+    /* روابط القائمة الجانبية */
+    .sidebar a {
+        color: white;
+        text-decoration: none;
+    }
+
+        .sidebar a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+/* إخفاء القائمة الجانبية على الجوال */
+@media (max-width: 767.98px) {
+    .sidebar {
+        display: none;
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 75%;
+        height: 100%;
+        z-index: 1050;
+        padding: 20px;
+        overflow-y: auto;
+        transition: transform 0.3s ease-in-out;
+        transform: translateX(100%);
+    }
+
+        .sidebar.show {
+            display: block;
+            transform: translateX(0);
+        }
+}
+
+/* --------------------------------------------------
+   🔵 القائمة المنبثقة للجوال (Mobile Menu)
+-------------------------------------------------- */
+.mobile-menu {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 80%;
+    height: 100%;
+    background: linear-gradient(135deg, #199d4d 0%, #0d6d2a 100%);
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.2);
+    transform: translateX(100%);
+    transition: transform 0.3s ease-in-out;
+    z-index: 9999;
+    padding: 20px;
+}
+
+    .mobile-menu.show {
+        transform: translateX(0);
+    }
+
+    .mobile-menu .nav-link {
+        color: white !important;
+    }
+
+/* أيقونات فتح وإغلاق القائمة الجوال */
+#menuToggle, #menuClose {
+    cursor: pointer;
+    color: white;
+    font-size: 1.5rem;
+    user-select: none;
+}
+
+/* إخفاء أيقونة الإغلاق بشكل افتراضي */
+#menuClose {
+    display: none;
+}
+
+
+/* --------------------------------------------------
+   🟣 الروابط داخل القوائم الجانبية والمنبثقة
+-------------------------------------------------- */
+.nav-link {
+    width: 100%;
+    background: none;
+    border: none;
+    border-right: 4px solid transparent;
+    display: flex;
+    align-items: center;
+    padding: 10px 16px;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 16px;
+}
+
+    .nav-link:hover {
+        background: rgba(255, 255, 255, 0.1);
+        border-right-color: #ffd700;
+        transform: translateX(-3px);
+    }
+
+    .nav-link.active {
+        background: rgba(255, 255, 255, 0.2);
+        border-right-color: #ffd700;
+        font-weight: bold;
+        transform: translateX(-3px);
+    }
+
+/* --------------------------------------------------
+   🟤 عناصر إضافية
+-------------------------------------------------- */
+.menu-logo {
+    display: block;
+    margin: 0 auto;
+    max-height: 100px;
+    height: auto;
+    width: auto;
+}
+
+a {
+    text-decoration: none;
+}
+
+.icons span {
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+/* --------------------------------------------------
+   🔴 الإشعارات (Notifications)
+-------------------------------------------------- */
+.notification-icon {
+    cursor: pointer;
+}
+
+.notifications-dropdown {
+    position: absolute;
+    top: 60px;
+    left: 20px;
+    right: auto;
+    width: 250px;
+    background-color: #fff;
+    border-radius: 10px;
+    z-index: 1050;
+    display: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+    .notifications-dropdown.show {
+        display: block;
+    }
+
+/*حاويات المحتوى*/
+.container-fluid {
+    min-height: 100vh;
+    padding: 0;
+}
+
+.row {
+    margin: 0;
+}
+
+main {
+    background-color: #f9f9f9;
+    min-height: 100vh;
+    overflow-y: auto;
+    padding-bottom: 40px;
+}
+
+
+/*خاص بالداش بورد*/
+.tab-btn.active {
+    background-color: #38a169 !important;
+    color: white !important;
+}
+
+.availability-card {
+    background: #ecfdf5;
+    border: 2px solid #10b981;
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    color: #065f46;
+    font-weight: bold;
+}
+
+@media (max-width: 768px) {
+    .availability-card {
+        background: linear-gradient(to bottom right, #dcfce7, #dbeafe);
+        border-radius: 1rem;
+        border: 1px solid #34d399;
+        padding: 1rem;
+        text-align: center;
+    }
+
+        .availability-card h5 {
+            margin-bottom: 1rem;
+            color: #1f2937;
+        }
+
+    svg {
+        display: block;
+        margin: 0 auto;
+    }
+}
+
+/* زر PDF  */
+.custom-pdf-btn {
+    background-color: #e53e3e;
+    color: white;
+    border: none;
+}
+
+    .custom-pdf-btn:hover {
+        background-color: #c62828;
+    }
+
+/* زر Excel  */
+.custom-excel-btn {
+    background-color: #38a169;
+    color: white;
+    border: none;
+}
+
+    .custom-excel-btn:hover {
+        background-color: #1b5e20;
+    }
+
+
+/* end-dashboard*/

@@ -1,4 +1,6 @@
-﻿@{
+﻿
+
+@{
     ViewBag.Title = "تعديل الجهاز";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
@@ -31,7 +33,7 @@ Description: Page to update an existing device's information
 
         <!-- معرف الجهاز -->
         <!-- Device ID (hidden) -->
-        @Html.HiddenFor(m => m.DeviceID)
+        @Html.HiddenFor(m => m.DeviceId)
 
         <div class="row g-3">
             <!-- اسم الجهاز -->
@@ -51,54 +53,54 @@ Description: Page to update an existing device's information
                         "اختر نوع التقنية",
                         new { @class = "form-select", required = "required" })
 
-            </div>
-
-
-
-            <!-- الرقم التسلسلي -->
-            <!-- Serial number -->
-            <div class="col-md-6">
-                @Html.LabelFor(m => m.SerialNumber, "الرقم التسلسلي")
-                @Html.TextBoxFor(m => m.SerialNumber, new { @class = "form-control", required = "required" })
-            </div>
-
-
-
-            <!-- الموقع -->
-            <!-- Device location -->
-            <div class="col-md-6">
-                @Html.LabelFor(m => m.DeviceLocation, "الموقع")
-                @Html.TextBoxFor(m => m.DeviceLocation, new { @class = "form-control", required = "required" })
-            </div>
-
-
-            <!-- اسم الشركة المصنعة -->
-            <!-- Manufacturer name -->
-            <div class="col-md-6">
-                @Html.LabelFor(m => m.BrandName, "الشركة المصنعة")
-                @Html.TextBoxFor(m => m.BrandName, new { @class = "form-control", required = "required" })
-            </div>
-
-
-            <!-- طراز الجهاز -->
-            <!-- Device model -->
-            <div class="col-md-6">
-                @Html.LabelFor(m => m.DeviceModel, "الطراز")
-                @Html.TextBoxFor(m => m.DeviceModel, new { @class = "form-control", required = "required" })
-            </div>
-
-
-            <!-- الحالة  -->
-            <!-- Device status (hidden) -->
-            @Html.HiddenFor(m => m.DeviceStatus)
         </div>
 
 
-        <!-- أزرار التحكم -->
-        <!-- Form action buttons -->
-        <div class="mt-4 d-flex gap-2">
-            <button type="submit" class="btn btn-primary">حفظ التعديلات</button>
+
+        <!-- الرقم التسلسلي -->
+        <!-- Serial number -->
+        <div class="col-md-6">
+            @Html.LabelFor(m => m.SerialNumber, "الرقم التسلسلي")
+            @Html.TextBoxFor(m => m.SerialNumber, new { @class = "form-control", required = "required" })
+        </div>
+
+
+
+        <!-- الموقع -->
+        <!-- Device location -->
+        <div class="col-md-6">
+            @Html.LabelFor(m => m.DeviceLocation, "الموقع")
+            @Html.TextBoxFor(m => m.DeviceLocation, new { @class = "form-control", required = "required" })
+        </div>
+
+
+        <!-- اسم الشركة المصنعة -->
+        <!-- Manufacturer name -->
+        <div class="col-md-6">
+            @Html.LabelFor(m => m.BrandName, "الشركة المصنعة")
+            @Html.TextBoxFor(m => m.BrandName, new { @class = "form-control", required = "required" })
+        </div>
+
+
+        <!-- طراز الجهاز -->
+        <!-- Device model -->
+        <div class="col-md-6">
+            @Html.LabelFor(m => m.DeviceModel, "الطراز")
+            @Html.TextBoxFor(m => m.DeviceModel, new { @class = "form-control", required = "required" })
+        </div>
+
+
+        <!-- الحالة  -->
+        <!-- Device status (hidden) -->
+        @Html.HiddenFor(m => m.DeviceStatus)
+    </div>
+
+
+    <!-- أزرار التحكم -->
+    <!-- Form action buttons -->
+    <div class="mt-4 d-flex gap-2">
+        <button type="submit" class="btn btn-primary">حفظ التعديلات</button>
         <a href="@Url.Action("Devices", "Devices")" class="btn btn-secondary">↩ رجوع</a>
-        </div>
-    }
+    </div>
+        }
 </div>

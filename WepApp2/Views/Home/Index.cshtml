@@ -1,8 +1,492 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+@model List<WepApp2.Models.Device>
+
+
+@{
+    Layout = "~/Views/Shared/_Layout_Bootstrap.cshtml";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+@{
+  
+    var vrCount = Model.Count(d => d.Technology != null && d.Technology.TechnologyName == "أجهزة الواقع الافتراضي" && d.DeviceStatus == "متاح");
+    var arCount = Model.Count(d => d.Technology != null && d.Technology.TechnologyName == "أجهزة الواقع المعزز" && d.DeviceStatus == "متاح");
+    var robotCount = Model.Count(d => d.Technology != null && d.Technology.TechnologyName == "الروبوتات التعليمية" && d.DeviceStatus == "متاح");
+    var printerCount = Model.Count(d => d.Technology != null && d.Technology.TechnologyName == "الطابعات ثلاثية الأبعاد" && d.DeviceStatus == "متاح");
+    var studioCount = Model.Count(d => d.Technology != null && d.Technology.TechnologyName == "معدات الاستوديو" && d.DeviceStatus == "متاح");
+    var aiCount = Model.Count(d => d.Technology != null && d.Technology.TechnologyName == "أجهزة الذكاء الاصطناعي" && d.DeviceStatus == "متاح");
+
+}
+
+
+
+<!DOCTYPE html>
+
+<html dir="rtl" lang="ar">
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>معمل الابتكارات - جامعة الملك عبدالعزيز</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <link href="~/css/site_bootstrap.css" rel="stylesheet" />
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg bg-white shadow-sm">
+        <div class="container d-flex align-items-center justify-content-between position-relative">
+
+            <!-- Logo -->
+            <a class="navbar-brand d-flex align-items-center gap-2" href="#">
+                <div class="logo-icon">
+                    <img src="~/Images/limg.jpg" alt="شعار معمل الابتكارات" style="height: 50px;">
+                </div>
+
+            </a>
+
+            <!-- روابط النافبار -->
+            <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+                <div class="navbar-nav d-flex align-items-center gap-3">
+                    <a class="nav-link" href="#" onclick="showPage('home')">الرئيسية</a>
+                    <a class="nav-link" href="#services" onclick="showPage('home'); setTimeout(() => scrollToSection('services'), 100)">الخدمات</a>
+                    <a class="nav-link" href="#devices" onclick="showPage('home'); setTimeout(() => scrollToSection('devices'), 100)">الأجهزة</a>
+                    <a class="nav-link" href="#about" onclick="showPage('home'); setTimeout(() => scrollToSection('about'), 100)">عن المعمل</a>
+                    <a class="nav-link" href="/FAQ/FAQ">الأسئلة الشائعة</a>
+                    <a class="nav-link" href="#contact" onclick="showPage('contact')">اتصل بنا</a>
+                </div>
+            </div>
+
+            <!-- زر الهامبرجر للجوال -->
+            <button class="navbar-toggler ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <!-- زر التسجيل مستقل -->
+            <div class="auth-buttons position-absolute start-0 d-flex align-items-center">
+                <!-- زر التسجيل ديسكتوب -->
+                <a class="btn btn-primary d-none d-lg-block" href="/Auth/Login">
+                    <i class="fas fa-user"></i> تسجيل
+                </a>
+                <!-- زر التسجيل جوال -->
+                <a class="btn btn-primary btn-sm d-block d-lg-none ms-2" href="/Auth/Login">
+                    <i class="fas fa-user"></i> تسجيل 
+                </a>
+            </div>
+
+        </div>
+    </nav>
+
+
+
+
+    <!-- Notification -->
+    <div class="notification" id="notification">
+        <div style="display: flex; align-items: center; gap: 0.5rem;">
+            <i class="fas fa-check-circle" id="notificationIcon"></i>
+            <span id="notificationText">نجح العملية</span>
+        </div>
+    </div>
+    <div class="page-container">
+        <!-- Home Page -->
+        <div class="main-content active" id="homePage">
+            <!-- Hero Section -->
+            <section class="hero" id="home">
+                <div class="hero-container">
+                    <h1>مرحباً بك في معمل الابتكارات</h1>
+                    <p>اكتشف عالم التقنيات المتقدمة واحجز الأجهزة والخدمات التي تحتاجها لمشاريعك وأبحاثك. نوفر لك أحدث التقنيات في الواقع الافتراضي والمعزز والذكاء الاصطناعي والطباعة ثلاثية الأبعاد</p>
+                    <div class="hero-buttons">
+                        <a class="btn" href="#services" style="background-color: #006C35; color: white; padding: 0.7rem 1.5rem; border-radius: 8px; font-weight: bold; display: inline-flex; align-items: center; gap: 0.5rem;">
+                            <i class="fas fa-calendar-plus"></i>
+                            احجز الآن
+                        </a>
+                    </div>
+                </div>
+            </section>
+            <!-- Services Section -->
+            <section class="services" id="services">
+                <div class="container">
+                    <div class="section-title">
+                        <h2>خدماتنا المتميزة</h2>
+                        <p>نقدم مجموعة شاملة من الخدمات التقنية المبتكرة لدعم مشاريعكم وأبحاثكم</p>
+                    </div>
+                    <div class="services-grid">
+                        <div class="service-card">
+                            <div class="service-icon">
+                                <i class="fas fa-calendar-check"></i>
+                            </div>
+                            <h3>حجز الأجهزة</h3>
+                            <p>احجز الأجهزة والتقنيات المتقدمة لفترات زمنية محددة واستخدمها في المعمل تحت إشراف متخصصين</p>
+                            <a class="btn btn-primary" href="#" onclick="showNotification('يجب تسجيل الدخول للحجز', 'warning')">احجز الآن</a>
+                        </div>
+                        <div class="service-card">
+                            <div class="service-icon">
+                                <i class="fas fa-handshake"></i>
+                            </div>
+                            <h3>إعارة الأجهزة</h3>
+                            <p>استعر الأجهزة المحمولة والمناسبة للاستخدام الخارجي لفترات أطول حسب نوع الجهاز والغرض</p>
+                            <a class="btn btn-primary" href="#" onclick="showNotification('يجب تسجيل الدخول لطلب إعارة', 'warning')">اطلب إعارة</a>
+                        </div>
+                        <div class="service-card">
+                            <div class="service-icon">
+                                <i class="fas fa-user-graduate"></i>
+                            </div>
+                            <h3>الاستشارات التقنية</h3>
+                            <p>احصل على استشارات متخصصة من خبراء التقنية في مختلف المجالات وطور مهاراتك التقنية</p>
+                            <a class="btn btn-primary" href="#" onclick="showNotification('يجب تسجيل الدخول لحجز استشارة', 'warning')">احجز استشارة</a>
+                        </div>
+                        <div class="service-card">
+                            <div class="service-icon">
+                                <i class="fas fa-eye"></i>
+                            </div>
+                            <h3>زيارة المعمل</h3>
+                            <p>اكتشف إمكانيات المعمل من خلال جولة شاملة تعرفك على جميع الأجهزة والتقنيات المتاحة</p>
+                            <a class="btn btn-primary" href="#" onclick="showNotification('يجب تسجيل الدخول لحجز زيارة', 'warning')">احجز زيارة</a>
+                        </div>
+                        <div class="service-card">
+                            <div class="service-icon">
+                                <i class="fas fa-book"></i>
+                            </div>
+                            <h3>الدورات التدريبية</h3>
+                            <p>طور مهاراتك وارتقِ بمستقبلك مع دورات متخصصة يقدمها خبراء في مجالات التقنية والابتكار</p>
+                            <a class="btn btn-primary" href="#" onclick="showNotification('يجب تسجيل الدخول للتسجيل في الدورات', 'warning')">سجل الآن</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- Devices Section -->
+            <!-- Devices & Technologies Section -->
+            @*      <section class="devices" id="devices">
+                <div class="container">
+                    <div class="section-title">
+                        <h2>الأجهزة والتقنيات المتاحة</h2>
+                        <p>مجموعة متنوعة من أحدث الأجهزة والتقنيات المتقدمة في خدمتكم - انقر على أي فئة لعرض الأجهزة المتاحة</p>
+                    </div>
+                    <!-- 🔥 هنا راح تنولد الكروت تلقائيًا -->
+                    <div class="devices-grid" id="technologiesGrid">
+                        <!-- الكروت راح تنضاف هنا بالـ fetch -->
+                    </div>
+                </div>
+            </section> *@
+
+             <<!-- Devices Section -->
+            <section class="devices" id="devices">
+                <div class="container">
+                    <div class="section-title">
+                        <h2>الأجهزة والتقنيات المتاحة</h2>
+                        <p>مجموعة متنوعة من أحدث الأجهزة والتقنيات المتقدمة في خدمتكم - انقر على أي فئة لعرض الأجهزة المتاحة</p>
+                    </div>
+                    <div class="devices-grid">
+                        <div class="device-card" onclick="displayDevicesForCategory(6)" style="cursor:pointer;">
+                            <div class="device-image">
+                                <i class="fas fa-vr-cardboard"></i>
+                            </div>
+                            <div class="device-info">
+                                <h4>أجهزة الواقع الافتراضي</h4>
+                                <p>نظارات VR متقدمة مع أجهزة تحكم حديثة لتجارب غامرة</p>
+                                <div class="device-status status-available">
+                                    <i class="fas fa-circle"></i>
+                                    متاح الآن (@vrCount أجهزة)
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="device-card" onclick="displayDevicesForCategory(5)" style="cursor:pointer;">
+                            <div class="device-image">
+                                <i class="fas fa-mobile-alt"></i>
+                            </div>
+                            <div class="device-info">
+                                <h4>أجهزة الواقع المعزز</h4>
+                                <p>تقنيات AR متطورة لدمج العالم الرقمي مع الواقع</p>
+                                <div class="device-status status-available">
+                                    <i class="fas fa-circle"></i>
+                                    متاح الآن (@arCount أجهزة)
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="device-card" onclick="displayDevicesForCategory(4)" style="cursor:pointer;">
+                            <div class="device-image">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <div class="device-info">
+                                <h4>الروبوتات التعليمية</h4>
+                                <p>روبوتات متنوعة للتعلم والبرمجة والتطوير</p>
+                                <div class="device-status status-available">
+                                    <i class="fas fa-circle"></i>
+                                    متاح الآن (@robotCount أجهزة)
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="device-card" onclick="displayDevicesForCategory(3)" style="cursor:pointer;">
+                            <div class="device-image">
+                                <i class="fas fa-cube"></i>
+                            </div>
+                            <div class="device-info">
+                                <h4>الطابعات ثلاثية الأبعاد</h4>
+                                <p>طابعات بتقنيات مختلفة ومواد متنوعة للنماذج الأولية</p>
+                                <div class="device-status status-available">
+                                    <i class="fas fa-circle"></i>
+                                    متاح الآن (@printerCount أجهزة)
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="device-card" onclick="displayDevicesForCategory(2)" style="cursor:pointer;">
+                            <div class="device-image">
+                                <i class="fas fa-video"></i>
+                            </div>
+                            <div class="device-info">
+                                <h4>معدات الاستوديو</h4>
+                                <p>كاميرات وإضاءة ومعدات تصوير احترافية</p>
+                                <div class="device-status status-available">
+                                    <i class="fas fa-circle"></i>
+                                    متاح الآن (@studioCount أجهزة)
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="device-card" onclick="displayDevicesForCategory(1)" style="cursor:pointer;">
+                            <div class="device-image">
+                                <i class="fas fa-brain"></i>
+                            </div>
+                            <div class="device-info">
+                                <h4>أجهزة الذكاء الاصطناعي</h4>
+                                <p>معالجات وأجهزة استشعار متقدمة لمشاريع الذكاء الاصطناعي</p>
+                                <div class="device-status status-available">
+                                    <i class="fas fa-circle"></i>
+                                    متاح الآن (@aiCount أجهزة)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+
+
+
+            <!-- Stats Section -->
+            <section class="stats" id="about">
+                <div class="container">
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <h3>+@ViewBag.TotalDevices</h3>
+                            <p>جهاز مسجل</p>
+                        </div>
+                        <div class="stat-item">
+                            <h3>+@ViewBag.TotalUsers</h3>
+                            <p>مستخدم مسجل</p>
+                        </div>
+                        <div class="stat-item">
+                            <h3>+@ViewBag.TotalBookings</h3>
+                            <p>حجز مكتمل</p>
+                        </div>
+                        <div class="stat-item">
+                            <h3>+@ViewBag.TotalVisits</h3>
+                            <p>زيارة معمل</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Footer -->
+        </div>
+        <div class="main-content" id="contactPage">
+            <section id="contact" class="contact-section">
+                <div class="container">
+                    <div class="contact-container">
+                        <!-- Contact Form -->
+                        <div class="contact-form-section">
+                            <div class="contact-header">
+                                <h2><i class="fas fa-envelope"></i> اتصل بنا</h2>
+                                <p>نحن هنا لمساعدتك! تواصل معنا عبر أي من الطرق التالية أو أرسل لنا رسالة</p>
+                            </div>
+
+                            <form class="contact-form">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label>الاسم الكامل:</label>
+                                        <input type="text" placeholder="اسمك الكامل" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>البريد الإلكتروني:</label>
+                                        <input type="email" placeholder="email@example.com" required>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label>رقم الهاتف:</label>
+                                        <input type="tel" placeholder="+966 5xxxxxxxx">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>الموضوع:</label>
+                                        <select required>
+                                            <option value="">اختر الموضوع</option>
+                                            <option value="booking">حجز جهاز</option>
+                                            <option value="consultation">استشارة تقنية</option>
+                                            <option value="training">دورة تدريبية</option>
+                                            <option value="visit">زيارة المعمل</option>
+                                            <option value="other">أخرى</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>الرسالة:</label>
+<textarea placeholder="اكتب رسالتك هنا..." rows="5" required></textarea>
+                                </div>
+
+                                <button type="submit" class="btn-send">
+                                    <i class="fas fa-paper-plane"></i>
+                                    إرسال الرسالة
+                                </button>
+                            </form>
+                        </div>
+
+                        <!-- Contact Information -->
+                        <div class="contact-info-section">
+                            <h3><i class="fas fa-map-marker-alt"></i> معلومات التواصل</h3>
+
+                            <div class="contact-info-cards">
+                                <div class="contact-card address-card">
+                                    <div class="contact-icon green-icon">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                    </div>
+                                    <div class="contact-details">
+                                        <h4>العنوان</h4>
+                                        <p>جامعة الملك عبدالعزيز، حي الجامعة، جدة 21589</p>
+                                    </div>
+                                </div>
+
+                                <div class="contact-card phone-card">
+                                    <div class="contact-icon blue-icon">
+                                        <i class="fas fa-phone"></i>
+                                    </div>
+                                    <div class="contact-details">
+                                        <h4>الهاتف</h4>
+                                        <p>966+ 12 640 0000</p>
+                                        <small>تحويلة: 12345</small>
+                                    </div>
+                                </div>
+
+                                <div class="contact-card email-card">
+                                    <div class="contact-icon green-icon">
+                                        <i class="fas fa-envelope"></i>
+                                    </div>
+                                    <div class="contact-details">
+                                        <h4>البريد الإلكتروني</h4>
+                                        <p>innovationlab@kau.edu.sa</p>
+                                    </div>
+                                </div>
+
+                                <div class="contact-card hours-card">
+                                    <div class="contact-icon orange-icon">
+                                        <i class="fas fa-clock"></i>
+                                    </div>
+                                    <div class="contact-details">
+                                        <h4>ساعات العمل</h4>
+                                        <p>الأحد - الخميس: 8:00 ص - 4:00 م</p>
+                                        <small>الجمعة - السبت: مغلق</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Map Section -->
+                    <div class="map-section">
+                        <h3><i class="fas fa-map"></i> موقع المعمل</h3>
+                        <div class="map-container">
+                            <div class="map-placeholder">
+                                <div class="map-marker">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                </div>
+                                <div class="map-info">
+                                    <h4>خريطة موقع المعمل</h4>
+                                    <p>يمكن إضافة خريطة تفاعلية هنا لتوضيح موقع المعمل داخل الجامعة</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FAQ Section -->
+                    <div class="faq-section">
+                        <h3><i class="fas fa-question-circle"></i> الأسئلة الشائعة السريعة</h3>
+                        <div class="faq-items">
+                            <div class="faq-item">
+                                <div class="faq-icon">
+                                    <i class="fas fa-question-circle"></i>
+                                </div>
+                                <div class="faq-content">
+                                    <h4>كيف أقوم بحجز جهاز؟</h4>
+                                    <p>قم بتسجيل الدخول ثم اضغط على "احجز الآن" واختر نوع الجهاز المطلوب.</p>
+                                </div>
+                            </div>
+
+                            <div class="faq-item">
+                                <div class="faq-icon">
+                                    <i class="fas fa-question-circle"></i>
+                                </div>
+                                <div class="faq-content">
+                                    <h4>كم ستستغرق مراجعة الحجز؟</h4>
+                                    <p>عادة ما تتم المراجعة خلال 24 ساعة عمل من تاريخ الإرسال.</p>
+                                </div>
+                            </div>
+
+                            <div class="faq-item">
+                                <div class="faq-icon">
+                                    <i class="fas fa-question-circle"></i>
+                                </div>
+                                <div class="faq-content">
+                                    <h4>هل يمكنني إلغاء الحجز؟</h4>
+                                    <p>نعم، يمكن إلغاء الحجز من صفحة "حجوزاتي" قبل الموافقة عليه.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+
+        <footer class="footer main-footer" style="background-color: #1e293b; color: #fff; text-align: center; padding: 20px;">
+            <p>معمل الابتكارات - جامعة الملك عبدالعزيز</p>
+            <p>© 2025 جميع الحقوق محفوظة.</p>
+        </footer>
+
+
+         <footer class="footer main-footer" id="footer">
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-section">
+                        <h4>معمل الابتكارات</h4>
+                        <p>معمل متطور يهدف إلى توفير أحدث التقنيات والأجهزة لدعم الطلاب والباحثين في مشاريعهم الابتكارية والبحثية</p>
+                    </div>
+                    <div class="footer-section">
+                        <h4>روابط مهمة</h4>
+                        <p><a href="#">دليل الاستخدام</a></p>
+                        <p><a href="#">الشروط والأحكام</a></p>
+                        <p><a href="#">سياسة الخصوصية</a></p>
+                        <p><a href="#">الأسئلة الشائعة</a></p>
+                    </div>
+                    <div class="footer-section">
+                        <h4>تواصل معنا</h4>
+                        <p><i class="fas fa-envelope"></i> innovationlab@kau.edu.sa</p>
+                        <p><i class="fas fa-phone"></i> +966 12 640 0000</p>
+                        <p><i class="fas fa-map-marker-alt"></i> جامعة الملك عبدالعزيز، جدة</p>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>© 2025 معمل الابتكارات - جامعة الملك عبدالعزيز. جميع الحقوق محفوظة.</p>
+                </div>
+            </div>
+        </footer> 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="~/js/script_bootstrap.js"></script>
+</body>
+</html>
+     
+
+

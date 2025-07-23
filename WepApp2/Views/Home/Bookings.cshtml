@@ -1,0 +1,98 @@
+﻿@{
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+    ViewBag.Title = "حجوزاتي";
+}
+
+<!-- العنوان الرئيسي -->
+<div class="text-center mb-4">
+    <h1 class="main-title">📅 حجوزاتي</h1>
+    <p class="description text-muted">تابع حالة حجوزاتك واطلع على التفاصيل والاستشارات.</p>
+</div>
+
+<!-- البطاقات الإحصائية -->
+<div class="row mb-4">
+    <div class="col-lg-3 col-md-6 mb-3">
+        <div class="stats-card rejected">
+            <div class="stats-icon"><i class="fas fa-times-circle"></i></div>
+            <div class="stats-content">
+                <h3 class="stats-number">0</h3>
+                <p class="stats-label">مرفوض</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6 mb-3">
+        <div class="stats-card accepted">
+            <div class="stats-icon"><i class="fas fa-check-circle"></i></div>
+            <div class="stats-content">
+                <h3 class="stats-number">0</h3>
+                <p class="stats-label">موافق عليه</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6 mb-3">
+        <div class="stats-card pending">
+            <div class="stats-icon"><i class="fas fa-clock"></i></div>
+            <div class="stats-content">
+                <h3 class="stats-number">0</h3>
+                <p class="stats-label">قيد المراجعة</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6 mb-3">
+        <div class="stats-card total">
+            <div class="stats-icon"><i class="fas fa-calendar-alt"></i></div>
+            <div class="stats-content">
+                <h3 class="stats-number">0</h3>
+                <p class="stats-label">إجمالي الحجوزات</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- فلتر الحالات -->
+<div class="filter-section mb-4">
+    <div class="row align-items-center">
+        <div class="col-md-6">
+            <h4 class="filter-title">قائمة الحجوزات</h4>
+        </div>
+        <div class="col-md-6">
+            <div class="filter-controls">
+                <label for="statusFilter" class="form-label">فلتر حسب الحالة:</label>
+                <select id="statusFilter" class="form-select">
+                    <option value="all">جميع الحالات</option>
+                    <option value="موافق عليه">موافق عليه</option>
+                    <option value="مرفوض">مرفوض</option>
+                    <option value="قيد المراجعة">قيد المراجعة</option>
+                </select>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- قائمة الحجوزات -->
+<div id="reservationsList" class="reservations-list fade-in"></div>
+
+<!-- لا توجد حجوزات -->
+<div id="noReservationsMessage" class="no-reservations text-center py-5" style="display: none;">
+    <i class="fas fa-calendar-times fa-3x text-muted mb-3"></i>
+    <h5 class="text-muted">لا توجد حجوزات تطابق الفلتر المحدد</h5>
+</div>
+
+<!-- مودال تفاصيل الحجز -->
+<div class="modal fade" id="reservationModal" tabindex="-1" aria-labelledby="reservationModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="reservationModalLabel">تفاصيل الحجز</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="إغلاق"></button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- يتم تعبئته ديناميكياً بواسطة JavaScript -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إغلاق</button>
+            </div>
+        </div>
+    </div>
+</div>

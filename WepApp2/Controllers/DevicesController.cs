@@ -5,7 +5,7 @@
 // Purpose: Manages all CRUD operations related to devices
 // ===========================================================
 
-using WepApp2.Data;
+//using WepApp2.Data;
 using WepApp2.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -14,22 +14,22 @@ namespace WepApp2.Controllers
 {
     public class DevicesController : Controller
     {
-        private readonly AppDbContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public DevicesController(AppDbContext context)
+        public DevicesController(ApplicationDbContext context)
         {
             _context = context;
         }
 
 
-		// ============================
-		// عرض قائمة الأجهزة + ملخص الصيانة
-		// Display device list + maintenance summary
-		// ============================
-		public IActionResult Devices()
+        // ============================
+        // عرض قائمة الأجهزة + ملخص الصيانة
+        // Display device list + maintenance summary
+        // ============================
+        public IActionResult Devices()
         {
             var devices = _context.Devices
-                .Include(d => d.Technology) 
+                .Include(d => d.Technology)
                 .ToList();
 
             var MaintenanceSummary = new MaintenanceSummaryDto
@@ -39,17 +39,17 @@ namespace WepApp2.Controllers
                 CompletedRequests = _context.Requests.Count(r => r.RequestType == "Maintenance" && r.AdminStatus == "Completed")
             };
 
-            ViewBag.MaintenanceSummary = MaintenanceSummary; 
+            ViewBag.MaintenanceSummary = MaintenanceSummary;
 
             return View(devices);
         }
 
 
-		// ============================
-		// نسبة النجاح في طلبات الصيانة
-		// Maintenance success rate
-		// ============================
-		private int CalculateMaintenanceSuccessRate()
+        // ============================
+        // نسبة النجاح في طلبات الصيانة
+        // Maintenance success rate
+        // ============================
+        private int CalculateMaintenanceSuccessRate()
         {
             int totalRequests = _context.Requests.Count(r => r.RequestType == "Maintenance");
             int completedRequests = _context.Requests.Count(r => r.RequestType == "Maintenance" && r.AdminStatus == "Completed");
@@ -69,7 +69,7 @@ namespace WepApp2.Controllers
                 .Join(
                     _context.Devices,
                     r => r.DeviceId,
-                    d => d.DeviceID,
+                    d => d.DeviceId,
                     (r, d) => new { r.RequestDate, d.LastMaintenance }
                 )
                 .Where(x => x.LastMaintenance != null)
@@ -95,11 +95,11 @@ namespace WepApp2.Controllers
         }
 
 
-		// ============================
-		// إضافة جهاز جديد (POST)
-		// Handle POST to add device
-		// ============================
-		[HttpPost]
+        // ============================
+        // إضافة جهاز جديد (POST)
+        // Handle POST to add device
+        // ============================
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult AddDevice(Device device)
         {
@@ -117,11 +117,11 @@ namespace WepApp2.Controllers
         }
 
 
-		// ============================
-		// عرض نموذج تعديل جهاز
-		// Display form to edit existing device
-		// ============================
-		[HttpGet]
+        // ============================
+        // عرض نموذج تعديل جهاز
+        // Display form to edit existing device
+        // ============================
+        [HttpGet]
         public IActionResult EditDevice(int id)
         {
             var device = _context.Devices.Find(id);
@@ -129,18 +129,18 @@ namespace WepApp2.Controllers
                 return NotFound();
 
             ViewBag.Technologies = _context.Technologies
-                .Select(t => new { t.TechnologyID, t.TechnologyName })
+                .Select(t => new { t.TechnologyId, t.TechnologyName })
                 .ToList();
 
             return View("edit-device", device);
         }
 
 
-		// ============================
-		// تعديل جهاز (POST)
-		// Handle POST to update device
-		// ============================
-		[HttpPost]
+        // ============================
+        // تعديل جهاز (POST)
+        // Handle POST to update device
+        // ============================
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult EditDevice(Device updatedDevice)
         {
@@ -152,12 +152,12 @@ namespace WepApp2.Controllers
                 return View("edit-device", updatedDevice);
             }
 
-            var device = _context.Devices.Find(updatedDevice.DeviceID);
+            var device = _context.Devices.Find(updatedDevice.DeviceId);
             if (device == null)
                 return NotFound();
 
-			// تحديث بيانات الجهاز
-			device.DeviceName = updatedDevice.DeviceName;
+            // تحديث بيانات الجهاز
+            device.DeviceName = updatedDevice.DeviceName;
             device.TechnologyId = updatedDevice.TechnologyId;
             device.SerialNumber = updatedDevice.SerialNumber;
             device.DeviceLocation = updatedDevice.DeviceLocation;
@@ -172,11 +172,11 @@ namespace WepApp2.Controllers
         }
 
 
-		// ============================
-		// تغيير حالة الجهاز (نشط، صيانة، غير متصل...)
-		// Update device status (active, maintenance, offline...)
-		// ============================
-		[HttpGet]
+        // ============================
+        // تغيير حالة الجهاز (نشط، صيانة، غير متصل...)
+        // Update device status (active, maintenance, offline...)
+        // ============================
+        [HttpGet]
         public IActionResult SetStatus(int id, string status)
         {
             var device = _context.Devices.Find(id);
@@ -190,17 +190,17 @@ namespace WepApp2.Controllers
 
             device.LastUpdate = DateTime.Now;
 
-			if (status.ToLower() == "inactive")
-			{
-				device.IsDeleted = true;
-			}
-			else
-			{
-				device.IsDeleted = false; 
-			}
+            if (status.ToLower() == "inactive")
+            {
+                device.IsDeleted = true;
+            }
+            else
+            {
+                device.IsDeleted = false;
+            }
 
-			_context.SaveChanges();
-			return RedirectToAction("Devices");
+            _context.SaveChanges();
+            return RedirectToAction("Devices");
         }
 
 

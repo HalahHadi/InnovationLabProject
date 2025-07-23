@@ -1,0 +1,685 @@
+﻿@{
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+    ViewBag.Title = "حجز جديد";
+}
+
+
+
+<!-- Notification -->
+<div class="notification" id="notification">
+    <div style="display: flex; align-items: center; gap: 0.5rem;">
+        <i class="fas fa-check-circle" id="notificationIcon"></i>
+        <span id="notificationText">نجح العملية</span>
+    </div>
+</div>
+
+<div class="page-container">
+    <!-- Services Section -->
+    <div class="main-content active" id="servicesPage">
+        <section class="services" id="services">
+            <div class="container">
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-calendar-check"></i>
+                        </div>
+                        <h3>حجز الأجهزة</h3>
+                        <p>احجز الأجهزة والتقنيات المتقدمة لفترات زمنية محددة واستخدمها في المعمل تحت إشراف متخصصين</p>
+                        <a class="btn btn-primary" href="#" onclick="showPage('booking')">احجز الآن</a>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-handshake"></i>
+                        </div>
+                        <h3>إعارة الأجهزة</h3>
+                        <p>استعر الأجهزة المحمولة والمناسبة للاستخدام الخارجي لفترات أطول حسب نوع الجهاز والغرض</p>
+                        <a class="btn btn-primary" href="#" onclick="showPage('loan')">اطلب إعارة</a>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-user-graduate"></i>
+                        </div>
+                        <h3>الاستشارات التقنية</h3>
+                        <p>احصل على استشارات متخصصة من خبراء التقنية في مختلف المجالات وطور مهاراتك التقنية</p>
+                        <a class="btn btn-primary" href="#" onclick="showPage('consultation')">احجز استشارة</a>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-eye"></i>
+                        </div>
+                        <h3>زيارة المعمل</h3>
+                        <p>اكتشف إمكانيات المعمل من خلال جولة شاملة تعرفك على جميع الأجهزة والتقنيات المتاحة</p>
+                        <a class="btn btn-primary" href="#" onclick="showPage('visit')">احجز زيارة</a>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <h3>الدورات التدريبية</h3>
+                        <p>طور مهاراتك وارتقِ بمستقبلك مع دورات متخصصة يقدمها خبراء في مجالات التقنية والابتكار</p>
+                        <a class="btn btn-primary" href="#" onclick="showPage('training')">سجل الآن</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Device Booking Page -->
+    <div class="main-content" id="bookingPage">
+        <div class="breadcrumb">
+            <div class="breadcrumb-container">
+                <nav class="breadcrumb-nav">
+                    <a href="#" onclick="showPage('services')">
+                        <i class="fas fa-home"></i>
+                        الخدمات
+                    </a>
+                    <span class="breadcrumb-separator">/</span>
+                    <span class="breadcrumb-current">حجز الأجهزة</span>
+                </nav>
+            </div>
+        </div>
+
+        <div class="form-page">
+            <div class="form-container">
+                <div class="form-header">
+                    <div class="icon">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <h1>طلب حجز الأجهزة</h1>
+                    <p>احجز الأجهزة والتقنيات المتقدمة لفترات زمنية محددة واستخدمها في المعمل تحت إشراف متخصصين</p>
+                </div>
+
+                <form id="bookingForm">
+                    <div class="form-section">
+                        <h3 class="section-title">
+                            <i class="fas fa-laptop"></i>
+                            تفاصيل الجهاز المطلوب
+                        </h3>
+                        <div class="form-group">
+                            <label for="deviceType">
+                                <i class="fas fa-microchip"></i>
+                                اختر الجهاز:
+                            </label>
+                            <select id="deviceType" required>
+                                <option value="">اختر الجهاز</option>
+                            </select>
+
+
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3 class="section-title">
+                            <i class="fas fa-calendar-alt"></i>
+                            تفاصيل التوقيت
+                        </h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="bookingDate">
+                                    <i class="fas fa-calendar"></i>
+                                    تاريخ الحجز:
+                                </label>
+                                <input type="date" id="bookingDate" required />
+                            </div>
+                            <div class="form-group">
+                                <label for="startTime">
+                                    <i class="fas fa-clock"></i>
+                                    من الساعة:
+                                </label>
+                                <select id="startTime" required>
+                                    <option value="">اختر الوقت</option>
+                                    <option value="08:00">08:00 صباحاً</option>
+                                    <option value="09:00">09:00 صباحاً</option>
+                                    <option value="10:00">10:00 صباحاً</option>
+                                    <option value="11:00">11:00 صباحاً</option>
+                                    <option value="12:00">12:00 ظهراً</option>
+                                    <option value="13:00">01:00 ظهراً</option>
+                                    <option value="14:00">02:00 ظهراً</option>
+                                    <option value="15:00">03:00 عصراً</option>
+                                    <option value="16:00">04:00 عصراً</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="endTime">
+                                <i class="fas fa-clock"></i>
+                                إلى الساعة:
+                            </label>
+                            <select id="endTime" required>
+                                <option value="">اختر الوقت</option>
+                                <option value="09:00">09:00 صباحاً</option>
+                                <option value="10:00">10:00 صباحاً</option>
+                                <option value="11:00">11:00 صباحاً</option>
+                                <option value="12:00">12:00 ظهراً</option>
+                                <option value="13:00">01:00 ظهراً</option>
+                                <option value="14:00">02:00 ظهراً</option>
+                                <option value="15:00">03:00 عصراً</option>
+                                <option value="16:00">04:00 عصراً</option>
+                                <option value="17:00">05:00 عصراً</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3 class="section-title">
+                            <i class="fas fa-project-diagram"></i>
+                            تفاصيل المشروع
+                        </h3>
+                        <div class="form-group">
+                            <label for="projectName">
+                                <i class="fas fa-tag"></i>
+                                اسم المشروع:
+                            </label>
+                            <input type="text" id="projectName" placeholder="مثال: مشروع روبوت ذكي" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="projectIdea">
+                                <i class="fas fa-lightbulb"></i>
+                                فكرة المشروع:
+                            </label>
+                            <textarea id="projectIdea" placeholder="اشرح فكرة مشروعك باختصار..." required></textarea>
+                        </div>
+
+                    </div>
+
+                    <div class="form-section" hidden>
+                        <h3 class="section-title">
+                            <i class="fas fa-file-upload"></i>
+                            رفع ملف المشروع (اختياري)
+                        </h3>
+                        <div class="upload-area" onclick="handleUploadClick('projectFile')">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <p>اسحب الملف هنا أو انقر للاختيار</p>
+                            <input type="file" id="projectFile" accept=".pdf,.doc,.docx,.ppt,.pptx" />
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-calendar-check"></i>
+                            طلب حجز
+                        </button>
+                        <button type="button" class="btn btn-outline" onclick="showPage('services')">
+                            <i class="fas fa-times"></i>
+                            إلغاء
+                        </button>
+                    </div>
+                </form>
+
+
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Loan Request Page -->
+    <div class="main-content" id="loanPage">
+        <div class="breadcrumb">
+            <div class="breadcrumb-container">
+                <nav class="breadcrumb-nav">
+                    <a href="#" onclick="showPage('services')">
+                        <i class="fas fa-home"></i>
+                        الخدمات
+                    </a>
+                    <span class="breadcrumb-separator">/</span>
+                    <span class="breadcrumb-current">إعارة الأجهزة</span>
+                </nav>
+            </div>
+        </div>
+
+        <div class="form-page">
+            <div class="form-container">
+                <div class="form-header">
+                    <div class="icon">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <h1>طلب إعارة جهاز</h1>
+                    <p>يرجى تعبئة النموذج التالي لطلب إعارة أحد الأجهزة المتوفرة للاستخدام الخاص أو لمشروعك</p>
+                </div>
+
+                <form id="loanForm">
+                    <div class="form-section">
+                        <h3 class="section-title">
+                            <i class="fas fa-laptop"></i>
+                            تفاصيل الجهاز المطلوب
+                        </h3>
+                        <div class="form-group">
+                            <label for="deviceRequired">
+                                <i class="fas fa-microchip"></i>
+                                الجهاز المطلوب:
+                            </label>
+                            <select id="deviceRequired" required>
+                                <option value="">اختر الجهاز</option>
+                            </select>
+
+                        </div>
+                        <div class="form-group">
+                            <label for="loanPurpose">
+                                <i class="fas fa-bullseye"></i>
+                                الغرض من الإعارة:
+                            </label>
+                            <textarea id="loanPurpose" placeholder="اشرح لماذا تحتاج الجهاز..." required></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3 class="section-title">
+                            <i class="fas fa-calendar-alt"></i>
+                            فترة الإعارة
+                        </h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="loanStartDate">
+                                    <i class="fas fa-calendar-check"></i>
+                                    تاريخ بداية الإعارة:
+                                </label>
+                                <input type="date" id="loanStartDate" required />
+                            </div>
+                            <div class="form-group">
+                                <label for="loanEndDate">
+                                    <i class="fas fa-calendar-times"></i>
+                                    تاريخ نهاية الإعارة:
+                                </label>
+                                <input type="date" id="loanEndDate" required />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3 class="section-title">
+                            <i class="fas fa-phone"></i>
+                            معلومات التواصل
+                        </h3>
+                        <div class="form-group">
+                            <label for="contactMethod">
+                                <i class="fas fa-phone"></i>
+                                طريقة التواصل المفضلة:
+                            </label>
+                            <input type="text" id="contactMethod" placeholder="واتساب، بريد إلكتروني، اتصال..." required />
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-paper-plane"></i>
+                            طلب إعارة
+                        </button>
+                        <button type="button" class="btn btn-outline" onclick="showPage('services')">
+                            <i class="fas fa-times"></i>
+                            إلغاء
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Consultation Request Page -->
+    <div class="main-content" id="consultationPage">
+        <div class="breadcrumb">
+            <div class="breadcrumb-container">
+                <nav class="breadcrumb-nav">
+                    <a href="#" onclick="showPage('services')">
+                        <i class="fas fa-home"></i>
+                        الخدمات
+                    </a>
+                    <span class="breadcrumb-separator">/</span>
+                    <span class="breadcrumb-current">الاستشارات التقنية</span>
+                </nav>
+            </div>
+        </div>
+
+        <div class="form-page">
+            <div class="form-container">
+                <div class="form-header">
+                    <div class="icon">
+                        <i class="fas fa-user-graduate"></i>
+                    </div>
+                    <h1>طلب استشارة فردية</h1>
+                    <p>خدمة فردية نقدمها عن بُعد لتقديم دعم أو توجيه في موضوع تقني محدد</p>
+                </div>
+
+                <form id="consultationForm">
+                    <div class="form-section">
+                        <h3 class="section-title">
+                            <i class="fas fa-cogs"></i>
+                            مجال الاستشارة
+                        </h3>
+                        <div class="form-group">
+                            <label for="serviceField">
+                                <i class="fas fa-toolbox"></i>
+                                مجال الخدمة:
+                            </label>
+                            <select id="serviceField" required>
+                                <option value="">اختر مجال الخدمة</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="needsDescription">
+                                <i class="fas fa-comment-dots"></i>
+                                وصف مختصر لاحتياجك:
+                            </label>
+                            <textarea id="needsDescription" placeholder="اشرح احتياجك بشكل مختصر..." required></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3 class="section-title">
+                            <i class="fas fa-calendar-alt"></i>
+                            تفاصيل الموعد
+                        </h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="consultationDate">
+                                    <i class="fas fa-calendar"></i>
+                                    التاريخ:
+                                </label>
+                                <input type="date" id="consultationDate" required />
+                            </div>
+                            <div class="form-group">
+                                <label for="availableTimes">
+                                    <i class="fas fa-clock"></i>
+                                    الأوقات المتاحة:
+                                </label>
+                                <select id="availableTimes" required>
+                                    <option value="">اختر الوقت</option>
+                                    <option value="08:00">08:00 صباحاً</option>
+                                    <option value="09:00">09:00 صباحاً</option>
+                                    <option value="10:00">10:00 صباحاً</option>
+                                    <option value="11:00">11:00 صباحاً</option>
+                                    <option value="12:00">12:00 ظهراً</option>
+                                    <option value="13:00">01:00 ظهراً</option>
+                                    <option value="14:00">02:00 ظهراً</option>
+                                    <option value="15:00">03:00 عصراً</option>
+                                    <option value="16:00">04:00 عصراً</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3 class="section-title">
+                            <i class="fas fa-phone"></i>
+                            معلومات التواصل
+                        </h3>
+                        <div class="form-group">
+                            <label for="consultationContactMethod">
+                                <i class="fas fa-comment"></i>
+                                طريقة التواصل المفضلة:
+                            </label>
+                            <input type="text" id="consultationContactMethod" placeholder="واتساب، بريد إلكتروني، اتصال..." required />
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-calendar-check"></i>
+                            حجز استشارة
+                        </button>
+                        <button type="button" class="btn btn-outline" onclick="showPage('services')">
+                            <i class="fas fa-times"></i>
+                            إلغاء
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Visit Request Page -->
+    <div class="main-content" id="visitPage">
+        <div class="breadcrumb">
+            <div class="breadcrumb-container">
+                <nav class="breadcrumb-nav">
+                    <a href="#" onclick="showPage('services')">
+                        <i class="fas fa-home"></i>
+                        الخدمات
+                    </a>
+                    <span class="breadcrumb-separator">/</span>
+                    <span class="breadcrumb-current">زيارة المعمل</span>
+                </nav>
+            </div>
+        </div>
+
+        <div class="form-page">
+            <div class="form-container">
+                <div class="form-header">
+                    <div class="icon">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                    <h1>زيارة المعمل</h1>
+                    <p>قم بحجز موعد لزيارة المعمل والتعرف على الأجهزة والتقنيات المتوفرة من خلال جولة تعريفية بإشراف الفريق</p>
+                </div>
+
+                <form id="visitForm">
+                    <div class="form-section">
+                        <h3 class="section-title">
+                            <i class="fas fa-info-circle"></i>
+                            تفاصيل الزيارة
+                        </h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="visitorCount">
+                                    <i class="fas fa-users"></i>
+                                    عدد الزوار:
+                                </label>
+                                <input type="number" id="visitorCount" min="1" max="30" placeholder="عدد الأشخاص" required />
+                            </div>
+                            <div class="form-group">
+                                <label for="visitType">
+                                    <i class="fas fa-list"></i>
+                                    نوع الزيارة:
+                                </label>
+                                <select id="visitType" required>
+                                    <option value="">اختر نوع الزيارة</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3 class="section-title">
+                            <i class="fas fa-calendar-alt"></i>
+                            تفاصيل التوقيت
+                        </h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="visitDate">
+                                    <i class="fas fa-calendar"></i>
+                                    تاريخ الزيارة:
+                                </label>
+                                <input type="date" id="visitDate" required />
+                            </div>
+                            <div class="form-group">
+                                <label for="visitTime">
+                                    <i class="fas fa-clock"></i>
+                                    الوقت المفضل:
+                                </label>
+                                <select id="visitTime" required>
+                                    <option value="">اختر الوقت</option>
+                                    <option value="08:00">08:00 صباحاً</option>
+                                    <option value="09:00">09:00 صباحاً</option>
+                                    <option value="10:00">10:00 صباحاً</option>
+                                    <option value="11:00">11:00 صباحاً</option>
+                                    <option value="12:00">12:00 ظهراً</option>
+                                    <option value="13:00">01:00 ظهراً</option>
+                                    <option value="14:00">02:00 ظهراً</option>
+                                    <option value="15:00">03:00 عصراً</option>
+                                    <option value="16:00">04:00 عصراً</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3 class="section-title">
+                            <i class="fas fa-comment"></i>
+                            معلومات إضافية
+                        </h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="additionalNotes">
+                                    <i class="fas fa-sticky-note"></i>
+                                    ملاحظات إضافية:
+                                </label>
+                                <textarea id="additionalNotes" placeholder="أدخل أي تفاصيل أو طلبات خاصة..." rows="3"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="visitContactMethod">
+                                    <i class="fas fa-phone"></i>
+                                    طريقة التواصل المفضلة:
+                                </label>
+                                <input type="text" id="visitContactMethod" placeholder="واتساب، بريد إلكتروني، اتصال..." required />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <div class="form-group">
+                            <label style="display: flex; align-items: start; gap: 0.5rem; font-size: 0.9rem;">
+                                <input type="checkbox" id="agreeVisitTerms" required style="margin-top: 0.2rem;" />
+                                أوافق على شروط وأحكام استخدام المعمل وأتعهد بالالتزام بقواعد السلامة والأمان
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-calendar-check"></i>
+                            طلب زيارة
+                        </button>
+                        <button type="button" class="btn btn-outline" onclick="showPage('services')">
+                            <i class="fas fa-times"></i>
+                            إلغاء
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Training Courses Page -->
+    <div class="main-content" id="trainingPage">
+        <div class="breadcrumb">
+            <div class="breadcrumb-container">
+                <nav class="breadcrumb-nav">
+                    <a href="#" onclick="showPage('services')">
+                        <i class="fas fa-home"></i>
+                        الخدمات
+                    </a>
+                    <span class="breadcrumb-separator">/</span>
+                    <span class="breadcrumb-current">الدورات التدريبية</span>
+                </nav>
+            </div>
+        </div>
+
+        <div class="form-page">
+            <div class="form-container">
+                <div class="form-header">
+                    <div class="icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <h1>الدورات التدريبية</h1>
+                    <p>طور مهاراتك وارتقِ بمستقبلك مع دورات متخصصة يقدمها خبراء في مجالات التقنية والابتكار</p>
+                </div>
+
+                <form id="trainingForm">
+                    <div class="form-section">
+                        <h3 class="section-title">
+                            <i class="fas fa-graduation-cap"></i>
+                            اختيار الدورة التدريبية
+                        </h3>
+                        <div class="form-group">
+                            <label for="trainingCourse">
+                                <i class="fas fa-book-open"></i>
+                                اختر الدورة التدريبية:
+                            </label>
+                            <select id="trainingCourse" onchange="showCourseDetails()" required>
+                                <option value="">اختر الدورة</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div id="courseDetails" class="form-section" style="display: none;">
+                        <h3 class="section-title">
+                            <i class="fas fa-info-circle"></i>
+                            تفاصيل الدورة
+                        </h3>
+                        <div id="courseInfo" class="course-details"></div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-user-graduate"></i>
+                            التسجيل في الدورة
+                        </button>
+                        <button type="button" class="btn btn-outline" onclick="showPage('services')">
+                            <i class="fas fa-times"></i>
+                            إلغاء
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirmation Page -->
+    <div class="main-content" id="confirmationPage">
+        <div class="confirmation-page">
+            <div class="confirmation-container">
+                <div class="success-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <h1>تم إرسال الطلب بنجاح!</h1>
+                <p>سيتم مراجعة طلبك والرد عليك خلال 24 ساعة عبر البريد الإلكتروني أو الهاتف</p>
+
+                <div class="request-details">
+                    <h3>
+                        <i class="fas fa-info-circle"></i>
+                        تفاصيل الطلب
+                    </h3>
+                    <div class="detail-item">
+                        <strong>رقم الطلب:</strong>
+                        <span id="requestNumber"></span>
+                    </div>
+                    <div class="detail-item">
+                        <strong>نوع الطلب:</strong>
+                        <span id="requestType"></span>
+                    </div>
+                    <div class="detail-item">
+                        <strong>تاريخ الإرسال:</strong>
+                        <span id="submissionDate"></span>
+                    </div>
+                </div>
+
+                <div class="important-note">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <p>احتفظ برقم الطلب لمتابعة حالته من صفحة "حجوزاتي"</p>
+                </div>
+
+                <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                    <button class="btn btn-primary" onclick="showPage('services')">
+                        <i class="fas fa-home"></i>
+                        العودة للخدمات
+                    </button>
+                    <button class="btn btn-success" onclick="createNewRequest()">
+                        <i class="fas fa-plus"></i>
+                        طلب جديد
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/newbooking.css" />
+}
+
+@section Scripts {
+    <script src="~/js/newbooking.js"></script>
+}
+

@@ -1,4 +1,6 @@
-﻿@{  
+﻿
+
+@{
     ViewBag.Title = "إدارة الأجهزة";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
@@ -23,14 +25,14 @@ Description: Displays all devices with search, filtering, editing, and deletion
     <p class="text-muted mb-4">مراقبة وإدارة جميع أجهزة معمل الابتكارات</p>
 
 
-  <!-- عرض الإحصائيات الخاصة بحالة الأجهزة -->
-  <!-- Displaying device statistics based on their current status -->
-   <div class="row g-3 mb-4">
+    <!-- عرض الإحصائيات الخاصة بحالة الأجهزة -->
+    <!-- Displaying device statistics based on their current status -->
+    <div class="row g-3 mb-4">
         <div class="col-md-6 col-xl-3">
             <div class="bg-white border-end border-primary border-4 rounded-3 p-3 shadow-sm">
                 <div class="fs-4 fw-bold text-primary" id="totalDevices">0</div>
                 <div class="small text-muted">
-                    إجمالي الأجهزة 
+                    إجمالي الأجهزة
                 </div>
 
             </div>
@@ -93,7 +95,7 @@ Description: Displays all devices with search, filtering, editing, and deletion
         <!-- Links for adding a device or managing categories -->
         <a href="@Url.Action("AddDevice", "Devices")" class="btn custom-primary-btn">+ إضافة جهاز</a>
         <a href="@Url.Action("Index", "Technologies")" class="btn custom-primary-btn bi bi-tools me-2">
-             إدارة الفئات
+            إدارة الفئات
         </a>
     </div>
 
@@ -111,16 +113,16 @@ Description: Displays all devices with search, filtering, editing, and deletion
                         <!-- Status badge -->
                         <div class="d-flex justify-content-between align-items-start mb-3">
                             <span class="badge rounded-pill px-3 py-2 border
-                                @(device.Device.DeviceStatus == "active" ? "bg-success-subtle text-success-emphasis border-success" :
-                                  device.Device.DeviceStatus == "maintenance" ? "bg-warning-subtle text-warning-emphasis border-warning" :
-                                  "bg-danger-subtle text-danger-emphasis border-danger")">
+                                        @(device.Device.DeviceStatus == "active" ? "bg-success-subtle text-success-emphasis border-success" :
+                                                                    device.Device.DeviceStatus == "maintenance" ? "bg-warning-subtle text-warning-emphasis border-warning" :
+                                                                    "bg-danger-subtle text-danger-emphasis border-danger")">
                                 @(device.Device.DeviceStatus == "active" ? "عاملة" :
-                                    device.Device.DeviceStatus == "maintenance" ? "صيانة" :
-                                    "غير متصلة")
-                            </span>
+                                                        device.Device.DeviceStatus == "maintenance" ? "صيانة" :
+                                                        "غير متصلة")
+                    </span>
 
                             <div class="text-end">
-                                <div class="fw-bold text-muted small">EQP@((device.Device.DeviceID).ToString("D3"))</div>
+                                <div class="fw-bold text-muted small">EQP@((device.Device.DeviceId).ToString("D3"))</div>
                             </div>
                         </div>
 
@@ -137,7 +139,7 @@ Description: Displays all devices with search, filtering, editing, and deletion
 
                         <!-- أدوات التحكم -->
                         <div class="d-flex gap-2 flex-wrap mb-2">
-                            <a href="@Url.Action("EditDevice", "Devices", new { id = device.Device.DeviceID })" class="btn btn-sm custom-edit-btn">تعديل</a>
+                            <a href="@Url.Action("EditDevice", "Devices", new { id = device.Device.DeviceId })" class="btn btn-sm custom-edit-btn">تعديل</a>
                             <!-- قائمة تغيير الحالة -->
                             <div class="dropdown">
                                 <button class="btn btn-sm custom-status-btn dropdown-toggle" type="button"
@@ -145,19 +147,19 @@ Description: Displays all devices with search, filtering, editing, and deletion
                                     الحالة
                                 </button>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="@Url.Action("SetStatus", "Devices", new { id = device.Device.DeviceID, status = "active" })">عاملة</a></li>
-                                    <li><a class="dropdown-item" href="@Url.Action("SetStatus", "Devices", new { id = device.Device.DeviceID, status = "maintenance" })">صيانة</a></li>
-                                    <li><a class="dropdown-item" href="@Url.Action("SetStatus", "Devices", new { id = device.Device.DeviceID, status = "inactive" })">غير متصلة</a></li>
+                                    <li><a class="dropdown-item" href="@Url.Action("SetStatus", "Devices", new { id = device.Device.DeviceId, status = "active" })">عاملة</a></li>
+                                    <li><a class="dropdown-item" href="@Url.Action("SetStatus", "Devices", new { id = device.Device.DeviceId, status = "maintenance" })">صيانة</a></li>
+                                    <li><a class="dropdown-item" href="@Url.Action("SetStatus", "Devices", new { id = device.Device.DeviceId, status = "inactive" })">غير متصلة</a></li>
                                 </ul>
                             </div>
 
 
 
                             @* تحضير بيانات الجهاز للمودال *@
-                            @{
+                    @{
                                 var deviceJson = new
                                 {
-                                    device.Device.DeviceID,
+                                    device.Device.DeviceId,
                                     Name = device.Device.DeviceName,
                                     Type = device.Device.Technology?.TechnologyName,
                                     TechDescription = device.Device.Technology?.TechnologyDescription,

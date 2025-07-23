@@ -1,6 +1,6 @@
-﻿@{
-    ViewBag.Title = "تعديل بيانات المستخدم";
-    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+﻿﻿@{
+ViewBag.Title = "تعديل بيانات المستخدم";
+Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
 @*
@@ -25,7 +25,7 @@ Description: Form to update existing user information in the system
     <!-- Edit user form -->
     @using (Html.BeginForm("EditUser", "Users", FormMethod.Post))
     {
-        @Html.HiddenFor(m => m.UserID)
+        @Html.HiddenFor(m => m.UserId)
 
         <!-- الاسم الأول واسم العائلة -->
         <!-- First and last name -->
@@ -86,8 +86,8 @@ Description: Form to update existing user information in the system
                 <!-- Manual input if "Other" is selected -->
                 <input type="text" name="OtherFaculty" id="otherFacultyInputEdit" class="form-control mt-2"
                        placeholder="اكتب اسم الجهة"
-                       value="@Model.OtherFaculty"
-                       style="display:@(Model.Faculty == "أخرى" ? "block" : "none");" />
+@*                        value="@Model.OtherFaculty"
+ *@                       style="display:@(Model.Faculty == "أخرى" ? "block" : "none");" />
                 @Html.ValidationMessageFor(m => m.Faculty)
             </div>
 

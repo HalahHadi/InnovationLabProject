@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-//------00
+
 namespace WepApp2.Models;
 
 public partial class Course
 {
-    public int CourseID { get; set; }
+    public int CourseId { get; set; }
 
     public string CourseName { get; set; } = null!;
 

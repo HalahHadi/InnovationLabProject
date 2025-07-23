@@ -13,18 +13,18 @@ namespace WepApp2.Controllers
 {
     public class TechnologiesController : Controller
     {
-        private readonly AppDbContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public TechnologiesController(AppDbContext context)
+        public TechnologiesController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-		// ============================
-		// عرض الصفحة الرئيسية للفئات التقنية
-		// Display technology management page (form + table)
-		// ============================
-		public IActionResult Index()
+        // ============================
+        // عرض الصفحة الرئيسية للفئات التقنية
+        // Display technology management page (form + table)
+        // ============================
+        public IActionResult Index()
         {
             var viewModel = new TechnologyPageViewModel
             {
@@ -38,11 +38,11 @@ namespace WepApp2.Controllers
 
 
 
-		// ============================
-		// إضافة فئة تقنية جديدة (POST)
-		// Handle POST request to create new technology
-		// ============================
-		[HttpPost]
+        // ============================
+        // إضافة فئة تقنية جديدة (POST)
+        // Handle POST request to create new technology
+        // ============================
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Create(Technology technology)
         {
@@ -80,17 +80,17 @@ namespace WepApp2.Controllers
 
 
 
-		// ============================
-		// تعبئة النموذج للتعديل
-		// Populate form for editing a technology
-		// ============================
-		public IActionResult Edit(int id)
+        // ============================
+        // تعبئة النموذج للتعديل
+        // Populate form for editing a technology
+        // ============================
+        public IActionResult Edit(int id)
         {
             var tech = _context.Technologies
-    .Where(t => t.TechnologyID == id)
+    .Where(t => t.TechnologyId == id)
     .Select(t => new Technology
     {
-        TechnologyID = t.TechnologyID,
+        TechnologyId = t.TechnologyId,
         TechnologyName = t.TechnologyName,
         TechnologyDescription = t.TechnologyDescription
     }).FirstOrDefault();
@@ -109,17 +109,17 @@ namespace WepApp2.Controllers
         }
 
 
-		// ============================
-		// حفظ التعديلات على الفئة التقنية
-		// Save updated technology info
-		// ============================
-		[HttpPost]
+        // ============================
+        // حفظ التعديلات على الفئة التقنية
+        // Save updated technology info
+        // ============================
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Update([Bind(Prefix = "Technology")] Technology updatedTech)
 
         {
             Console.WriteLine("🚨 REACHED UPDATE");
-            Console.WriteLine("ID = " + updatedTech.TechnologyID);
+            Console.WriteLine("ID = " + updatedTech.TechnologyId);
             Console.WriteLine("Name = " + updatedTech.TechnologyName);
 
             if (!ModelState.IsValid)
@@ -133,7 +133,7 @@ namespace WepApp2.Controllers
                 return View("technology", viewModel);
             }
 
-            var tech = _context.Technologies.Find(updatedTech.TechnologyID);
+            var tech = _context.Technologies.Find(updatedTech.TechnologyId);
             if (tech == null)
                 return NotFound();
 
@@ -141,16 +141,16 @@ namespace WepApp2.Controllers
             tech.TechnologyDescription = updatedTech.TechnologyDescription;
 
             _context.SaveChanges();
-            
+
             return RedirectToAction("Index");
         }
 
 
-		// ============================
-		// حذف فئة تقنية
-		// Delete a technology by ID
-		// ============================
-		public IActionResult Delete(int id)
+        // ============================
+        // حذف فئة تقنية
+        // Delete a technology by ID
+        // ============================
+        public IActionResult Delete(int id)
         {
             var tech = _context.Technologies.Find(id);
             if (tech == null)

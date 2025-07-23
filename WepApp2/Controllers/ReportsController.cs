@@ -13,9 +13,9 @@ namespace WepApp2.Controllers
     // [Authorize(Roles = "مدير,Admin")]  // مؤقتاً معطل للاختبار
     public class ReportsController : Controller
     {
-        private readonly AppDbContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public ReportsController(AppDbContext context)
+        public ReportsController(ApplicationDbContext context)
         {
             _context = context;
         }
@@ -55,7 +55,7 @@ namespace WepApp2.Controllers
 
                 // توزيع المستخدمين حسب النوع (باستثناء المدير)
                 var usersDistributionData = _context.Users
-                    .Where(u => u.UserRole != "مدير"&&u.UserRole != "مشرف")
+                    .Where(u => u.UserRole != "مدير" && u.UserRole != "مشرف")
                     .GroupBy(u => u.UserRole ?? "غير محدد")
                     .Select(g => new { UserType = g.Key, Count = g.Count() })
                     .ToList();
@@ -140,13 +140,13 @@ namespace WepApp2.Controllers
                     // جلب جميع المشرفين مرة واحدة لتحسين الأداء
                     var supervisorIds = requests.Select(r => r.SupervisorAssigned).Distinct().ToList();
                     var supervisors = _context.Users
-                        .Where(u => supervisorIds.Contains(u.UserID))
-                        .ToDictionary(u => u.UserID, u => u.FirstName + " " + u.LastName);
+                        .Where(u => supervisorIds.Contains(u.UserId))
+                        .ToDictionary(u => u.UserId, u => u.FirstName + " " + u.LastName);
 
                     // تحويل البيانات إلى كائن ديناميكي للعرض
                     var reportData = requests.Select(r => new
                     {
-                        Id = r.RequestID,
+                        Id = r.RequestId,
                         المستفيد = GetUserFullName(r.User),
                         نوع_الخدمة = GetServiceName(r),
                         الجهاز = r.Device?.DeviceName ?? "لا يوجد",
@@ -182,7 +182,7 @@ namespace WepApp2.Controllers
                     // تحويل البيانات إلى كائن ديناميكي - استخدام أسماء عربية لتتوافق مع PrintReport.cshtml
                     var deviceData = devices.Select(d => new
                     {
-                        Id = d.DeviceID,
+                        Id = d.DeviceId,
                         اسم_الجهاز = d.DeviceName,
                         الموقع = d.DeviceLocation ?? "غير محدد",
                         الشركة = d.BrandName ?? "غير محدد",
@@ -215,7 +215,7 @@ namespace WepApp2.Controllers
                     // تحويل البيانات إلى كائن ديناميكي مع أسماء عربية
                     var userData = users.Select(u => new
                     {
-                        Id = u.UserID,
+                        Id = u.UserId,
                         الاسم = u.FirstName + " " + u.LastName,
                         اسم_المستخدم = u.UserName,
                         نوع_المستخدم = u.UserRole,
@@ -254,6 +254,8 @@ namespace WepApp2.Controllers
                         {
                             labVisitsQuery = labVisitsQuery.Where(lv => lv.VisitDate <= toDate.Value);
                         }
+
+
 
                         var labVisits = labVisitsQuery.ToList();
 
@@ -349,19 +351,20 @@ namespace WepApp2.Controllers
                         var deviceIds = loans.Where(l => l.DeviceId.HasValue)
                             .Select(l => l.DeviceId.Value).Distinct().ToList();
                         var devices = _context.Devices
-                            .Where(d => deviceIds.Contains(d.DeviceID))
-                            .ToDictionary(d => d.DeviceID, d => d.DeviceName);
+                            .Where(d => deviceIds.Contains(d.DeviceId))
+                            .ToDictionary(d => d.DeviceId, d => d.DeviceName);
 
                         // جلب معلومات المستخدمين من خلال الطلبات
                         var requestIds = loans.Where(l => l.RequestId.HasValue)
                             .Select(l => l.RequestId.Value).Distinct().ToList();
                         var requests = _context.Requests
                             .Include(r => r.User)
-                            .Where(r => requestIds.Contains(r.RequestID))
-                            .ToDictionary(r => r.RequestID);
+                            .Where(r => requestIds.Contains(r.RequestId))
+                            .ToDictionary(r => r.RequestId);
 
                         // تحويل البيانات للعرض
-                        var loanData = loans.Select(l => {
+                        var loanData = loans.Select(l =>
+                        {
                             // الحصول على اسم الجهاز
                             string deviceName = "غير محدد";
                             if (l.DeviceId.HasValue && devices.ContainsKey(l.DeviceId.Value))
@@ -462,11 +465,12 @@ namespace WepApp2.Controllers
      .ToList();
 
                         var supervisors = _context.Users
-                            .Where(u => supervisorIds.Contains(u.UserID))
-                            .ToDictionary(u => u.UserID, u => $"{u.FirstName} {u.LastName}".Trim());
+                            .Where(u => supervisorIds.Contains(u.UserId))
+                            .ToDictionary(u => u.UserId, u => $"{u.FirstName} {u.LastName}".Trim());
 
                         // تحويل البيانات للعرض
-                        var consultationData = consultations.Select(c => {
+                        var consultationData = consultations.Select(c =>
+                        {
                             // الحصول على اسم المشرف (مقدم الاستشارة)
                             string supervisorName = "غير مسند";
                             if (c.Request != null && c.Request.SupervisorAssigned.HasValue && supervisors.ContainsKey(c.Request.SupervisorAssigned.Value))
@@ -540,7 +544,7 @@ namespace WepApp2.Controllers
                         return View("PrintReport", serviceData);
                     }
                 }
-            
+
                 else
                 {
                     // للتقارير الأخرى

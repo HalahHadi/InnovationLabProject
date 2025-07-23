@@ -1,24 +1,17 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System;
+using System.Collections.Generic;
 
-namespace WepApp2.Models
+namespace WepApp2.Models;
+
+public partial class ServiceDevice
 {
-    public class ServiceDevice
-    {
-        [Key]
-        public int ServiceDeviceID { get; set; }
+    public int ServiceDeviceId { get; set; }
 
-        [Required]
-        public int ServiceID { get; set; }
+    public int ServiceId { get; set; }
 
-        [Required]
-        public int DeviceID { get; set; }
+    public int DeviceId { get; set; }
 
-        // علاقات الربط مع الجداول الأخرى
-        [ForeignKey("ServiceID")]
-        public Service Service { get; set; }
+    public virtual Device Device { get; set; } = null!;
 
-        [ForeignKey("DeviceID")]
-        public Device Device { get; set; }
-    }
+    public virtual Service Service { get; set; } = null!;
 }

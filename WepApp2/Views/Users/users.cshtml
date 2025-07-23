@@ -1,4 +1,6 @@
-﻿@{
+﻿
+
+@{
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
@@ -100,9 +102,9 @@ Description: Display user list with filtering, editing, and deleting options
                             <td>
                                 <!-- زر تعديل المستخدم -->
                                 <!-- Edit user button -->
-                                <a href="@Url.Action("EditUser", "Users", new { id = user.UserID })" class="btn btn-sm btn-warning">تعديل</a>
+                                <a href="@Url.Action("EditUser", "Users", new { id = user.UserId })" class="btn btn-sm btn-warning">تعديل</a>
 
-                                
+
 
                             </td>
                         </tr>
@@ -112,7 +114,7 @@ Description: Display user list with filtering, editing, and deleting options
         </div>
     </div>
 
-   
+
 
 
 </div>
