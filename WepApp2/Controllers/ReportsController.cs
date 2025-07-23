@@ -258,7 +258,6 @@ namespace WepApp2.Controllers
 
 
                         var labVisits = labVisitsQuery.ToList();
-
                         // تحويل البيانات للعرض
                         var labVisitData = labVisits.Select(lv => new
                         {
@@ -268,9 +267,7 @@ namespace WepApp2.Controllers
                                 ? $"{lv.Request.User.FirstName} {lv.Request.User.LastName}".Trim()
                                 : lv.PreferredContactMethod ?? "زائر خارجي",
                             تاريخ_الزيارة = lv.VisitDate.ToString("yyyy-MM-dd"),
-                            الحالة = lv.Request?.AdminStatus ??
-                                    lv.Request?.SupervisorStatus ??
-                                    (lv.VisitDetails?.IsDeleted == false ? "نشط" : "جديد"),
+                            الحالة = lv.Request?.AdminStatus ?? lv.Request?.SupervisorStatus ?? "نشط",
                             عدد_الزوار = lv.NumberOfVisitors,
                             الوقت = lv.PreferredTime.ToString(@"hh\:mm")
                         }).ToList();

@@ -30,7 +30,6 @@ public partial class User
 
     public bool IsActive { get; set; }
 
-    public bool IsDeleted { get; set; }
 
     public virtual ICollection<Request> Requests { get; set; } = new List<Request>();
 
