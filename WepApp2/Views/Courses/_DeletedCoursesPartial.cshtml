@@ -1,0 +1,53 @@
+﻿@model IEnumerable<WepApp2.Models.Course>
+
+
+<!-- عنوان قائمة الدورات التدريبية المحذوفة -->
+<h3 class="mb-3 text-center">الدورات التدريبية المحذوفة</h3>
+
+<!-- في حالة عدم وجود أي دورات محذوفة، يتم إظهار رسالة تنبيه -->
+@if (!Model.Any())
+{
+    <div class="alert alert-info text-center">لا توجد دورات تدريبية محذوفة.</div>
+}
+else
+{
+
+    <!-- جدول لعرض الدورات المحذوفة -->
+
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>اسم الدورة التدريبية</th>
+                <th>مجال الدورة التدريبية</th>
+                <th>وصف الدورة التدريبية</th>
+                <th>مقدم الدورة التدريبية</th>
+                <th>الإجراءات</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <!-- استعراض الدورات المحذوفة -->
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.CourseName</td>
+                    <td>@item.CourseField</td>
+                    <td>@item.CourseDescription</td>
+                    <td>@item.PresenterName</td>
+                    <td>
+                        <!-- زر استرجاع الدورة المحذوفة -->
+                        <button class="action-btn" style="background:#13b35e;"
+                                onclick="restoreCourseFromPopup(@item.CourseId)">
+                            استرجاع
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<!-- زر إغلاق النافذة المنبثقة -->
+<div class="text-end mt-3">
+    <button class="btn btn-secondary" onclick="closeCoursesForm()">إغلاق</button>
+</div>

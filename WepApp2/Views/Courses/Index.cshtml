@@ -1,0 +1,106 @@
+﻿@model IEnumerable<WepApp2.Models.Course>
+@{
+    ViewBag.Title = "إدارة الدورات التدريبية";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<!-- استدعاء ملف CSS لتنسيقات صفحة الدورات -->
+@section Styles {
+    <link href="~/css/services.css" rel="stylesheet" />
+}
+
+<!-- رأس الصفحة مع عنوان وزر الرجوع -->
+<div class="page-header-with-back-btn">
+    <div>
+        <h1 class="page-title">@ViewBag.Title</h1>
+        <p class="page-subtitle">عرض و إدارة جميع الدورات التدريبية</p>
+    </div>
+    <button class="action-btn back-to-services-btn"
+            onclick="window.location.href='@Url.Action("Index", "Services")'">
+        <span class="fas fa-arrow-right"></span>
+    </button>
+</div>
+
+<!-- أزرار الإجراءات: إضافة دورة جديدة وعرض الدورات المحذوفة -->
+<div class="action-buttons-header mb-3">
+    <button type="button"
+            class="action-btn"
+            onclick="openCoursesForm('@Url.Action("AddOrEdit", "Courses")')">
+        <span class="fas fa-plus me-2"></span>إضافة دورة تدريبية جديدة
+    </button>
+    <button class="action-btn" style="background:#A0AEC0;" onclick="openDeletedCoursesWindow()">
+        <span class="fas fa-trash-restore me-2"></span>عرض الدورات المحذوفة
+    </button>
+</div>
+
+<!-- جدول لعرض الدورات التدريبية -->
+<div class="table-responsive">
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>اسم الدورة التدريبية</th>
+                <th>مجال الدورة التدريبية</th>
+                <th>وصف الدورة التدريبية</th>
+                <th>مقدم الدورة التدريبية</th>
+                <th>الإجراءات</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.CourseName</td>
+                    <td>@item.CourseField</td>
+                    <td>@item.CourseDescription</td>
+                    <td>@item.PresenterName</td>
+                    <td class="action-buttons">
+
+                        <!-- زر تعديل الدورة -->
+                        <button type="button"
+                                class="action-btn edit-btn"
+                                onclick="openCoursesForm('@Url.Action("AddOrEdit", "Courses", new { id = item.CourseId })')">
+                            تعديل
+                        </button>
+
+                        <!-- زر حذف الدورة -->
+                        <button type="button"
+                                class="action-btn delete-btn btn-sm"
+                                onclick="showDeleteCourseModal('@Url.Action("DeletePartial", "Courses", new { id = item.CourseId })')">
+                            حذف
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<!-- Overlay + Popup الإضافة/التعديل -->
+<div class="modal-overlay" id="modalOverlay" style="display:none;"></div>
+<div class="form-popup modal-center" id="popupForm" style="display:none;">
+    <div id="formContent"></div>
+</div>
+
+<!-- Container لحذف الدورة -->
+<div id="deleteCourseModalContainer"></div>
+
+<!-- Success Popup -->
+<div class="success-popup" id="successPopup" style="display:none;">
+    <div class="success-icon-container">
+        <svg class="success-checkmark" viewBox="0 0 52 52">
+            <circle class="success-checkmark-circle" cx="26" cy="26" r="25" fill="none" />
+            <path class="success-checkmark-check" fill="none" d="M14 27l7 7 16-16" />
+        </svg>
+    </div>
+    <h3 id="successPopupTitle">تمت العملية بنجاح!</h3>
+    <p id="successPopupMessage">تمت الإضافة بنجاح.</p>
+    <div class="text-center" style="margin-top:20px;">
+        <button class="action-btn" id="successPopupOk">حسناً</button>
+    </div>
+</div>
+
+<!-- استدعاء مكتبة jQuery وملف JavaScript الخاص بإدارة الدورات -->
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="~/js/services.js"></script>
+}

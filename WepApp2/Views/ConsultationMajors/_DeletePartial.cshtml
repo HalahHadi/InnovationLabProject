@@ -1,0 +1,32 @@
+﻿@model WepApp2.Models.ConsultationMajor
+
+
+<!-- تضمين ملف CSS الخاص بصفحة الخدمات -->
+@section Styles {
+    <link href="~/css/services.css" rel="stylesheet" />
+}
+
+<!-- نموذج تأكيد الحذف -->
+<h2 class="text-center mb-4">
+    حذف الإستشارة
+</h2>
+<form asp-controller="ConsultationMajors"
+      asp-action="Delete"
+      method="post"
+      onsubmit="event.preventDefault(); submitConsultationMajorDelete();">
+    <!-- منع الإرسال الافتراضي للنموذج واستخدام جافاسكريبت (AJAX) -->
+    <!-- حقل مخفي يحتوي على رقم التخصص ليتم حذفه -->
+    <input type="hidden" name="id" value="@Model.ConsultationMajorId" />
+
+
+    <!-- رسالة تأكيد مع اسم التخصص ليظهر للمستخدم ما الذي سيتم حذفه -->
+    <p>هل أنت متأكد من حذف: <strong>(@Model.Major)</strong>؟</p>
+
+    <!-- أزرار تنفيذ الحذف أو إلغاء العملية -->
+    <div class="text-end">
+        <!-- زر الحذف: ينفذ العملية عبر AJAX -->
+        <button type="submit" class="btn btn-danger">حذف</button>
+        <!-- زر الإلغاء: يغلق نافذة التأكيد بدون حذف -->
+        <button type="button" class="btn btn-secondary" onclick="closeConsultationMajorForm()">إلغاء</button>
+    </div>
+</form>

@@ -1,0 +1,430 @@
+﻿/* Styling for the services grid layout */
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(240px,1fr));
+    gap: 25px;
+}
+
+/* Styling for individual service cards */
+.service-card {
+    background: #fff;
+    padding: 24px;
+    border-radius: 14px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    border-right: 4px solid #13b35e;
+    transition: .3s;
+    position: relative;
+}
+
+    .service-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 22px rgba(0,0,0,0.08);
+    }
+
+/* Styling for service titles */
+.service-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #2d3748;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Styling for service descriptions */
+.service-description {
+    font-size: 0.9rem;
+    color: #4a5568;
+    margin-bottom: 12px;
+}
+
+/* Styling for icons */
+.icon {
+    font-size: 1.4rem;
+}
+
+/* Styling for action buttons */
+.action-btn {
+    background-color: #13b35e;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+    .action-btn:hover {
+        background-color: #0d8a4c;
+    }
+
+/* Styling for popup forms */
+.form-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.2);
+    z-index: 1000;
+    width: 90%;
+    max-width: 400px;
+    max-height: 80vh;
+    overflow-y: auto;
+    display: none;
+}
+
+    .form-popup label {
+        display: block;
+        margin-bottom: 5px;
+        margin-top: 10px;
+        font-weight: 500;
+        color: #4a5568;
+    }
+
+    .form-popup input[type="text"],
+    .form-popup input[type="number"],
+    .form-popup input[type="date"],
+    .form-popup input[type="time"],
+    .form-popup input[type="datetime-local"],
+    .form-popup textarea,
+    .form-popup select {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+    }
+
+    .form-popup #courseName,
+    .form-popup #courseField,
+    .form-popup #coursePresenter,
+    .form-popup #courseCapacity {
+        max-width: 250px;
+    }
+
+/* Styling for data table container */
+.data-table-container {
+    margin-top: 30px;
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+    .data-table-container h2 {
+        color: #2d3748;
+        margin-bottom: 20px;
+        font-size: 1.8rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+/* Styling for data tables */
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+    .data-table th,
+    .data-table td {
+        border: 1px solid #eee;
+        padding: 12px;
+        text-align: right;
+        font-size: 0.95rem;
+    }
+
+    .data-table th {
+        background-color: #f8f9fa;
+        font-weight: 600;
+        color: #4a5568;
+    }
+
+    .data-table tr:nth-child(even) {
+        background-color: #fcfdff;
+    }
+
+    .data-table tr:hover {
+        background-color: #f0f8ff;
+    }
+
+    .data-table .action-buttons {
+        display: flex;
+        gap: 8px;
+        justify-content: flex-end;
+    }
+
+        .data-table .action-buttons .action-btn {
+            padding: 6px 12px;
+            font-size: 0.85rem;
+        }
+
+        .data-table .action-buttons .edit-btn {
+            background-color: #007bff;
+        }
+
+            .data-table .action-buttons .edit-btn:hover {
+                background-color: #0056b3;
+            }
+
+        .data-table .action-buttons .delete-btn {
+            background-color: #dc3545;
+        }
+
+            .data-table .action-buttons .delete-btn:hover {
+                background-color: #c82333;
+            }
+
+/* Styling for the overlay background */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.4);
+    z-index: 999;
+    display: none; /* Controlled by JavaScript or an '.active' class */
+}
+
+/* Styling for the success message popup */
+.success-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 25px rgba(0,0,0,0.25);
+    z-index: 1001;
+    width: 90%;
+    max-width: 380px;
+    text-align: center;
+    display: none;
+    animation: fadeIn 0.3s ease-out;
+    overflow: hidden;
+}
+
+    .success-popup h3 {
+        color: #13b35e;
+        font-size: 1.8rem;
+        margin-bottom: 15px;
+    }
+
+    .success-popup p {
+        color: #555;
+        font-size: 1.1rem;
+        line-height: 1.6;
+    }
+
+.success-icon-container {
+    margin-bottom: 20px;
+}
+
+/* Styling for the success checkmark animation */
+.success-checkmark {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: block;
+    stroke-width: 3;
+    stroke: #13b35e;
+    stroke-miterlimit: 10;
+    box-shadow: inset 0px 0px 0px #13b35e;
+    animation: fill .4s ease-in-out .4s forwards, scale .3s ease-in-out .9s both;
+    position: relative;
+    margin: 0 auto;
+}
+
+.success-checkmark-circle {
+    stroke-dasharray: 166;
+    stroke-dashoffset: 166;
+    stroke-width: 3;
+    stroke-miterlimit: 10;
+    stroke: #13b35e;
+    fill: none;
+    animation: stroke 0.6s cubic-bezier(0.65,0,0.45,1) forwards;
+}
+
+.success-checkmark-check {
+    transform-origin: 50% 50%;
+    stroke-dasharray: 48;
+    stroke-dashoffset: 48;
+    animation: stroke 0.3s cubic-bezier(0.65,0,0.45,1) 0.8s forwards;
+    stroke: white;
+}
+
+@keyframes stroke {
+    100% {
+        stroke-dashoffset: 0;
+    }
+}
+
+@keyframes scale {
+    0%, 100% {
+        transform: none;
+    }
+
+    50% {
+        transform: scale3d(1.1,1.1,1);
+    }
+}
+
+@keyframes fill {
+    100% {
+        box-shadow: inset 0px 0px 0px 50px #13b35e;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translate(-50%,-60%);
+    }
+
+    to {
+        opacity: 1;
+        transform: translate(-50%,-50%);
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+        transform: translate(-50%,-50%);
+    }
+
+    to {
+        opacity: 0;
+        transform: translate(-50%,-60%);
+    }
+}
+
+/* Active state for overlay */
+.overlay.active {
+    display: block;
+}
+
+/* Styling for "Add New Service" button */ /*For Future Features*/
+/*
+.add-new-service-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #13b35e;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    font-weight: 500;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-bottom: 25px;
+    width: fit-content;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.add-new-service-btn:hover {
+    background-color: #0d8a4c;
+    transform: translateY(-2px);
+}
+*/
+
+/* Styling for responsive tables */
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Styling for header with action buttons */
+.action-buttons-header {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-bottom: 20px;
+    gap: 10px;
+}
+
+/* Styling for "Add New Item" button */
+.add-new-item-btn {
+    background-color: #13b35e;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+    .add-new-item-btn:hover {
+        background-color: #0d8a4c;
+    }
+
+    .add-new-item-btn .fas.fa-plus {
+        margin-left: 10px;
+        margin-right: 0;
+    }
+
+/* Styling for page header with back button */
+.page-header-with-back-btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+    .page-header-with-back-btn > div {
+        flex-grow: 1;
+        text-align: right;
+    }
+
+/* Styling for the back button */
+.back-to-services-btn {
+    background-color: #A0AEC0 !important;
+    width: 40px;
+    height: 40px;
+    border-radius: 50% !important;
+    padding: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+    .back-to-services-btn .fas {
+        font-size: 1.2rem;
+        margin: 0 !important;
+    }
+
+    .back-to-services-btn:hover {
+        background-color: #718096 !important;
+        transform: translateY(-2px);
+    }
+
+/* Styling for the error message */
+.assign-error-message {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: #DC2626;
+    font-size: 14px;
+    margin-top: 10px;
+    padding: 8px 12px;
+    background-color: #FEE2E2;
+    border: 1px solid #FCA5A5;
+    border-radius: 4px;
+    display: none;
+}
+
+    .assign-error-message svg {
+        min-width: 16px;
+        min-height: 16px;
+    }

@@ -18,9 +18,9 @@ namespace WepApp2.Controllers
 {
     public class DashboardController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly InnvoationLabDbgroup2Context _context;
 
-        public DashboardController(ApplicationDbContext context)
+        public DashboardController(InnvoationLabDbgroup2Context context)
         {
             _context = context;
         }

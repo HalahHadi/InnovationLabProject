@@ -7,9 +7,9 @@ namespace WepApp2.Controllers
 {
     public class SupervisorController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly InnvoationLabDbgroup2Context _context;
 
-        public SupervisorController(ApplicationDbContext context)
+        public SupervisorController(InnvoationLabDbgroup2Context context)
         {
             _context = context;
         }

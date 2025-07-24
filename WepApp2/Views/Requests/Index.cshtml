@@ -1,0 +1,228 @@
+@{
+    // تعيين عنوان الصفحة في شريط العنوان وأعلاها
+    ViewData["Title"] = "إدارة الطلبات";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+@section Styles {
+    <!-- ربط ملف الأنماط الخاص بصفحة إدارة الطلبات -->
+    <link href="~/css/Requests.css" rel="stylesheet" />
+}
+
+
+
+<!-- =========================
+     واجهة إدارة الطلبات الرئيسية
+     ========================= -->
+<div id="requests" class="p-4">
+
+    <!-- ====== شريط التصفية وأدوات البحث ====== -->
+    <div class="table-header d-flex align-items-center justify-content-between">
+        <h2>@ViewData["Title"]</h2>
+        <div class="filters d-flex align-items-center">
+            <!-- مربع بحث عن طريق اسم المستفيد -->
+            <input type="text" id="searchInput" class="filter-input" placeholder="البحث بالمستفيد…" oninput="filterRequests()" />
+            <!-- فلتر حسب التاريخ -->
+            <input type="date" id="dateFilter" class="filter-input" onchange="filterRequests()" />
+            <!-- فلتر حسب حالة الطلب -->
+            <select id="statusFilter" class="filter-select" onchange="filterRequests()">
+                <option value="">جميع الحالات</option>
+                <option value="بانتظار اسناد المشرف">بانتظار اسناد المشرف</option>
+                <option value="بانتظار موافقة المشرف">بانتظار موافقة المشرف</option>
+                <option value="مرفوض من قبل المشرف">مرفوض من قبل المشرف</option>
+                <option value="موافق عليه من قبل المشرف">موافق عليه من قبل المشرف</option>
+                <option value="موافق عليه من قبل المسؤول">موافق عليه من قبل المسؤول</option>
+                <option value="مرفوض من قبل المسؤول">مرفوض من قبل المسؤول</option>
+            </select>
+            <!-- فلتر حسب نوع الخدمة -->
+            <select id="serviceTypeFilter" class="filter-select" onchange="filterRequests()">
+                <option value="">جميع أنواع الخدمات</option>
+                <option value="اعارة">اعارة</option>
+                <option value="استشارة">استشارة</option>
+                <option value="زيارة">زيارة</option>
+                <option value="حجز جهاز">حجز جهاز</option>
+                <option value="دورة تدريبية">دورة تدريبية</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- =========================
+         جداول عرض الطلبات لكل خدمة
+         ========================= -->
+    <!-- جدول طلبات الإعارة -->
+    <div id="اعارةTableWrapper" class="table-container my-4">
+        <h3>اعارة</h3>
+        <table class="requests-data-table w-100">
+            <thead>
+                <tr>
+                    <th>المستفيد</th>
+                    <th>الجهاز</th>
+                    <th>تاريخ البداية</th>
+                    <th>تاريخ النهاية</th>
+                    <th class="center-col">المشرف المُسند</th>
+                    <th class="center-col">الحالة</th>
+                    <th>الإجراءات</th>
+                </tr>
+            </thead>
+            <tbody id="اعارةTableBody"></tbody>
+        </table>
+    </div>
+
+    <!-- جدول طلبات حجز الأجهزة -->
+    <div id="حجز جهازTableWrapper" class="table-container my-4">
+        <h3>حجز جهاز</h3>
+        <table class="requests-data-table w-100">
+            <thead>
+                <tr>
+                    <th>المستفيد</th>
+                    <th>الجهاز</th>
+                    <th>التاريخ</th>
+                    <th>وقت البداية</th>
+                    <th>وقت النهاية</th>
+                    <th class="center-col">المشرف المُسند</th>
+                    <th class="center-col">الحالة</th>
+                    <th>الإجراءات</th>
+                </tr>
+            </thead>
+            <tbody id="حجز جهازTableBody"></tbody>
+        </table>
+    </div>
+
+    <!-- جدول طلبات الاستشارات -->
+    <div id="استشارةTableWrapper" class="table-container my-4">
+        <h3>استشارة</h3>
+        <table class="requests-data-table w-100">
+            <thead>
+                <tr>
+                    <th>المستفيد</th>
+                    <th>التاريخ</th>
+                    <th class="center-col">المشرف المُسند</th>
+                    <th class="center-col">الحالة</th>
+                    <th>الإجراءات</th>
+                </tr>
+            </thead>
+            <tbody id="استشارةTableBody"></tbody>
+        </table>
+    </div>
+
+    <!-- جدول طلبات الزيارات -->
+    <div id="زيارةTableWrapper" class="table-container my-4">
+        <h3>زيارة</h3>
+        <table class="requests-data-table w-100">
+            <thead>
+                <tr>
+                    <th>المستفيد</th>
+                    <th>التاريخ</th>
+                    <th>الوقت</th>
+                    <th class="center-col">المشرف المُسند</th>
+                    <th class="center-col">الحالة</th>
+                    <th>الإجراءات</th>
+                </tr>
+            </thead>
+            <tbody id="زيارةTableBody"></tbody>
+        </table>
+    </div>
+
+    <!-- جدول طلبات الدورات التدريبية -->
+    <div id="دورة تدريبيةTableWrapper" class="table-container my-4">
+        <h3>دورة تدريبية</h3>
+        <table class="requests-data-table w-100">
+            <thead>
+                <tr>
+                    <th>المستفيد</th>
+                    <th class="center-col">المشرف المُسند</th>
+                    <th class="center-col">الحالة</th>
+                    <th>الإجراءات</th>
+                </tr>
+            </thead>
+            <tbody id="دورة تدريبيةTableBody"></tbody>
+        </table>
+    </div>
+</div>
+
+<!-- ========================
+     النوافذ المنبثقة (المودالات)
+     ======================== -->
+<!-- مودال إسناد المشرف لطلب معين -->
+<div class="modal" id="assignModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>إسناد الطلب</h3>
+        </div>
+        <div class="modal-body">
+            <!-- سيملأ ديناميكياً بالتفاصيل عند اختيار الطلب -->
+            <div id="assignBody"></div>
+            <!-- رسالة خطأ عند عدم اختيار مشرف -->
+            <div id="assignErrorMessage" class="assign-error-message" style="display: none;">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="red">
+                    <path d="M11 15h2v2h-2zm0-8h2v6h-2zm.99 15c-5.52 0-10-4.48-10-10S6.47 2 12 2s10 4.48 10 10-4.48 10-10 10zm0-18c-4.42 0-8 3.58-8 8s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8z" />
+                </svg>
+                <span>الرجاء اختيار مشرف.</span>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn-confirm" onclick="confirmAssign()">تأكيد</button>
+            <button class="btn-cancel" onclick="hideAssign()">إلغاء</button>
+        </div>
+    </div>
+</div>
+
+<!-- مودال تفاصيل الطلب (عرض المعلومات التفصيلية للطلب) -->
+<div class="modal" id="viewModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>تفاصيل الطلب</h3>
+        </div>
+        <div class="modal-body" id="viewBody"></div>
+        <div class="modal-footer">
+            <button class="btn-cancel" onclick="hideView()">عودة</button>
+        </div>
+    </div>
+</div>
+
+<!-- مودال القرار النهائي لمسؤول النظام -->
+<div class="modal" id="finalDecisionModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>القرار النهائي</h3>
+        </div>
+        <div class="modal-body">
+            <div id="finalDecisionBody"></div>
+            <!-- رسالة خطأ عند عدم اختيار قرار -->
+            <div id="finalDecisionErrorMessage" class="assign-error-message" style="display: none;">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="red">
+                    <path d="M11 15h2v2h-2zm0-8h2v6h-2zm.99 15c-5.52 0-10-4.48-10-10S6.47 2 12 2s10 4.48 10 10-4.48 10-10 10zm0-18c-4.42 0-8 3.58-8 8s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8z" />
+                </svg>
+                <span>الرجاء اختيار قرار.</span>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn-confirm" onclick="confirmFinalDecision()">تأكيد</button>
+            <button class="btn-cancel" onclick="hideFinalDecision()">إلغاء</button>
+        </div>
+    </div>
+</div>
+
+<!-- مودال رسالة النجاح (يظهر عند إتمام أي عملية بنجاح) -->
+<div class="modal" id="successMessageModal">
+    <div class="modal-content small-modal-content">
+        <div class="modal-body success-modal-body">
+            <div class="request-success-checkmark">
+                <svg viewBox="0 0 52 52" xmlns="http://www.w3.org/2000/svg">
+                    <circle class="request-success-checkmark-circle" cx="26" cy="26" r="25" fill="none" />
+                    <path class="request-success-checkmark-check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
+                </svg>
+            </div>
+            <p id="successMessageText" class="success-text"></p>
+        </div>
+    </div>
+</div>
+
+<!-- ===================
+     ربط ملف الجافاسكريبت
+     =================== -->
+@section Scripts {
+    <!-- تحميل جميع دوال التحكم والفلترة من ملف requests.js -->
+    <script src="~/js/requests.js?v=17"></script>
+}

@@ -1,0 +1,108 @@
+﻿@model WepApp2.Models.Course
+@{
+    var isNew = Model.CourseId == 0;
+
+}
+
+<!-- تضمين ملف CSS لتنسيق صفحة إدارة الدورات -->
+@section Styles {
+    <link href="~/css/services.css" rel="stylesheet" />
+}
+
+<!-- عنوان النموذج: إضافة أو تعديل دورة -->
+<h2 class="text-center mb-4">
+    @(isNew ? "إضافة دورة تدريبية جديدة" : "تعديل الدورة التدريبية")
+</h2>
+
+
+<!-- فورم إضافة أو تعديل دورة -->
+<form id="courseForm"
+      asp-controller="Courses"
+      asp-action="AddOrEdit"
+      method="post"
+      onsubmit="event.preventDefault(); submitCoursesForm();">
+    @Html.AntiForgeryToken()
+    <input asp-for="CourseId" type="hidden" />
+
+    <div class="modal-body">
+
+        <!-- اسم الدورة -->
+        <div class="mb-3">
+            <label class="form-label">اسم الدورة التدريبية</label>
+            <input asp-for="CourseName" class="form-control" id="CourseName" />
+        </div>
+        <!-- رسالة الخطأ في حال عدم إدخال اسم الدورة -->
+        <div id="courseNameError"
+             class="assign-error-message"
+             style="display:none; width:100%; box-sizing:border-box;">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="red">
+                <path d="M11 15h2v2h-2zm0-8h2v6h-2zm.99 15c-5.52 0-10-4.48-10-10S6.47 2
+                         12 2s10 4.48 10 10-4.48 10-10 10zm0-18c-4.42 0-8
+                         3.58-8 8s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8z" />
+            </svg>
+            <span>الرجاء تعبئة اسم الدورة التدريبية.</span>
+        </div>
+
+        <!-- مجال الدورة -->
+        <div class="mb-3">
+            <label class="form-label">مجال الدورة التدريبية</label>
+            <input asp-for="CourseField" class="form-control" id="CourseField" />
+        </div>
+        <!-- رسالة الخطأ في حال عدم إدخال مجال الدورة -->
+        <div id="courseFieldError"
+             class="assign-error-message"
+             style="display:none; width:100%; box-sizing:border-box;">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="red">
+                <path d="M11 15h2v2h-2zm0-8h2v6h-2zm.99 15c-5.52 0-10-4.48-10-10S6.47 2
+                         12 2s10 4.48 10 10-4.48 10-10 10zm0-18c-4.42 0-8
+                         3.58-8 8s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8z" />
+            </svg>
+            <span>الرجاء تعبئة مجال الدورة التدريبية.</span>
+        </div>
+
+        <!-- وصف الدورة -->
+        <div class="mb-3">
+            <label class="form-label">وصف الدورة التدريبية</label>
+            <textarea asp-for="CourseDescription" class="form-control" id="CourseDescription"></textarea>
+        </div>
+
+        <!-- رسالة الخطأ في حال عدم إدخال وصف الدورة -->
+        <div id="courseDescriptionError"
+             class="assign-error-message"
+             style="display:none; width:100%; box-sizing:border-box;">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="red">
+                <path d="M11 15h2v2h-2zm0-8h2v6h-2zm.99 15c-5.52 0-10-4.48-10-10S6.47 2
+                         12 2s10 4.48 10 10-4.48 10-10 10zm0-18c-4.42 0-8
+                         3.58-8 8s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8z" />
+            </svg>
+            <span>الرجاء تعبئة وصف الدورة التدريبية.</span>
+        </div>
+
+        <!-- مقدم الدورة -->
+        <div class="mb-3">
+            <label class="form-label">مقدم الدورة التدريبية</label>
+            <input asp-for="PresenterName" class="form-control" id="PresenterName" />
+        </div>
+        <!-- رسالة الخطأ في حال عدم إدخال اسم مقدم الدورة -->
+        <div id="coursePresenterError"
+             class="assign-error-message"
+             style="display:none; width:100%; box-sizing:border-box;">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="red">
+                <path d="M11 15h2v2h-2zm0-8h2v6h-2zm.99 15c-5.52 0-10-4.48-10-10S6.47 2
+                         12 2s10 4.48 10 10-4.48 10-10 10zm0-18c-4.42 0-8
+                         3.58-8 8s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8z" />
+            </svg>
+            <span>الرجاء تعبئة اسم مقدم الدورة التدريبية.</span>
+        </div>
+
+    </div>
+
+    <!-- أزرار الإرسال والإلغاء -->
+
+    <div class="text-end">
+        <button type="submit" class="btn btn-success">
+            @(isNew ? "إضافة" : "حفظ")
+        </button>
+        <button type="button" class="btn btn-secondary" onclick="closeCoursesForm()">إلغاء</button>
+    </div>
+</form>

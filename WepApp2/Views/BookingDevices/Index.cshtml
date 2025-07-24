@@ -1,0 +1,95 @@
+﻿@model IEnumerable<WepApp2.Models.Device>
+@{
+    ViewBag.Title = "إدارة حجز الأجهزة";
+    int serviceId = ViewBag.ServiceId;
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+<!-- تضمين ملف CSS لتنسيق صفحة الخدمات -->
+@section Styles {
+    <link href="~/css/services.css" rel="stylesheet" />
+
+}
+
+<!-- عنوان الصفحة مع زر العودة للخلف -->
+<div class="page-header-with-back-btn">
+    <div>
+        <h1 class="page-title">@ViewBag.Title</h1>
+        <p class="page-subtitle">عرض و إدارة جميع الأجهزة </p>
+    </div>
+
+    <!-- زر العودة للخدمات -->
+    <button type="button"
+            class="action-btn back-to-services-btn"
+            onclick="window.history.back()">
+        <span class="fas fa-arrow-right"></span>
+    </button>
+</div>
+
+<!-- زر إضافة جهاز جديد -->
+<div class="action-buttons-header">
+    <button type="button"
+            class="action-btn"
+            onclick="openDeviceLoanForm('@Url.Action("AddDevicePartial", "BookingDevices", new { serviceId = serviceId })')">
+        <span class="fas fa-plus me-2"></span>إضافة جهاز جديد
+    </button>
+</div>
+
+<!-- جدول عرض الأجهزة المتاحة مع إمكانية الحذف -->
+<div class="table-responsive">
+    <div class="data-table-container">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>اسم الجهاز</th>
+                    <th>الإجراءات</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <!-- استعراض الأجهزة من النموذج -->
+                @foreach (var dev in Model)
+                {
+                    <tr>
+                        <td>@dev.DeviceName</td>
+                        <td class="action-buttons">
+                            <button type="button"
+                                    class="action-btn delete-btn"
+                                    onclick="openDeviceLoanDelete('@Url.Action("DeletePartial", "BookingDevices", new { serviceId = serviceId, deviceId = dev.DeviceId })')">
+                                حذف
+                            </button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Overlay و Popup الرئيسي -->
+<div class="overlay" id="overlay" style="display:none;" onclick="closeDeviceLoanForm()"></div>
+<div class="form-popup" id="popupForm" style="display:none;">
+    <div id="formContent"></div>
+</div>
+
+<!-- Success Popup -->
+<div class="success-popup" id="successPopup">
+    <div class="success-icon-container">
+        <svg class="success-checkmark" viewBox="0 0 52 52">
+            <circle class="success-checkmark-circle" cx="26" cy="26" r="25" fill="none" />
+            <path class="success-checkmark-check" fill="none" d="M14 27l7 7 16-16" />
+        </svg>
+    </div>
+    <h3 id="successPopupTitle">تمت العملية بنجاح!</h3>
+    <p id="successPopupMessage">تمت الإضافة بنجاح.</p>
+    <div class="text-center" style="margin-top:20px;">
+        <button class="action-btn" id="successPopupOk">حسناً</button>
+    </div>
+</div>
+
+<!-- تضمين مكتبة jQuery وملف جافا سكربت الخاص بالخدمات -->
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="~/js/services.js"></script>
+}

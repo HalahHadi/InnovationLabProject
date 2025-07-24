@@ -1,0 +1,66 @@
+﻿@{
+    ViewBag.Title = "إدارة الخدمات";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@section Styles {
+    <link href="~/css/services.css" rel="stylesheet" />
+}
+
+<!-- بداية رأس الصفحة: العنوان -->
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="page-title mb-0">إدارة الخدمات</h1>
+</div>
+
+<p class="page-subtitle">مراقبة وإدارة جميع خدمات معمل الابتكارات</p>
+
+
+
+<section class="services-grid" id="servicesGrid">
+
+
+    <div class="service-card" data-service-type="booking">
+        <div class="service-title">حجز الأجهزة</div>
+        <div class="service-description">إدارة حجز الأجهزة.</div>
+        <button class="action-btn manage-service-btn"
+                data-service="booking"
+                onclick="window.location.href='@Url.Action("Index", "BookingDevices", new { serviceId = 3 })'">
+            إدارة حجز الأجهزة
+        </button>
+    </div>
+
+
+    <div class="service-card" data-service-type="loan">
+        <div class="service-title">إعارة الأجهزة</div>
+        <div class="service-description">إدارة الأجهزة المُعارة.</div>
+        <button class="action-btn manage-service-btn"
+                data-service="loan"
+                onclick="window.location.href='@Url.Action("Index", "DeviceLoan", new { serviceId = 1 })'">
+            إدارة إعارة الأجهزة
+        </button>
+    </div>
+
+
+    <div class="service-card" data-service-type="consult">
+        <div class="service-title">الاستشارات التقنية</div>
+        <div class="service-description">إدارة الاستشارات التقنية.</div>
+        <button class="action-btn manage-service-btn" data-service="consult" onclick="window.location.href='@Url.Action("Index", "ConsultationMajors")'">إدارة الاستشارات</button>
+    </div>
+
+    <div class="service-card" data-service-type="visit">
+        <div class="service-title"> زيارة المعمل</div>
+        <div class="service-description">إدارة زيارات المعمل. </div>
+        <button class="action-btn manage-service-btn" data-service="visit" onclick="window.location.href='@Url.Action("Index", "VisitsDetails")'">إدارة زيارة المعمل</button>
+    </div>
+
+    <div class="service-card" data-service-type="courses">
+        <div class="service-title">الدورات التدريبية</div>
+        <div class="service-description">إدارة الدورات التدريبية.</div>
+        <button class="action-btn manage-service-btn" data-service="courses" onclick="window.location.href='@Url.Action("Index", "Courses")'">إدارة الدورات التدريبية</button>
+    </div>
+
+</section>
+
+@section Scripts {
+    <script src="~/js/services.js"></script>
+}

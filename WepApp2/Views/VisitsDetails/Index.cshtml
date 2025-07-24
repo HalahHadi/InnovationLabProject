@@ -1,0 +1,97 @@
+﻿@model IEnumerable<WepApp2.Models.VisitsDetail>
+@{
+    ViewBag.Title = "إدارة زيارات المعمل";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<!-- تضمين ملف CSS الخاص بصفحة الخدمات -->
+@section Styles {
+    <link href="~/css/services.css" rel="stylesheet" />
+}
+
+<!-- رأس الصفحة مع زر العودة للخدمات -->
+<div class="page-header-with-back-btn">
+    <div>
+        <h1 class="page-title">إدارة زيارات المعمل</h1>
+        <p class="page-subtitle">عرض و إدارة جميع أنواع زيارات المعمل</p>
+    </div>
+    <button class="action-btn back-to-services-btn"
+            onclick="window.location.href='@Url.Action("Index", "Services")'">
+        <span class="fas fa-arrow-right"></span>
+    </button>
+</div>
+
+<!-- زر إضافة نوع زيارة جديد -->
+<div class="action-buttons-header mb-3">
+
+    <button class="action-btn" onclick="openVisitsDetailsForm('/VisitsDetails/AddOrEdit')">
+        <span class="fas fa-plus me-2"></span>إضافة نوع زيارة جديدة
+    </button>
+
+
+    <button class="action-btn" style="background:#A0AEC0;" onclick="openDeletedVisitsWindow()">
+        <span class="fas fa-trash-restore me-2"></span>عرض الزيارات المحذوفة
+    </button>
+</div>
+
+<!-- جدول عرض أنواع زيارات المعمل -->
+<div class="table-responsive">
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>نوع الزيارة</th>
+                <th>الإجراءات</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.VisitType</td>
+                    <td class="action-buttons">
+
+
+                        <button class="action-btn edit-btn"
+                                onclick="openVisitsDetailsForm('@Url.Action("AddOrEdit", "VisitsDetails", new { id = item.VisitDetailsId })')">
+                            تعديل
+                        </button>
+
+
+                        <button class="btn btn-danger btn-sm"
+                                onclick="showDeleteVisitModal(@item.VisitDetailsId)">
+                            حذف
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<!-- Overlay + Popup الإضافة/التعديل -->
+<div class="overlay" id="overlay" style="display:none;"></div>
+<div class="form-popup" id="popupForm" style="display:none;"></div>
+
+<!-- Container لحذف الزيارة -->
+<div id="deleteVisitModalContainer"></div>
+
+<!-- Success Popup -->
+<div class="success-popup" id="successPopup" style="display:none;">
+    <div class="success-icon-container">
+        <svg class="success-checkmark" viewBox="0 0 52 52">
+            <circle class="success-checkmark-circle" cx="26" cy="26" r="25" fill="none" />
+            <path class="success-checkmark-check" fill="none" d="M14 27l7 7 16-16" />
+        </svg>
+    </div>
+    <h3 id="successPopupTitle">تمت العملية بنجاح!</h3>
+    <p id="successPopupMessage">تمت الإضافة بنجاح.</p>
+    <div class="text-center" style="margin-top:20px;">
+        <button class="action-btn" id="successPopupOk">حسناً</button>
+    </div>
+</div>
+
+<!-- تحميل مكتبة jQuery وملف الجافاسكريبت الخاص بالخدمات -->
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="~/js/services.js"></script>
+}

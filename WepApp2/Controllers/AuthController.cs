@@ -13,11 +13,11 @@ namespace WepApp2.Controllers
 {
     public class AuthController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly InnvoationLabDbgroup2Context _context;
         private readonly IEmailService _emailService;
         private readonly IDataProtector _protector;
 
-        public AuthController(ApplicationDbContext context, IEmailService emailService, IDataProtectionProvider dataProtectionProvider)
+        public AuthController(InnvoationLabDbgroup2Context context, IEmailService emailService, IDataProtectionProvider dataProtectionProvider)
         {
             _context = context;
             _emailService = emailService;

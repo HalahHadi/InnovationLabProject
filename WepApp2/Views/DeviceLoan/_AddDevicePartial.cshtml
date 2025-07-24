@@ -1,0 +1,57 @@
+﻿@{
+    int serviceId = ViewBag.ServiceId;
+
+}
+
+<!-- استدعاء ملف CSS الخاص بتنسيقات الخدمات -->
+@section Styles {
+    <link href="~/css/services.css" rel="stylesheet" />
+}
+
+<!-- عنوان نموذج إضافة جهاز جديد -->
+<h2 class="text-center mb-4">إضافة جهاز جديد</h2>
+
+<!-- فورم إضافة جهاز جديد مرتبط بخدمة إعارة الأجهزة -->
+<form id="addDeviceForm"
+      action="@Url.Action("AddDeviceToService","DeviceLoan")"
+      method="post"
+      onsubmit="event.preventDefault(); submitDeviceLoanForm();">
+    @Html.AntiForgeryToken()
+    <input type="hidden" name="serviceId" value="@serviceId" />
+
+    <div class="modal-body">
+        <!-- قائمة منسدلة لاختيار الجهاز -->
+        <div class="mb-3">
+            <label class="form-label">اختر جهاز</label>
+            <select id="AvailableDeviceSelect"
+                    name="deviceId"
+                    asp-items="ViewBag.AvailableDevices"
+                    class="form-select">
+                <option value="">-- اختر الجهاز --</option>
+            </select>
+        </div>
+
+        <!--
+          صندوق الخطأ: مخفي افتراضياً، وعرضه 100% ليظهر كالـ bar الأحمر
+        -->
+        <div id="deviceErrorMessage"
+             class="assign-error-message"
+             style="display: none; width: 100%; box-sizing: border-box;">
+
+            <!-- أيقونة تنبيه -->
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="#DC2626">
+                <path d="M11 15h2v2h-2zm0-8h2v6h-2zm.99 15c-5.52 0-10-4.48-10-10S6.47 2
+                         12 2s10 4.48 10 10-4.48 10-10 10zm0-18c-4.42
+                         0-8 3.58-8 8s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8z" />
+            </svg>
+            <span>الرجاء اختيار جهاز.</span>
+        </div>
+    </div>
+
+    <!-- أزرار النموذج (إضافة وإلغاء) -->
+
+    <div class="text-end">
+        <button type="submit" class="btn btn-success">إضافة</button>
+        <button type="button" class="btn btn-secondary" onclick="closeDeviceLoanForm()">إلغاء</button>
+    </div>
+</form>

@@ -8,9 +8,9 @@ namespace kauWebsiteFourth.Controllers
 {
     public class UserReservationsController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly InnvoationLabDbgroup2Context _context;
 
-        public UserReservationsController(ApplicationDbContext context)
+        public UserReservationsController(InnvoationLabDbgroup2Context context)
         {
             _context = context;
         }

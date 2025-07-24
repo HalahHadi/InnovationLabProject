@@ -8,9 +8,9 @@ namespace kauWebsiteFourth.Controllers
 {
     public class NewBookingController : Controller
     {
-        private readonly  ApplicationDbContext _context;
+        private readonly InnvoationLabDbgroup2Context _context;
 
-        public NewBookingController(ApplicationDbContext context)
+        public NewBookingController(InnvoationLabDbgroup2Context context)
         {
             _context = context;
         }

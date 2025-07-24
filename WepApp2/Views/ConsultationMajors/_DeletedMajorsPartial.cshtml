@@ -1,0 +1,49 @@
+﻿@model IEnumerable<WepApp2.Models.ConsultationMajor>
+
+
+<!-- عنوان نموذج الاستشارات المحذوفة -->
+<h3 class="mb-3 text-center">الاستشارات المحذوفة</h3>
+
+<!-- عرض رسالة إذا لم تكن هناك استشارات محذوفة -->
+@if (!Model.Any())
+{
+    <div class="alert alert-info text-center">لا توجد استشارات محذوفة.</div>
+}
+else
+{
+
+    <!-- جدول لعرض الاستشارات المحذوفة -->
+
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>مجال الاستشارة</th>
+                <th>الوصف</th>
+                <th>الإجراءات</th>
+            </tr>
+        </thead>
+        <tbody>
+
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Major</td>
+                    <td>@item.ConsultationDescription</td>
+                    <td>
+                        <button class="action-btn" style="background:#13b35e;"
+                                onclick="restoreConsultationMajorFromPopup(@item.ConsultationMajorId)">
+                            استرجاع
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<!-- زر إغلاق النافذة المنبثقة -->
+
+<div class="text-end mt-3">
+    <button class="btn btn-secondary" onclick="closeConsultationMajorForm()">إغلاق</button>
+</div>

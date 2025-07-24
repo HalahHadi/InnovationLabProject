@@ -1,0 +1,90 @@
+﻿@model WepApp2.Models.Request
+
+
+<!-- ==================================================
+     عرض تفاصيل طلب معيّن بناءً على نوع الخدمة المختارة
+     ================================================== -->
+
+@if (Model != null)
+{
+    <!-- نافذة مرنة لعرض معلومات المستفيد وتفاصيل الطلب جنبًا إلى جنب -->
+    <div style="display: flex; gap: 18px; flex-wrap: wrap;">
+        <!-- ===== معلومات المستفيد ===== -->
+        <div style="flex:1; min-width:210px;">
+            <h4>معلومات المستفيد</h4>
+            <div><b>الاسم:</b> @Model.User?.FirstName @Model.User?.LastName</div>
+            <div><b>القسم:</b> @Model.User?.Department</div>
+            <div><b>الكلية:</b> @Model.User?.Faculty</div>
+            <div><b>البريد الإلكتروني:</b> @Model.User?.Email</div>
+        </div>
+        <!-- ===== تفاصيل الطلب ===== -->
+        <div style="flex:1; min-width:210px;">
+            <h4>تفاصيل الطلب</h4>
+            <div><b>نوع الخدمة:</b> @Model.RequestType</div>
+            <div><b>الحالة:</b> @(string.IsNullOrEmpty(Model.AdminStatus) ? Model.SupervisorStatus : Model.AdminStatus)</div>
+            <div><b>تاريخ الطلب:</b> @Model.RequestDate.ToString("yyyy-MM-dd")</div>
+            
+            @* إعارة *@
+            @if (Model.RequestType == "إعارة" && Model.DeviceLoans?.Any() == true)
+            {
+                var loan = Model.DeviceLoans.First();
+                <div><b>الجهاز:</b> @(loan.Device?.DeviceName ?? "لا يوجد")</div>
+                <div><b>الغرض:</b> @loan.Purpose</div>
+                <div><b>تاريخ البداية:</b> @(loan.StartDate.ToString("yyyy-MM-dd"))</div>
+                <div><b>تاريخ النهاية:</b> @(loan.EndDate.ToString("yyyy-MM-dd"))</div>
+                <div><b>طريقة التواصل:</b> @loan.PreferredContactMethod</div>
+            }
+
+            @* حجز جهاز *@
+            else if (Model.RequestType == "حجز أجهزة" && Model.BookingDevices?.Any() == true)
+            {
+                var booking = Model.BookingDevices.First();
+                <div><b>الجهاز:</b> @(booking.Device?.DeviceName ?? "لا يوجد")</div>
+                <div><b>اسم المشروع:</b> @booking.ProjectName</div>
+                <div><b>وصف المشروع:</b> @booking.ProjectDescription</div>
+                <div><b>القسم:</b> @booking.Department</div>
+                <div><b>الكلية:</b> @booking.Faculty</div>
+                <div><b>التاريخ:</b> @booking.BookingDate.ToString("yyyy-MM-dd")</div>
+                <div><b>من:</b> @booking.StartTime.ToString(@"hh\:mm")</div>
+                <div><b>إلى:</b> @booking.EndTime.ToString(@"hh\:mm")</div>
+                <div><b>الملف:</b> @(string.IsNullOrEmpty(booking.FilePath) ? "لا يوجد" : Html.ActionLink("تحميل", "DownloadFile", new { path = booking.FilePath }))</div>
+            }
+            @* استشارة *@
+            else if (Model.RequestType == "استشارة" && Model.Consultations?.Any() == true)
+            {
+                var cons = Model.Consultations.First();
+                <div><b>الوصف:</b> @cons.ConsultationDescription</div>
+                <div><b>تخصص الاستشارة:</b> @cons.ConsultationMajor?.Major</div>
+                <div><b>تاريخ الاستشارة:</b> @cons.ConsultationDate.ToString("yyyy-MM-dd")</div>
+                <div><b>الوقت:</b> @cons.AvailableTimes.ToString(@"hh\:mm")</div>
+                <div><b>طريقة التواصل:</b> @cons.PreferredContactMethod</div>
+            }
+            @* زيارة مختبر *@
+            else if (Model.RequestType == "زيارة" && Model.LabVisits?.Any() == true)
+            {
+                var visit = Model.LabVisits.First();
+                <div><b>عدد الزوار:</b> @visit.NumberOfVisitors</div>
+                <div><b>تاريخ الزيارة:</b> @visit.VisitDate.ToString("yyyy-MM-dd")</div>
+                <div><b>الوقت:</b> @visit.PreferredTime.ToString(@"hh\:mm")</div>
+                <div><b>نوع الزيارة:</b> @(visit.VisitDetails?.VisitType ?? "غير محدد")</div>
+                <div><b>ملاحظات:</b> @visit.AdditionalNotes</div>
+                <div><b>طريقة التواصل:</b> @visit.PreferredContactMethod</div>
+            }
+            @* دورة تدريبية *@
+            else if (Model.RequestType == "دورة تدريبية" && Model.Course != null)
+            {
+                <div><b>اسم الدورة:</b> @Model.Course.CourseName</div>
+                <div><b>مجال الدورة:</b> @Model.Course.CourseField</div>
+                <div><b>وصف الدورة:</b> @Model.Course.CourseDescription</div>
+                <div><b>اسم المحاضر:</b> @Model.Course.PresenterName</div>
+            }
+            <div><b>المشرف:</b> @ViewBag.SupervisorName</div>
+            <div><b>ملاحظات:</b> @Model.Notes</div>
+        </div>
+    </div>
+}
+else
+{
+    <!-- رسالة خطأ في حال لم يتم جلب بيانات الطلب -->
+    <div class="text-danger">الطلب غير موجود أو حدث خطأ في جلب البيانات.</div>
+}

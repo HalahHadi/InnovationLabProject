@@ -1,0 +1,40 @@
+﻿@model WepApp2.Models.Course
+
+
+@section Styles {
+    <link href="~/css/services.css" rel="stylesheet" />
+}
+
+<!-- Overlay -->
+<div class="modal-overlay" id="modalOverlay" style="display:block;"></div>
+
+<!-- Popup الحذف -->
+<div class="form-popup modal-center" id="popupForm" style="display:block; max-width:400px; padding:20px; background:#fff; border-radius:8px; box-shadow:0 2px 10px rgba(0,0,0,0.2);">
+
+    <!-- رأس النافذة -->
+    <h2 class="text-center mb-4">حذف الدورة التدريبية</h2>
+
+    <!-- نص التأكيد بمحاذاة اليسار -->
+    <p class="text-start mb-4">
+        هل أنت متأكد من حذف الدورة:
+        <strong>(@Model.CourseName)</strong>؟
+    </p>
+
+    <!-- نموذج الحذف -->
+    <form id="deleteCourseForm"
+          asp-controller="Courses" 
+          asp-action="Delete"
+          method="post"
+          onsubmit="event.preventDefault(); submitDeleteCourseForm();">
+        @Html.AntiForgeryToken()
+        <input asp-for="CourseId" type="hidden" />
+
+        <!-- أزرار التأكيد -->
+        <div class="text-end">
+            <button type="submit" class="btn btn-danger">حذف</button>
+
+            <button type="button" class="btn btn-secondary" onclick="closeDeleteModal()()">إلغاء</button>
+
+        </div>
+    </form>
+</div>

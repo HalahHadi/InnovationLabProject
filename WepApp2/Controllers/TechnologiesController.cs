@@ -13,9 +13,9 @@ namespace WepApp2.Controllers
 {
     public class TechnologiesController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly InnvoationLabDbgroup2Context _context;
 
-        public TechnologiesController(ApplicationDbContext context)
+        public TechnologiesController(InnvoationLabDbgroup2Context context)
         {
             _context = context;
         }

@@ -1,0 +1,43 @@
+﻿@model IEnumerable<WepApp2.Models.VisitsDetail>
+
+
+<!-- عنوان نموذج الزيارات المحذوفة -->
+<h3 class="mb-3 text-center">أنواع الزيارات المحذوفة</h3>
+
+<!-- عرض رسالة إذا لم تكن هناك زيارات محذوفة -->
+@if (!Model.Any())
+{
+    <div class="alert alert-info text-center">لا توجد أنواع زيارات محذوفة.</div>
+}
+else
+{
+    <!-- جدول لعرض الزيارات المحذوفة -->
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>نوع الزيارة</th>
+                <th>الإجراءات</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.VisitType</td>
+                    <td>
+                        <button class="action-btn" style="background:#13b35e;"
+                                onclick="restoreVisitFromPopup(@item.VisitDetailsId)">
+                            استرجاع
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<!-- زر إغلاق النافذة المنبثقة -->
+
+<div class="text-end mt-3">
+    <button class="btn btn-secondary" onclick="closeVisitsDetailsForm()">إغلاق</button>
+</div>

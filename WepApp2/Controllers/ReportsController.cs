@@ -13,9 +13,9 @@ namespace WepApp2.Controllers
     // [Authorize(Roles = "مدير,Admin")]  // مؤقتاً معطل للاختبار
     public class ReportsController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly InnvoationLabDbgroup2Context _context;
 
-        public ReportsController(ApplicationDbContext context)
+        public ReportsController(InnvoationLabDbgroup2Context context)
         {
             _context = context;
         }

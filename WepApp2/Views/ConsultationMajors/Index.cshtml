@@ -1,0 +1,101 @@
+﻿@model IEnumerable<WepApp2.Models.ConsultationMajor>
+
+@{
+    ViewBag.Title = "إدارة الإستشارات";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<!-- تضمين ملف CSS الخاص بصفحة الخدمات -->
+@section Styles {
+    <link href="~/css/services.css" rel="stylesheet" />
+}
+
+<!-- رأس الصفحة مع زر الرجوع للخدمات -->
+<div class="page-header-with-back-btn">
+    <div>
+        <h1 class="page-title">إدارة الإستشارات </h1>
+        <p class="page-subtitle">عرض وإدارة جميع الإستشارات </p>
+    </div>
+    <!-- زر العودة إلى صفحة الخدمات الرئيسية -->
+    <button class="action-btn back-to-services-btn" onclick="window.location.href = '@Url.Action("Index", "Services")'">
+        <span class="fas fa-arrow-right"></span>
+    </button>
+</div>
+
+<!-- زر إضافة استشارة جديدة (يفتح فورم الإضافة) -->
+<div class="action-buttons-header">
+    <button class="action-btn" onclick="openConsultationMajorForm('@Url.Action("AddOrEdit", "ConsultationMajors")')">
+        <span class="fas fa-plus me-2"></span>إضافة إستشارة جديدة
+    </button>
+    <button class="action-btn" style="background:#A0AEC0;" onclick="openDeletedMajorsWindow()">
+        <span class="fas fa-trash-restore me-2"></span>عرض الاستشارات المحذوفة
+    </button>
+</div>
+
+<!-- جدول عرض الاستشارات التقنية -->
+<div class="table-responsive">
+    <div class="data-table-container">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>مجال الإستشارة</th>
+                    <th>الوصف</th>
+                    <th>الإجراءات</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- تكرار لكل عنصر (استشارة) في الموديل -->
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <!-- عرض مجال الاستشارة -->
+                        <td>@item.Major</td>
+                        <!-- عرض وصف الاستشارة -->
+                        <td>@item.ConsultationDescription</td>
+                        <!-- أزرار التعديل والحذف -->
+                        <td class="action-buttons">
+                            <!-- زر التعديل: يفتح فورم التعديل عبر AJAX -->
+                            <button class="action-btn edit-btn"
+                                    onclick="openConsultationMajorForm('@Url.Action("AddOrEdit", "ConsultationMajors", new { id = item.ConsultationMajorId })')">
+                                تعديل
+                            </button>
+                            <!-- زر الحذف: يفتح نافذة تأكيد الحذف -->
+                            <button class="action-btn delete-btn"
+                                    onclick="openConsultationMajorDelete('@Url.Action("Delete", "ConsultationMajors", new { id = item.ConsultationMajorId })')">
+                                حذف
+                            </button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- نافذة Popup للفورم (إضافة/تعديل/حذف) تظهر عند الضغط على أي زر -->
+<div class="overlay" id="overlay" onclick="closeConsultationMajorForm()" style="display:none;"></div>
+<div class="form-popup" id="popupForm" style="display:none;">
+    <div id="formContent"></div>
+</div>
+
+
+<!-- Success Popup -->
+<div class="success-popup" id="successPopup">
+    <div class="success-icon-container">
+        <svg class="success-checkmark" viewBox="0 0 52 52">
+            <circle class="success-checkmark-circle" cx="26" cy="26" r="25" fill="none" />
+            <path class="success-checkmark-check" fill="none" d="M14 27l7 7 16-16" />
+        </svg>
+    </div>
+    <h3 id="successPopupTitle">تمت العملية بنجاح!</h3>
+    <p id="successPopupMessage">تمت الإضافة بنجاح.</p>
+    <div class="text-center" style="margin-top:20px;">
+        <button class="action-btn" id="successPopupOk">حسناً</button>
+    </div>
+</div>
+
+<!-- تحميل مكتبة jQuery وملف الجافاسكريبت الخاص بالخدمات -->
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="~/js/services.js"></script>
+}

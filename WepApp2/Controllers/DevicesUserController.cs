@@ -8,9 +8,9 @@ using WepApp2.Models;
 
 public class DeviceController : Controller
 {
-    private readonly ApplicationDbContext _context;
+    private readonly InnvoationLabDbgroup2Context _context;
 
-    public DeviceController(ApplicationDbContext context)
+    public DeviceController(InnvoationLabDbgroup2Context context)
     {
         _context = context;
     }

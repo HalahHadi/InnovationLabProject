@@ -1,0 +1,62 @@
+﻿@model WepApp2.Models.ConsultationMajor
+
+
+<!-- تضمين ملف CSS الخاص بصفحة الخدمات -->
+@section Styles {
+    <link href="~/css/services.css" rel="stylesheet" />
+}
+
+<!-- عنوان نموذج إضافة استشارة جديدة -->
+<h2 class="text-center mb-4">
+    @(Model.ConsultationMajorId == 0 ? " إضافة إستشارة جديدة" : "تعديل الإستشارة")
+</h2>
+
+<form id="consultForm"
+      asp-controller="ConsultationMajors"
+      asp-action="AddOrEdit"
+      method="post"
+      onsubmit="event.preventDefault(); submitConsultationMajorForm();">
+    @Html.AntiForgeryToken()
+    <input asp-for="ConsultationMajorId" type="hidden" />
+
+    <div class="modal-body">
+        <!-- مجال الإستشارة -->
+        <div class="mb-3">
+            <label class="form-label">مجال الإستشارة</label>
+            <input asp-for="Major" class="form-control" id="ConsultMajor" />
+        </div>
+        <div id="consultMajorError"
+             class="assign-error-message"
+             style="display:none; width:100%; box-sizing:border-box;">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="red">
+                <path d="M11 15h2v2h-2zm0-8h2v6h-2zm.99 15c-5.52 0-10-4.48-10-10S6.47 2
+                         12 2s10 4.48 10 10-4.48 10-10 10zm0-18c-4.42 0-8
+                         3.58-8 8s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8z" />
+            </svg>
+            <span>الرجاء تعبئة مجال الإستشارة.</span>
+        </div>
+
+        <!-- وصف الإستشارة -->
+        <div class="mb-3">
+            <label class="form-label">وصف الإستشارة</label>
+            <textarea asp-for="ConsultationDescription" class="form-control" id="ConsultDesc"></textarea>
+        </div>
+        <div id="consultDescError"
+             class="assign-error-message"
+             style="display:none; width:100%; box-sizing:border-box;">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="red">
+                <path d="M11 15h2v2h-2zm0-8h2v6h-2zm.99 15c-5.52 0-10-4.48-10-10S6.47 2
+                         12 2s10 4.48 10 10-4.48 10-10 10zm0-18c-4.42 0-8
+                         3.58-8 8s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8z" />
+            </svg>
+            <span>الرجاء تعبئة وصف الإستشارة.</span>
+        </div>
+    </div>
+
+    <div class="text-end">
+        <button type="submit" class="btn btn-success">
+            @(Model.ConsultationMajorId == 0 ? "إضافة" : "حفظ")
+        </button>
+        <button type="button" class="btn btn-secondary" onclick="closeConsultationMajorForm()">إلغاء</button>
+    </div>
+</form>

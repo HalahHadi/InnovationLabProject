@@ -6,11 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 // ✅ Users Controller
 public class UsersController : Controller
 {
-    private readonly ApplicationDbContext _context;
+    private readonly InnvoationLabDbgroup2Context _context;
 
     // ✅ التهيئة باستخدام قاعدة البيانات
     // ✅ Inject database context via constructor
-    public UsersController(ApplicationDbContext context)
+    public UsersController(InnvoationLabDbgroup2Context context)
     {
         _context = context;
     }

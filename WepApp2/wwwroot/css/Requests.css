@@ -1,0 +1,396 @@
+﻿/* ==========================================================
+   التنسيقات العامة للواجهة (طلبات)
+   ========================================================== */
+body {
+
+    margin: 0;
+    font-family: 'Tajawal', sans-serif;
+    direction: rtl;
+    background: #f0f2f5;
+}
+
+/* تنسيق الحاوية الرئيسية للطلبات */
+#requests {
+    max-width: 1200px;
+    margin: auto;
+}
+
+/* ==========================================================
+   رأس الجدول والفلاتر (طلبات)
+   ========================================================== */
+.table-header {
+    background: #fff;
+    padding: 16px;
+    border-radius: 8px;
+}
+
+/* حاوية الفلاتر في رأس صفحة الطلبات */
+.filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+/* تنسيقات عناصر الفلترة والبحث */
+.filter-input, .filter-select {
+    height: 38px;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    padding: 0 8px;
+}
+
+/* ==========================================================
+   حاويات الجداول وتهيئة الجداول (طلبات)
+   ========================================================== */
+.table-container {
+    background: #fff;
+    border-radius: 8px;
+    overflow-x: auto;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    margin-top: 16px;
+    padding: 20px;
+}
+
+    .table-container h3 {
+        margin-bottom: 15px;
+        color: #333;
+        text-align: right;
+    }
+
+.requests-data-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+    .requests-data-table th, .requests-data-table td {
+        padding: 10px;
+        text-align: right;
+        border-bottom: 1px solid #e9ecef;
+        white-space: nowrap;
+    }
+
+    .requests-data-table thead {
+        background: #f8f9fa;
+    }
+
+/* عمود مركزي لتوسيط المحتوى مثل الحالة أو المشرف */
+.center-col {
+    text-align: center;
+}
+
+/* ==========================================================
+   شارات الحالات (Badge) للألوان والتمييز (طلبات)
+   ========================================================== */
+.badge {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+}
+
+/* شارات الحالة بالألوان المختلفة */
+.requests-data-table .badge-yellow {
+    background: #FEF3C7;
+    color: #713F12;
+    border-radius: 50px;
+}
+
+.requests-data-table .badge-blue {
+    background: #DBEAFE;
+    color: #1E3A8A;
+    border-radius: 50px;
+}
+
+.requests-data-table .badge-green {
+    background: #D1FAE5;
+    color: #134E4A;
+    border-radius: 50px;
+}
+
+.requests-data-table .badge-lightblue {
+    background: #CFFAFE;
+    color: #0F4C75;
+    border-radius: 50px;
+}
+
+.requests-data-table .badge-red {
+    background: #DC2626;
+    color: #FFF;
+    border-radius: 50px;
+}
+
+.requests-data-table .badge-purple {
+    background: #EEF2FF;
+    color: #4C1D95;
+    border-radius: 50px;
+}
+
+.requests-data-table .badge-grey {
+    background: #E5E7EB;
+    color: #374151;
+    border-radius: 50px;
+}
+
+.requests-data-table .badge-lightpink {
+    background: #FCE7F6;
+    color: #9D174D;
+    border-radius: 50px;
+}
+
+/* ==========================================================
+   تنسيق خلية المستخدم في الجدول (طلبات)
+   ========================================================== */
+.user-cell {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+    .user-cell div {
+        width: 28px;
+        height: 28px;
+        background: #6c757d;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+    }
+
+/* ==========================================================
+   أزرار الإجراءات (طلبات)
+   ========================================================== */
+.btn-cancel {
+    background: #e9ecef;
+    color: #495057;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.btn-confirm {
+    background: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 6px 12px;
+    cursor: pointer;
+}
+
+.icon-btn {
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0 4px;
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+    .icon-btn svg {
+        width: 20px;
+        height: 20px;
+        fill: #6B7280;
+        display: block;
+    }
+
+/* ==========================================================
+   النوافذ المنبثقة (مودالات الطلبات)
+   ========================================================== */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.4);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+    .modal.show {
+        display: flex;
+    }
+
+.modal-content {
+    background: #fff;
+    border-radius: 8px;
+    width: 95%;
+    max-width: 550px !important;
+    max-height: 70vh !important;
+    overflow-y: auto !important;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+}
+
+.modal-body {
+    padding: 16px;
+    overflow-y: auto; /* سكرول داخلي */
+    max-height: 55vh;
+}
+
+.modal-header, .modal-footer {
+    background: #f8f9fa;
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0; /* لا تتأثر بالسكرول */
+}
+
+.btn-close {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.info-box, .info-box-alt {
+    background: #f8f9fa;
+    padding: 12px;
+    border-radius: 6px;
+    margin-bottom: 10px;
+}
+
+/* رسالة الخطأ في نافذة إسناد المشرف أو اتخاذ القرار (طلبات) */
+.assign-error-message {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: #DC2626;
+    font-size: 14px;
+    margin-top: 10px;
+    padding: 8px 12px;
+    background-color: #FEE2E2;
+    border: 1px solid #FCA5A5;
+    border-radius: 4px;
+    display: none;
+}
+
+    .assign-error-message svg {
+        min-width: 16px;
+        min-height: 16px;
+    }
+
+/* نافذة رسالة النجاح عند تنفيذ إجراء بنجاح (طلبات) */
+.small-modal-content {
+    max-width: 400px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+/* مؤشر نجاح العملية (طلبات) */
+.request-success-checkmark {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: block;
+    position: relative;
+    margin: 0 auto;
+    background-color: transparent;
+    box-shadow: inset 0px 0px 0px 0px #13b35e;
+    animation: fillCircleAndScale .7s ease-in-out forwards;
+}
+
+    .request-success-checkmark svg {
+        width: 100%;
+        height: 100%;
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        opacity: 0;
+        animation: fadeInCheckSVG 0.3s ease-in-out 0.7s forwards;
+    }
+
+.request-success-checkmark-circle {
+    stroke-dasharray: 0;
+    stroke-dashoffset: 0;
+    stroke-width: 0;
+    fill: none;
+    stroke: transparent;
+}
+
+.request-success-checkmark-check {
+    transform-origin: 50% 50%;
+    stroke-dasharray: 48;
+    stroke-dashoffset: 48;
+    animation: strokeCheck 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+    stroke: white;
+    stroke-width: 4;
+    fill: none;
+}
+
+@keyframes fillCircleAndScale {
+    0% {
+        transform: scale(0);
+        background-color: transparent;
+        box-shadow: inset 0px 0px 0px 0px #13b35e;
+    }
+
+    40% {
+        transform: scale(1);
+        background-color: #13b35e;
+        box-shadow: inset 0px 0px 0px 60px #13b35e;
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+
+    100% {
+        transform: scale(1);
+        background-color: #13b35e;
+        box-shadow: inset 0px 0px 0px 60px #13b35e;
+    }
+}
+
+@keyframes strokeCheck {
+    100% {
+        stroke-dashoffset: 0;
+    }
+}
+
+@keyframes fadeInCheckSVG {
+    to {
+        opacity: 1;
+    }
+}
+
+/* ==========================================================
+   تفاصيل الطلب في نافذة منفصلة - نظام عمودين (طلبات)
+   ========================================================== */
+.details-modal-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    align-items: start;
+}
+
+.details-section {
+    background: #f8f9fa;
+    padding: 18px;
+    border-radius: 10px;
+    text-align: right;
+}
+
+    .details-section h3 {
+        margin-bottom: 15px;
+        font-size: 1.2em;
+        color: #333;
+        text-align: right;
+    }
+
+/* استجابة التصميم للأجهزة الصغيرة (طلبات) */
+@media (max-width: 700px) {
+    .details-modal-grid {
+        grid-template-columns: 1fr;
+    }
+}
+

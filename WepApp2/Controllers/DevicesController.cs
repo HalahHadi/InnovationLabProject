@@ -14,9 +14,9 @@ namespace WepApp2.Controllers
 {
     public class DevicesController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly InnvoationLabDbgroup2Context _context;
 
-        public DevicesController(ApplicationDbContext context)
+        public DevicesController(InnvoationLabDbgroup2Context context)
         {
             _context = context;
         }

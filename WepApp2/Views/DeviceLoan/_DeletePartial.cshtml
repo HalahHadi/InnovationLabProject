@@ -1,0 +1,40 @@
+﻿@{
+
+    // تعريف المتغيرات لاستقبال بيانات الجهاز المراد حذفه
+    int serviceId = ViewBag.ServiceId;
+    int deviceId = ViewBag.DeviceId;
+    string deviceName = ViewBag.DeviceName;
+}
+
+
+<!-- استدعاء ملف CSS لتنسيق صفحة الخدمات -->
+@section Styles {
+    <link href="~/css/services.css" rel="stylesheet" />
+}
+
+<!-- عنوان نموذج تأكيد حذف الجهاز -->
+<h2 class="text-center mb-4">
+    حذف الجهاز
+</h2>
+
+<!-- نموذج تأكيد حذف الجهاز المرتبط بخدمة الإعارة -->
+<form id="deleteDeviceForm"
+      action="@Url.Action("DeleteDeviceFromService","DeviceLoan")"
+      method="post"
+      onsubmit="event.preventDefault(); submitDeleteDeviceForm();">
+    @Html.AntiForgeryToken()
+    <input type="hidden" name="serviceId" value="@serviceId" />
+    <input type="hidden" name="deviceId" value="@deviceId" />
+
+    <!-- رسالة تأكيد حذف الجهاز مع عرض اسمه -->
+    <p>هل أنت متأكد من حذف الجهاز: <strong>(@deviceName)</strong>؟</p>
+
+    <!-- أزرار النموذج (تأكيد الحذف أو الإلغاء) -->
+
+    <div class="text-end">
+        <button type="submit" class="btn btn-danger">حذف</button>
+        <button type="button" class="btn btn-secondary" onclick="closeDeviceLoanForm()">
+            إلغاء
+        </button>
+    </div>
+</form>
