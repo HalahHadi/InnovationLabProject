@@ -67,10 +67,14 @@
                     <td>@request.RequestType</td>
                     <td>@request.User?.UserName</td>
                     <td>@request.RequestDate.ToString("yyyy-MM-dd")</td>
-                    <td class="status">@request.SupervisorStatus</td>
+                    <td class="status"> 
+                        @(string.IsNullOrEmpty(request.AdminStatus) ? request.SupervisorStatus : request.AdminStatus)</td>
                     <td class="actions">
                         <div class="d-flex justify-content-start gap-2">
-                            @if (request.SupervisorStatus == "موافق عليه من قبل المشرف" || request.SupervisorStatus == "مرفوض من قبل المشرف")
+                            @if (request.SupervisorStatus == "موافق عليه من قبل المشرف"
+                                                    || request.SupervisorStatus == "مرفوض من قبل المشرف"
+                                                    || request.AdminStatus == "موافق عليه من قبل المسؤول"
+                                                    || request.AdminStatus == "مرفوض من قبل المسؤول")
                             {
                                 <span>تم الإجراء</span>
                             }
@@ -88,6 +92,7 @@
                                 data-user-name="@request.User?.UserName"
                                 data-request-date="@request.RequestDate.ToString("yyyy-MM-dd")"
                                 data-status="@request.SupervisorStatus"
+                                data-admin-status="@request.AdminStatus"
                                 data-device-name="@(request.RequestType == "حجز أجهزة" || request.RequestType == "إعارة" ? request.Device?.DeviceName : "غير متاح")">
                             <i class="fas fa-eye"></i>
                         </button>
@@ -102,16 +107,6 @@
 <!-- Modal Overlay -->
 <div class="supervisor-overlay" id="overlay"></div>
 
-<!-- Reject Modal -->
-<div class="supervisor-reject-modal" id="rejectModal">
-    <h3 class="mb-3">رفض الطلب</h3>
-    <label for="rejectReason">سبب الرفض *</label>
-    <textarea id="rejectReason" rows="4" class="form-control mt-2" placeholder="اكتب سبب رفض الطلب..."></textarea>
-    <div class="mt-3 text-start">
-        <button type="button" onclick="confirmReject()" class="btn btn-danger">تأكيد الرفض</button>
-        <button type="button" onclick="closeModal()" class="btn btn-secondary me-2">إغلاق</button>
-    </div>
-</div>
 
 <!-- Details Modal -->
 <div class="supervisor-details-modal" id="detailsModal">
@@ -169,14 +164,14 @@
             });
         });
 
-        document.querySelectorAll(".supervisor-reject-btn").forEach(btn => {
+                document.querySelectorAll(".supervisor-reject-btn").forEach(btn => {
             btn.addEventListener("click", function () {
-                selectedRow = this.closest("tr");
-                selectedRequestId = this.getAttribute("data-request-id");
-                document.getElementById("rejectModal").style.display = "block";
-                document.getElementById("overlay").style.display = "block";
+                const row = this.closest("tr");
+                const requestId = this.getAttribute("data-request-id");
+                updateStatus(requestId, "مرفوض من قبل المشرف", row);
             });
         });
+
 
         // زر عرض التفاصيل
         document.querySelectorAll(".supervisor-view-details-btn").forEach(btn => {
@@ -192,7 +187,8 @@
                 document.getElementById("detailRequestType").textContent = requestType;
                 document.getElementById("detailUserName").textContent = userName || "غير محدد";
                 document.getElementById("detailRequestDate").textContent = requestDate;
-                document.getElementById("detailStatus").textContent = status;
+                document.getElementById("detailStatus").textContent = this.getAttribute("data-admin-status") || status;
+
 
                 if (requestType === "زيارة") {
                     fetch(`/Supervisor/GetVisitType?id=${requestId}`)
@@ -234,22 +230,13 @@
         });
 
 
-        function confirmReject() {
-            const reason = document.getElementById("rejectReason").value.trim();
-            if (reason === "") {
-                alert("يرجى إدخال سبب الرفض.");
-                return;
-            }
-            updateStatus(selectedRequestId, "مرفوض من قبل المشرف", selectedRow, reason); // ✨ أرسل السبب هنا
-            closeModal();
-        }
 
-        function updateStatus(requestId, status, row, notes = null) {
-            const data = {
-                requestId: requestId,
-                status: status,
-                notes: notes // ✨ أرسل السبب هنا (null في الموافقة)
-            };
+            function updateStatus(requestId, status, row) {
+        const data = {
+            requestId: requestId,
+            status: status
+        };
+
 
             fetch('/Supervisor/UpdateStatus', {
                 method: 'POST',
@@ -263,7 +250,7 @@
             .then(data => {
                 if (data.success) {
                     row.querySelector(".status").textContent = status;
-                    row.querySelector(".status").style.color = (status === "موافق عليه") ? "#16a34a" : "#dc2626";
+                    row.querySelector(".status").style.color = (status === "موافق عليه من قبل المشرف") ? "#16a34a" : "#dc2626";
                     row.querySelector(".actions").innerHTML = `<span>تم الإجراء</span>`;
                 } else {
                     alert("حدث خطأ أثناء التحديث.");
@@ -272,11 +259,6 @@
             .catch(() => alert("فشل الاتصال بالخادم."));
         }
 
-        function closeModal() {
-            document.getElementById("rejectModal").style.display = "none";
-            document.getElementById("overlay").style.display = "none";
-            document.getElementById("rejectReason").value = "";
-        }
 
         function closeDetailsModal() {
             document.getElementById("detailsModal").style.display = "none";
@@ -284,7 +266,7 @@
         }
 
         document.getElementById("overlay").addEventListener("click", function() {
-            closeModal();
+            
             closeDetailsModal();
         });
 
