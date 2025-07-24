@@ -216,11 +216,7 @@ function submitBookingRequest() {
                 showNotification(response.message, 'success');
 
 
-                // 🔁 إعادة التوجيه بعد ثواني قليلة
-                setTimeout(() => {
-                    window.location.href = "/UserReservations";
-                }, 1500); // ← ينتظر 1.5 ثانية عشان يشوف رسالة "تم الإرسال"
-
+               
 
             } else {
                 showNotification(response.message || 'حدث خطأ أثناء الإرسال', 'error');
@@ -279,10 +275,6 @@ function submitLoanRequest() {
                 showNotification(response.message, 'success');
 
 
-                // 🔁 إعادة التوجيه بعد ثواني قليلة
-                setTimeout(() => {
-                    window.location.href = "/UserReservations";
-                }, 1500); // ← ينتظر 1.5 ثانية عشان يشوف رسالة "تم الإرسال"
 
             } else {
                 showNotification(response.message || 'فشل في الإرسال', 'error');
@@ -322,11 +314,6 @@ function submitVisitRequest() {
                 showNotification(response.message, 'success');
 
 
-                // 🔁 إعادة التوجيه بعد ثواني قليلة
-                setTimeout(() => {
-                    window.location.href = "/UserReservations";
-                }, 1500); // ← ينتظر 1.5 ثانية عشان يشوف رسالة "تم الإرسال"
-
 
             } else {
                 console.error("🚨 Server Error:", response.error || "No error message");
@@ -362,11 +349,6 @@ function submitConsultationRequest() {
                 showPage('confirmation');
                 showNotification(response.message, 'success');
 
-
-                // 🔁 إعادة التوجيه بعد ثواني قليلة
-                setTimeout(() => {
-                    window.location.href = "/UserReservations";
-                }, 1500); // ← ينتظر 1.5 ثانية عشان يشوف رسالة "تم الإرسال"
 
 
             } else {
@@ -405,12 +387,7 @@ function submitCourseRegistration() {
                 showPage('confirmation');
                 showNotification(response.message, 'success');
 
-                // 🔁 إعادة التوجيه بعد ثواني قليلة
-                setTimeout(() => {
-                    window.location.href = "/UserReservations";
-                }, 1500); // ← ينتظر 1.5 ثانية عشان يشوف رسالة "تم الإرسال"
-
-
+           
 
             } else {
                 showNotification(response.message || 'فشل في التسجيل', 'error');

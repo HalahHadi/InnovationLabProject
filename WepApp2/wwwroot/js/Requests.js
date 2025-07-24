@@ -175,7 +175,7 @@ async function filterRequests() {
         // إخفاء الجداول مؤقتاً حتى نعيد ترتيبها لاحقاً
         if (serviceTypeFilter === '' || serviceTypeFilter === type) {
             // Hide all tables initially, we'll add them in order later
-            tableWrapper.style.display = 'none';
+            tableWrapper.style.display = 'block';
         } else {
             tableWrapper.style.display = 'none';
         }
@@ -284,10 +284,17 @@ async function filterRequests() {
     });
 
     // ترتيب عرض الجداول بحيث تظهر الجداول التي تحتوي على بيانات أولاً ثم الفارغة
+   
     const parent = document.getElementById('requests');
-    [...filledTables, ...emptyTables].forEach(tw => parent.appendChild(tw));
-    filledTables.forEach(tw => tw.style.display = 'block');
-    emptyTables.forEach(tw => tw.style.display = 'block');
+    [...filledTables, ...emptyTables].forEach(tw => {
+        const tableId = tw.id.replace('TableWrapper', '');
+        if (serviceTypeFilter === '' || serviceTypeFilter === tableId) {
+            parent.appendChild(tw);
+            tw.style.display = 'block';
+        } else {
+            tw.style.display = 'none';
+        }
+    });
 }
 
 /* دالة getPenButton: تُرجع زر "إجراء" (أيقونة القلم) إذا كان الطلب من الحالات المسموح بها */
