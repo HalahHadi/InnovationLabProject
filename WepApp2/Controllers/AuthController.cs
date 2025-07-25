@@ -38,28 +38,48 @@ namespace WepApp2.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(User user)
+        public async Task<IActionResult> Login(User user, bool RememberMe = false)
         {
+
+
             var existingUser = _context.Users
-            .FirstOrDefault(u => u.UserName == user.UserName && u.UserPassWord == user.UserPassWord);
+                .FirstOrDefault(u => u.UserName == user.UserName && u.UserPassWord == user.UserPassWord);
 
             if (existingUser != null)
             {
                 // إنشاء قائمة الـ Claims
                 var claims = new List<Claim>
-                {
-                    new Claim(ClaimTypes.Name, existingUser.UserName),
-                    new Claim(ClaimTypes.Role, existingUser.UserRole ?? "Student"),
-                    new Claim("FirstName", existingUser.FirstName ?? "")  // ✅ هنا نضيف الاسم الأول
-                    ,
-            new Claim("UserID", existingUser.UserId.ToString()) // <-- هنا أضفنا الـ UserId
-                };
+        {
+            new Claim(ClaimTypes.Name, existingUser.UserName),
+            new Claim(ClaimTypes.Role, existingUser.UserRole ?? "Student"),
+            new Claim("FirstName", existingUser.FirstName ?? ""),
+            new Claim("UserID", existingUser.UserId.ToString())
+        };
 
                 var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                 var principal = new ClaimsPrincipal(identity);
 
-                // تسجيل الدخول بالكوكيز
-                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+                // تحديد خصائص الجلسة بناءً على "تذكرني"
+                var authProperties = new AuthenticationProperties();
+
+                if (RememberMe)
+                {
+                    // عند تفعيل "تذكرني": الكوكيز تبقى لمدة يوم كامل (24 ساعة)
+                    authProperties.IsPersistent = true;
+                    authProperties.ExpiresUtc = DateTimeOffset.UtcNow.AddDays(1);
+
+                }
+                else
+                {
+                    // عند عدم تفعيل "تذكرني": الكوكيز تُحذف عند إغلاق المتصفح (Session cookie)
+                    authProperties.IsPersistent = false;
+
+                }
+
+                await HttpContext.SignInAsync(
+                    CookieAuthenticationDefaults.AuthenticationScheme,
+                    principal,
+                    authProperties);
 
                 // التوجيه حسب الدور
                 if (existingUser.UserRole == "مدير")
@@ -73,9 +93,6 @@ namespace WepApp2.Controllers
 
                 if (existingUser.UserRole == "عضو هيئة تدريس")
                     return RedirectToAction("Bookings", "Home");
-
-
-               // return RedirectToAction("HomePage", "Auth");
             }
 
             ViewBag.LoginFailed = true;
@@ -321,12 +338,13 @@ namespace WepApp2.Controllers
         }
 
 
+
         // تسجيل الخروج
         [HttpPost]
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            return RedirectToAction("Index","Home");
+            return RedirectToAction("Index", "Home");
         }
     }
 }
