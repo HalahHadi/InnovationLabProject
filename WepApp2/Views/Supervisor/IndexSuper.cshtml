@@ -47,7 +47,7 @@
 
 <form id="requestsForm" method="post">
     @Html.AntiForgeryToken()
-
+    <div class="table-responsive">
     <table id="requestsTable" class="table table-hover">
         <thead>
             <tr>
@@ -104,6 +104,7 @@
 
         </tbody>
     </table>
+    </div>
 </form>
 
 <!-- Modal Overlay -->
@@ -252,7 +253,6 @@
             .then(data => {
                 if (data.success) {
                     row.querySelector(".status").textContent = status;
-                    row.querySelector(".status").style.color = (status === "موافق عليه من قبل المشرف") ? "#16a34a" : "#dc2626";
                     row.querySelector(".actions").innerHTML = `<span>تم الإجراء</span>`;
                 } else {
                     alert("حدث خطأ أثناء التحديث.");

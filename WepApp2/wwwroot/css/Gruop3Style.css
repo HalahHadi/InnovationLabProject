@@ -1,4 +1,52 @@
 ﻿/* supervisor.css */
+* {
+    box-sizing: border-box;
+}
+
+html {
+    direction: ltr; /* شريط التمرير على اليمين */
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+body {
+    direction: rtl; /* المحتوى عربي */
+    margin: 0;
+    padding: 0;
+    background-color: #f5f7fa;
+    overflow-x: hidden;
+}
+
+/* إصلاح التخطيط */
+.container-fluid {
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto /*إجبار شريط التمرير أن يظهر في اليمين للصفحات RTL*/
+    body
+
+{
+    direction: rtl;
+    overflow-y: scroll;
+    scrollbar-gutter: stable both-edges;
+    لجعل مكان الشريط محفوظ دائمًا
+}
+
+body::-webkit-scrollbar {
+    width: 8px;
+}
+
+body::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+body::-webkit-scrollbar-thumb {
+    background-color: #13b35e;
+    border-radius: 4px;
+}
+
+}
+
 /*/* أنماط الفلاتر */
 .supervisor-filters-container {
     background-color: #f8f9fa;
@@ -47,7 +95,7 @@
     }
 
 /* تحسين تجاوب الفلاتر على الشاشات الصغيرة */
-@@media (max-width: 768px) {
+@media (max-width: 768px) {
     .supervisor-filters-container .row {
         gap: 15px;
     }
@@ -146,7 +194,7 @@
     }
 
 /* تحسين عرض الأزرار في الأجهزة المحمولة */
-@@media (max-width: 576px) {
+@media (max-width: 576px) {
     .actions .btn {
         margin-bottom: 5px;
         font-size: 12px;
@@ -161,6 +209,10 @@
     .supervisor-details-modal {
         width: 95%;
         padding: 20px;
+    }
+
+    .supervisor-detail-value {
+        font-size: 14px;
     }
 }
 
@@ -251,9 +303,28 @@
         border-color: #9c2626 !important;
         box-shadow: 0 0 0 0.2rem rgba(229, 62, 62, 0.25) !important;
     }
+/* كل الأعمدة في جدول الطلبات فقط */
+#requestsTable th, #requestsTable td {
+    max-width: 180px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: center;
+    vertical-align: middle;
+}
+
+/* خلي الجدول نفسه يتمدد في كل المساحة */
+#requestsTable {
+    width: 100% !important;
+    table-layout: auto !important;
+}
+
+/* لو ودك يخفي التمرير الأفقي من الجدول نفسه */
+.table-responsive {
+    overflow-x: auto;
+}
 
 /* profile.css */
-
 /* Reset & Base */
 .profile-page * {
     margin: 0;
@@ -444,6 +515,10 @@
 
     .profile-main {
         padding: 1rem;
+    }
+
+    .profile-header h1 {
+        font-size: 2rem;
     }
 }
 
@@ -936,6 +1011,11 @@
         opacity: 0;
         transform: translateY(-20px);
     }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 @keyframes wil-pulse {
@@ -965,10 +1045,51 @@
         margin: 20px;
         padding: 30px 25px;
     }
+
+    .wil-auth-box--register {
+        margin: 20px;
+        padding: 30px 25px;
+    }
+
+    .wil-logo {
+        max-width: 150px;
+        max-height: 90px;
+    }
+
+    .wil-nav-link {
+        padding: 10px 15px;
+        font-size: 14px;
+    }
+
+    .wil-reset-icon {
+        width: 70px;
+        height: 70px;
+        font-size: 2rem;
+    }
+
+    .wil-reset-header h3 {
+        font-size: 1.5rem;
+    }
+
+    .wil-reset-header p {
+        font-size: 1rem;
+    }
+
+    .wil-auth-header h1 {
+        font-size: 2rem;
+    }
+
+    .wil-auth-header h2 {
+        font-size: 1.25rem;
+    }
 }
 
 @media (max-width: 768px) {
     .wil-auth-box {
+        max-width: 90%;
+    }
+
+    .wil-auth-box--register {
         max-width: 90%;
     }
 }
@@ -1015,7 +1136,8 @@ canvas {
 /* ===================================== */
 /* CSS Variables (Custom Properties)     */
 /* ===================================== */
-:root { /* Color Palette */
+:root {
+    /* Color Palette */
     --reports-primary-color: #13b35e;
     --reports-primary-dark: #085a09;
     --reports-secondary-color: #3182ce;
@@ -1344,6 +1466,7 @@ body {
     margin-bottom: 20px;
 }
 
+
 /* Divider line */
 .customreport-divider {
     margin: 30px 0 20px;
@@ -1543,7 +1666,8 @@ body {
 /* 4. Responsive Styles                 */
 /* ===================================== */
 
-@media (max-width: 768px) { /* AllReports Responsive */
+@media (max-width: 768px) {
+    /* AllReports Responsive */
     .allreports-page-header h1 {
         font-size: 2rem;
     }
@@ -1552,6 +1676,15 @@ body {
         gap: 15px;
         justify-content: center;
     }
+
+    .allreports-stat-box {
+        min-width: 150px;
+        padding: 15px;
+    }
+
+        .allreports-stat-box h3 {
+            font-size: 1.5rem;
+        }
 
     .allreports-charts-container {
         gap: 15px;
@@ -1583,9 +1716,21 @@ body {
         margin: 10px;
     }
 
+    .customreport-section-title {
+        font-size: 20px;
+    }
+
     /* PrintReport Responsive */
     .printreport-body {
         margin: 20px;
+    }
+
+    .printreport-main-title {
+        font-size: 24px;
+    }
+
+    .printreport-table {
+        font-size: 14px;
     }
 }
 
@@ -1593,7 +1738,8 @@ body {
 /* 5. Print Media Styles                */
 /* ===================================== */
 
-@media print { /* Hide non-printable elements */
+@media print {
+    /* Hide non-printable elements */
     .printreport-print-button,
     .customreport-action-buttons .btn-outline-secondary,
     .allreports-custom-btn {
@@ -1670,6 +1816,10 @@ body {
     from {
         opacity: 0;
     }
+
+    to {
+        opacity: 1;
+    }
 }
 
 @keyframes fadeInUp {
@@ -1677,12 +1827,22 @@ body {
         opacity: 0;
         transform: translateY(20px);
     }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 @keyframes fadeInDown {
     from {
         opacity: 0;
         transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
 
@@ -1715,10 +1875,20 @@ body {
     padding: 1.5rem !important;
 }
 
+.mb-4 {
+    margin-bottom: 1.5rem !important;
+}
+
 /* Fix for RTL layouts */
 [dir="rtl"] .allreports-stats,
 [dir="rtl"] .allreports-charts-container {
     direction: rtl;
+}
+
+/* Ensure charts are visible */
+canvas {
+    display: block !important;
+    box-sizing: border-box;
 }
 
 /* ===================================== */
@@ -1726,8 +1896,279 @@ body {
 /* ===================================== */
 
 
+/* Reset & Base */
+.faq-body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #006C35 0%, #228B22 100%);
+    min-height: 100vh;
+    direction: rtl;
+}
+
+.faq-breadcrumb {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 1rem 0;
+    margin-bottom: 2rem;
+}
+
+.faq-breadcrumb-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.faq-breadcrumb-nav {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: white;
+    font-size: 0.9rem;
+}
+
+    .faq-breadcrumb-nav a {
+        color: rgba(255, 255, 255, 0.8);
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+        .faq-breadcrumb-nav a:hover {
+            color: white;
+        }
+
+.faq-breadcrumb-separator {
+    color: rgba(255, 255, 255, 0.6);
+    margin: 0 0.3rem;
+}
+
+.faq-breadcrumb-current {
+    color: white;
+    font-weight: 500;
+}
+
+.faq-main {
+    padding: 2rem;
+    background: white;
+    min-height: calc(100vh - 80px);
+}
+
+.faq-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.faq-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+    .faq-header h1 {
+        color: #2C3E50;
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .faq-header p {
+        color: #666;
+        font-size: 1.1rem;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+.faq-section {
+    background: #f8f9fa;
+    padding: 2rem;
+    border-radius: 15px;
+    margin-bottom: 2rem;
+}
+
+    .faq-section h3 {
+        color: #006C35;
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+.faq-search-input {
+    width: 100%;
+    padding: 0.8rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+    .faq-search-input:focus {
+        outline: none;
+        border-color: #006C35;
+    }
+
+.faq-category {
+    margin-bottom: 2rem;
+}
+
+.faq-list {
+    display: grid;
+    gap: 1rem;
+}
+
+.faq-item {
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.faq-question {
+    padding: 1rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: white;
+    transition: background 0.3s ease;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+    .faq-question:hover {
+        background: #f8f9fa;
+    }
+
+    .faq-question h5 {
+        margin: 0;
+        color: #2C3E50;
+        font-size: 1rem;
+    }
+
+    .faq-question i {
+        color: #006C35;
+        transition: transform 0.3s ease;
+    }
+
+    .faq-question.active i {
+        transform: rotate(180deg);
+    }
+
+.faq-answer {
+    padding: 0 1rem;
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    background: #f8f9fa;
+}
+
+    .faq-answer.show {
+        padding: 1rem;
+        max-height: 500px;
+    }
+
+    .faq-answer p,
+    .faq-answer ul,
+    .faq-answer ol {
+        color: #666;
+        line-height: 1.6;
+    }
+
+    .faq-answer li {
+        margin-bottom: 0.25rem;
+    }
+
+.faq-btn {
+    padding: 0.7rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.faq-btn-primary {
+    background: #006C35;
+    color: white;
+}
+
+    .faq-btn-primary:hover {
+        background: #228B22;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(0, 108, 53, 0.3);
+    }
+
+
+
+
+.customreport-fields-container {
+    margin-top: 1rem;
+}
+
+.customreport-form-check {
+    margin-bottom: 0.5rem;
+}
+/* دعم عناصر تقارير الخدمات */
+.customreport-form-label {
+    font-weight: bold;
+    margin-bottom: 8px;
+    display: block;
+    color: #fff;
+}
+
+.customreport-fields-container {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.customreport-form-check {
+    margin-bottom: 10px;
+}
+
+.customreport-main-container {
+    padding: 40px;
+    background: linear-gradient(to bottom, #009444, #007e3a);
+    color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+}
+
+.form-select,
+.form-control {
+    background-color: #fff;
+    color: #000;
+}
+
+.customreport-action-buttons {
+    margin-top: 20px;
+}
+/* وسطي العنوان */
+.customreport-section-title {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+/* وسطي الأزرار */
+.customreport-action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+/* لضمان أن يكون كامل النموذج في منتصف الشاشة */
+.customreport-main-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 3rem;
+}
 /* ===================================== */
-/*  لتوسيط الأزرار           */            
+/* إصلاح نهائي لتوسيط الأزرار           */
+/* أضف هذا في نهاية ملف CSS            */
 /* ===================================== */
 
 /* إعادة تعيين الأنماط للزر الأساسي */
@@ -1767,7 +2208,6 @@ button#wil-submit-btn {
         display: inline-block !important;
         text-align: center !important;
     }
-
 /* ===================================== */
 /* توسيط زر تسجيل الدخول                */
 /* ===================================== */
@@ -1799,7 +2239,6 @@ button.wil-btn-primary:not(.wil-nav-link) {
     display: block !important;
     text-align: center !important;
 }
-
 /* ===================================== */
 /* رسائل الخطأ والنجاح في ForgotPassword */
 /* ===================================== */
@@ -1831,7 +2270,6 @@ button.wil-btn-primary:not(.wil-nav-link) {
         vertical-align: middle !important;
         margin-left: 8px !important;
     }
-
 /* رسالة النجاح في صفحة تسجيل الدخول */
 #wil-reset-success-alert {
     background-color: #d4edda !important;
@@ -1845,6 +2283,11 @@ button.wil-btn-primary:not(.wil-nav-link) {
     from {
         opacity: 0;
         transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
 
@@ -1865,7 +2308,6 @@ button.wil-btn-primary:not(.wil-nav-link) {
     cursor: not-allowed;
     opacity: 0.6;
 }
-
 /* الحقول المطلوبة header */
 .fields-section .form-label {
     margin-bottom: 0;
@@ -1877,44 +2319,6 @@ button.wil-btn-primary:not(.wil-nav-link) {
     color: #6c757d;
     margin-bottom: 5px;
 }
-
-.wil-password-input {
-    position: relative;
-}
-
-    .wil-password-input input {
-        padding-left: 40px; /* مساحة لأيقونة العين */
-        padding-right: 15px;
-    }
-
-.wil-password-toggle {
-    position: absolute;
-    left: 10px; /* في أقصى اليسار */
-    top: 50%;
-    transform: translateY(-50%);
-    background: none;
-    border: none;
-    color: #6c757d;
-    cursor: pointer;
-    padding: 5px;
-    z-index: 10;
-}
-
-    .wil-password-toggle:hover {
-        color: #495057;
-    }
-
-    .wil-password-toggle:focus {
-        outline: none;
-    }
-
-/* للحقول RTL */
-.wil-auth-box .wil-password-input input {
-    direction: rtl;
-    text-align: right;
-}
-
-
 /* ===================================== */
 /* 9. CreateCustomReport Page Styles     */
 /* ===================================== */
@@ -2148,6 +2552,14 @@ button.wil-btn-primary:not(.wil-nav-link) {
         gap: 15px;
     }
 
+    .date-field-wrapper {
+        width: 100%;
+    }
+
+    .date-separator {
+        display: none;
+    }
+
     .report-actions {
         flex-direction: column;
         width: 100%;
@@ -2278,8 +2690,236 @@ body {
     .print-button {
         display: none;
     }
+
+    body {
+        margin: 20px;
+    }
 }
 
+/* ====================================== */
+/* FAQStyle */
+/* ====================================== */
+
+.faq-page {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #006C35 0%, #228B22 100%);
+    min-height: 100vh;
+    direction: rtl;
+    padding-top: 120px;
+}
+
+    /* > Rahaf -: شريط التصفح */
+    .faq-page .faq-breadcrumb {
+        background: rgba(255, 255, 255, 0.1);
+        padding: 1rem 0;
+        margin-bottom: 2rem;
+    }
+
+    .faq-page .faq-breadcrumb-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
+    }
+
+    .faq-page .faq-breadcrumb-nav {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: white;
+        font-size: 0.9rem;
+    }
+
+        .faq-page .faq-breadcrumb-nav a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+            .faq-page .faq-breadcrumb-nav a:hover {
+                color: white;
+            }
+
+    .faq-page .faq-breadcrumb-separator {
+        color: rgba(255, 255, 255, 0.6);
+        margin: 0 0.3rem;
+    }
+
+    .faq-page .faq-breadcrumb-current {
+        color: white;
+        font-weight: 500;
+    }
+
+    /* > Rahaf -: المحتوى الرئيسي */
+    .faq-page .faq-main {
+        padding: 2rem;
+        background: white;
+        min-height: calc(100vh - 80px);
+    }
+
+    .faq-page .faq-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem;
+    }
+
+    /* > Rahaf -: العنوان */
+    .faq-page .faq-header {
+        text-align: center;
+        margin-bottom: 3rem;
+    }
+
+        .faq-page .faq-header h1 {
+            color: #2C3E50;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .faq-page .faq-header p {
+            color: #666;
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+    /* > Rahaf -: الأقسام */
+    .faq-page .faq-section {
+        background: #f8f9fa;
+        padding: 2rem;
+        border-radius: 15px;
+        margin-bottom: 3rem;
+    }
+
+        .faq-page .faq-section h3,
+        .faq-page .tracking-section h3 {
+            color: #006C35 !important;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.4rem;
+            font-weight: bold;
+        }
+
+    /* > Rahaf -: البحث */
+    .faq-page .faq-search-input {
+        width: 100%;
+        padding: 0.8rem;
+        border: 2px solid #e0e0e0;
+        border-radius: 8px;
+        font-size: 1rem;
+        transition: border-color 0.3s ease;
+    }
+
+        .faq-page .faq-search-input:focus {
+            outline: none;
+            border-color: #006C35;
+        }
+
+    /* > Rahaf -: القائمة */
+    .faq-page .faq-category {
+        margin-bottom: 2rem;
+    }
+
+    .faq-page .faq-list {
+        display: grid;
+        gap: 1rem;
+        margin-top: 15px;
+    }
+
+    .faq-page .faq-item {
+        background: white;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+        border: 1px solid #ddd;
+    }
+
+    /* > Rahaf -: الأسئلة */
+    .faq-page .faq-question {
+        padding: 1rem;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: white;
+        transition: background 0.3s ease;
+        border-bottom: 1px solid #f0f0f0;
+    }
+
+        .faq-page .faq-question:hover {
+            background: #f8f9fa;
+        }
+
+        .faq-page .faq-question h5 {
+            margin: 0;
+            color: #2C3E50;
+            font-size: 1rem;
+        }
+
+        .faq-page .faq-question i {
+            color: #006C35;
+            transition: transform 0.3s ease;
+        }
+
+        .faq-page .faq-question.active i {
+            transform: rotate(180deg);
+        }
+
+    /* > Rahaf -: الإجابات */
+    .faq-page .faq-answer {
+        padding: 0 1rem;
+        max-height: 0;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        background: #f8f9fa;
+    }
+
+        .faq-page .faq-answer.show {
+            padding: 1rem;
+            max-height: 500px;
+        }
+
+        .faq-page .faq-answer p {
+            margin-bottom: 0.5rem;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .faq-page .faq-answer ul,
+        .faq-page .faq-answer ol {
+            margin: 0.5rem 0;
+            padding-right: 1.5rem;
+            color: #666;
+        }
+
+        .faq-page .faq-answer li {
+            margin-bottom: 0.25rem;
+        }
+
+    /* > Rahaf -: الأزرار */
+    .faq-page .faq-btn {
+        padding: 0.7rem 1.5rem;
+        border: none;
+        border-radius: 8px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .faq-page .faq-btn-primary {
+        background: #006C35;
+        color: white;
+    }
+
+        .faq-page .faq-btn-primary:hover {
+            background: #228B22;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 108, 53, 0.3);
+        }
 /* تحسين عرض الجدول للشاشات الصغيرة */
 @media (max-width: 1200px) {
     .report-table {
@@ -2298,12 +2938,42 @@ body {
         size: A4 landscape; /* توجيه الصفحة أفقياً */
         margin: 10mm;
     }
+
+    .print-button {
+        display: none;
+    }
+
+    body {
+        margin: 10px;
+        font-size: 12px;
+    }
+
+    .report-header {
+        margin-bottom: 15px;
+    }
+
+    .report-title {
+        font-size: 20px;
+    }
+
+    .report-subtitle {
+        font-size: 16px;
+    }
     /* تصغير حجم الجدول للطباعة */
     .report-table {
         font-size: 11px;
         width: 100%;
         table-layout: auto;
     }
+
+        .report-table th,
+        .report-table td {
+            padding: 4px;
+            font-size: 10px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
     /* تحسين عرض badges الحالة */
     .status-badge,
     .user-type-badge {
@@ -2443,9 +3113,6 @@ body {
 .print-report-status-approved {
     background-color: #27ae60;
 }
-.print-report-status-rejected-supervisor {
-    background-color: #f7de14;
-}
 
 .print-report-status-rejected {
     background-color: #e74c3c;
@@ -2565,29 +3232,45 @@ body {
         transform: translateY(0);
     }
 
-.print-report-data-table th,
-.print-report-data-table td {
-    padding: 6px;
-    white-space: nowrap;
+/* تحسين عرض الجدول للشاشات الصغيرة */
+@media (max-width: 1200px) {
+    .print-report-data-table {
+        font-size: 12px;
+    }
+
+        .print-report-data-table th,
+        .print-report-data-table td {
+            padding: 6px;
+            white-space: nowrap;
+        }
+
+    .print-report-status-badge {
+        font-size: 11px;
+        padding: 3px 8px;
+    }
 }
 
-.print-report-status-badge {
-    font-size: 11px;
-    padding: 3px 8px;
-}
+@media (max-width: 768px) {
+    .print-report-body {
+        margin: 20px;
+    }
 
-.print-report-main-title {
-    font-size: 24px;
-}
+    .print-report-main-title {
+        font-size: 24px;
+    }
 
-.print-report-sub-title {
-    font-size: 18px;
-}
+    .print-report-sub-title {
+        font-size: 18px;
+    }
 
-.print-report-data-table {
-    font-size: 11px;
-}
+    .print-report-data-table {
+        font-size: 11px;
+    }
 
+        .print-report-data-table th,
+        .print-report-data-table td {
+            padding: 4px;
+        }
 }
 
 /* Print Media Styles */
@@ -2614,6 +3297,16 @@ body {
         padding-bottom: 10px;
     }
 
+    .print-report-main-title {
+        font-size: 20px;
+        margin-bottom: 5px;
+    }
+
+    .print-report-sub-title {
+        font-size: 16px;
+        margin-bottom: 5px;
+    }
+
     .print-report-service-type {
         font-size: 14px;
     }
@@ -2630,6 +3323,22 @@ body {
         table-layout: auto;
         box-shadow: none;
     }
+
+        .print-report-data-table th,
+        .print-report-data-table td {
+            padding: 4px;
+            font-size: 9px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            border: 1px solid #ccc;
+        }
+
+        .print-report-data-table th {
+            background-color: #e9ecef !important;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
 
     /* تحسين badges الحالة للطباعة */
     .print-report-status-badge,
@@ -2665,6 +3374,10 @@ body {
         print-color-adjust: exact;
     }
 
+    .print-report-data-table tbody tr:hover {
+        background-color: transparent !important;
+    }
+
     /* تحسين فواصل الصفحات */
     .print-report-data-table {
         page-break-inside: avoid;
@@ -2681,6 +3394,11 @@ body {
     from {
         opacity: 0;
         transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
 
@@ -2705,3 +3423,78 @@ body {
         .print-report-data-table::-webkit-scrollbar-thumb:hover {
             background: #555;
         }
+
+.wil-password-input {
+    position: relative;
+}
+
+    .wil-password-input input {
+        padding-left: 40px; /* مساحة لأيقونة العين */
+        padding-right: 15px;
+    }
+
+.wil-password-toggle {
+    position: absolute;
+    left: 10px; /* في أقصى اليسار */
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #6c757d;
+    cursor: pointer;
+    padding: 5px;
+    z-index: 10;
+}
+
+    .wil-password-toggle:hover {
+        color: #495057;
+    }
+
+    .wil-password-toggle:focus {
+        outline: none;
+    }
+
+/* للحقول RTL */
+.wil-auth-box .wil-password-input input {
+    direction: rtl;
+    text-align: right;
+}
+
+
+}
+
+
+/* الحل النهائي للفراغ اليمين في كل الصفحة */
+
+html, body {
+    overflow-x: hidden !important;
+    width: 100% !important;
+    max-width: 100vw !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* صفوف وأعمدة البوتستراب */
+.row, .container, .container-fluid {
+    max-width: 100vw !important;
+    overflow-x: hidden !important;
+    margin-right: auto;
+    margin-left: auto;
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+}
+
+/* الجداول لا تتجاوز العرض */
+table {
+    width: 100% !important;
+    table-layout: auto !important;
+    word-break: break-word !important;
+    overflow-x: auto !important;
+}
+
+/* لمنع النصوص الطويلة في الأعمدة من توسيع الجدول */
+td, th {
+    word-break: break-word !important;
+    max-width: 220px;
+    overflow-wrap: anywhere !important;
+}
