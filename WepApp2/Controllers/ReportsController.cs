@@ -525,7 +525,7 @@ namespace WepApp2.Controllers
                         var serviceData = services.Select(r => new
                         {
                             نوع_الخدمة = GetServiceName(r),
-                            وصف_الخدمة = r.RequestType ?? "غير محدد",
+                            وصف_الخدمة = r.Service?.ServiceDescription ?? "غير محدد",
                             تاريخ_الطلب = r.RequestDate.ToString("yyyy-MM-dd"),
                             المستخدم = GetUserFullName(r.User),
                             الحالة = GetRequestStatus(r)
