@@ -79,7 +79,7 @@ function populateUsersTable() {
             <td><span class="status-badge ${getStatusBadgeClass(user.IsActive ? 'نشط' : 'غير نشط')}">${user.IsActive ? 'نشط' : 'غير نشط'}</span></td>
             <td>
     <div class="action-buttons">
-        <a class="action-btn btn-edit" href="/Users/EditUser/${user.UserID}" title="تعديل البيانات">
+        <a class="action-btn btn-edit" href="/Users/EditUser/${user.UserId}" title="تعديل البيانات">
            ✏️  <span class="text-xs hidden sm:inline">تعديل</span>
         </a>
         

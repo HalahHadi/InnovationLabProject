@@ -48,10 +48,10 @@ public class UsersController : Controller
 
         // ✅ إذا اختار المستخدم "أخرى"، يتم استخدام النص المدخل
         // ✅ Handle "Other" faculty case
-        //if (user.Faculty == "أخرى")
-        //{
-        //    user.Faculty = user.OtherFaculty;
-        //}
+        if (user.Faculty == "أخرى")
+        {
+            user.Faculty = user.OtherFaculty;
+        }
 
         // ✅ تعيين وقت تسجيل الدخول الأخير للحظة الإضافة
         // ✅ Set initial LastLogin date
@@ -76,22 +76,26 @@ public class UsersController : Controller
     {
         var user = _context.Users.Find(id);
 
-        // ✅ إعداد قيمة OtherFaculty حسب نوع الجهة
-        //// ✅ Setup OtherFaculty based on current Faculty value
-        //if (user.Faculty == "أخرى")
-        //{
-        //    user.OtherFaculty = ""; // يملأها المستخدم لاحقًا
-        //}
-        //else
-        //{
-        //    user.OtherFaculty = user.Faculty; // عرضها مباشرة
-        //}
-
 
         if (user == null)
         {
             return NotFound();
         }
+
+
+        // ✅ إعداد قيمة OtherFaculty حسب نوع الجهة
+        //// ✅ Setup OtherFaculty based on current Faculty value
+        if (user.Faculty == "أخرى")
+        {
+           user.OtherFaculty = ""; // يملأها المستخدم لاحقًا
+        }
+        else
+        {
+            user.OtherFaculty = user.Faculty; // عرضها مباشرة
+        }
+
+
+        
 
         // ✅ تمرير قائمة الكليات إلى الـ View
         // ✅ Send faculties list to the view

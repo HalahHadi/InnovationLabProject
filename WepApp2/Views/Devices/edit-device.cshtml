@@ -49,7 +49,7 @@ Description: Page to update an existing device's information
             <div class="col-md-6">
                 @Html.LabelFor(m => m.TechnologyId, "نوع التقنية")
                 @Html.DropDownListFor(m => m.TechnologyId,
-                new SelectList(ViewBag.Technologies, "TechnologyID", "TechnologyName", Model.TechnologyId),
+                new SelectList(ViewBag.Technologies, "TechnologyId", "TechnologyName", Model.TechnologyId),
                         "اختر نوع التقنية",
                         new { @class = "form-select", required = "required" })
 

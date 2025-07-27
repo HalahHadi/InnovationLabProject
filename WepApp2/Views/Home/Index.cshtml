@@ -7,12 +7,12 @@
 
 @{
 
-    var vrCount = Model.Count(d => d.Technology != null && d.Technology.TechnologyName == "أجهزة الواقع الافتراضي" && d.DeviceStatus == "متاح");
-    var arCount = Model.Count(d => d.Technology != null && d.Technology.TechnologyName == "أجهزة الواقع المعزز" && d.DeviceStatus == "متاح");
-    var robotCount = Model.Count(d => d.Technology != null && d.Technology.TechnologyName == "الروبوتات التعليمية" && d.DeviceStatus == "متاح");
-    var printerCount = Model.Count(d => d.Technology != null && d.Technology.TechnologyName == "الطابعات ثلاثية الأبعاد" && d.DeviceStatus == "متاح");
-    var studioCount = Model.Count(d => d.Technology != null && d.Technology.TechnologyName == "معدات الاستوديو" && d.DeviceStatus == "متاح");
-    var aiCount = Model.Count(d => d.Technology != null && d.Technology.TechnologyName == "أجهزة الذكاء الاصطناعي" && d.DeviceStatus == "متاح");
+    var vrCount = Model.Count(d => d.Technology != null && d.Technology.TechnologyName == "أجهزة الواقع الافتراضي" && d.DeviceStatus == "active");
+    var arCount = Model.Count(d => d.Technology != null && d.Technology.TechnologyName == "أجهزة الواقع المعزز" && d.DeviceStatus == "active");
+    var robotCount = Model.Count(d => d.Technology != null && d.Technology.TechnologyName == "الروبوتات التعليمية" && d.DeviceStatus == "active");
+    var printerCount = Model.Count(d => d.Technology != null && d.Technology.TechnologyName == "الطابعات ثلاثية الأبعاد" && d.DeviceStatus == "active");
+    var studioCount = Model.Count(d => d.Technology != null && d.Technology.TechnologyName == "معدات الاستوديو" && d.DeviceStatus == "active");
+    var aiCount = Model.Count(d => d.Technology != null && d.Technology.TechnologyName == "أجهزة الذكاء الاصطناعي" && d.DeviceStatus == "active");
 
 }
 
@@ -47,11 +47,12 @@
             <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
                 <div class="navbar-nav d-flex align-items-center gap-3">
                     <a class="nav-link" href="/Home/Index" onclick="showPage('home')">الرئيسية</a>
-                    <a class="nav-link" href="/Home/Index" onclick="showPage('home'); setTimeout(() => scrollToSection('services'), 100)">الخدمات</a>
-                    <a class="nav-link" href="/Home/Index" onclick="showPage('home'); setTimeout(() => scrollToSection('devices'), 100)">الأجهزة</a>
-                    <a class="nav-link" href="/Home/Index" onclick="showPage('home'); setTimeout(() => scrollToSection('about'), 100)">عن المعمل</a>
-                    <a class="nav-link" href="/Home/FAQ">الأسئلة الشائعة</a>
-                    <a class="nav-link" href="/Home/Index#contact" onclick="showPage('contact')">تواصـل</a>
+                  <a class="nav-link" href="/Home/Index#services">الخدمات</a>
+                  <a class="nav-link" href="/Home/Index#devices">الأجهزة</a>
+                  <a class="nav-link" href="/Home/Index#about">عن المعمل</a>
+                  <a class="nav-link" href="/Home/FAQ">الأسئلة الشائعة</a>
+@*                   <a class="nav-link" href="/Home/Index#contact">تواصـل</a>
+ *@               <a class="nav-link" href="/Home/Index#contact" onclick="showPage('contact')">تواصـل</a>
                 </div>
             </div>
 
@@ -176,7 +177,7 @@
                         <p>مجموعة متنوعة من أحدث الأجهزة والتقنيات المتقدمة في خدمتكم - انقر على أي فئة لعرض الأجهزة المتاحة</p>
                     </div>
                     <div class="devices-grid">
-                        <div class="device-card" onclick="displayDevicesForCategory(11)" style="cursor:pointer;">
+                        <div class="device-card" onclick="displayDevicesForCategory(1)" style="cursor:pointer;">
                             <div class="device-image">
                                 <i class="fas fa-vr-cardboard"></i>
                             </div>
@@ -190,7 +191,7 @@
                             </div>
                         </div>
 
-                        <div class="device-card" onclick="displayDevicesForCategory(10)" style="cursor:pointer;">
+                        <div class="device-card" onclick="displayDevicesForCategory(2)" style="cursor:pointer;">
                             <div class="device-image">
                                 <i class="fas fa-mobile-alt"></i>
                             </div>
@@ -204,7 +205,7 @@
                             </div>
                         </div>
 
-                        <div class="device-card" onclick="displayDevicesForCategory(9)" style="cursor:pointer;">
+                        <div class="device-card" onclick="displayDevicesForCategory(3)" style="cursor:pointer;">
                             <div class="device-image">
                                 <i class="fas fa-robot"></i>
                             </div>
@@ -218,7 +219,7 @@
                             </div>
                         </div>
 
-                        <div class="device-card" onclick="displayDevicesForCategory(8)" style="cursor:pointer;">
+                        <div class="device-card" onclick="displayDevicesForCategory(4)" style="cursor:pointer;">
                             <div class="device-image">
                                 <i class="fas fa-cube"></i>
                             </div>
@@ -232,7 +233,7 @@
                             </div>
                         </div>
 
-                        <div class="device-card" onclick="displayDevicesForCategory(7)" style="cursor:pointer;">
+                        <div class="device-card" onclick="displayDevicesForCategory(5)" style="cursor:pointer;">
                             <div class="device-image">
                                 <i class="fas fa-video"></i>
                             </div>

@@ -130,7 +130,7 @@
                             </div>
                         </div>
 
-                        
+
                     </div>
                 </div>
 
@@ -171,7 +171,7 @@
                             </div>
                         </div>
 
-                      
+
                     </div>
                 </div>
 
@@ -226,7 +226,7 @@
                             </div>
                         </div>
 
-                       
+
                     </div>
                 </div>
 
@@ -247,56 +247,56 @@
                 </div>
 
 @section Scripts {
-    <script>
-        function toggleFAQ(element) {
-            element.classList.toggle("active");
-            const answer = element.nextElementSibling;
-            answer.classList.toggle("show");
-        }
-
-            function searchFAQ() {
-                const searchTerm = document.getElementById('faqSearch').value.trim().toLowerCase();
-                const faqCategories = document.querySelectorAll('.faq-category');
-
-                // إذا كان حقل البحث فارغًا، يتم إظهار جميع الأسئلة مرة أخرى
-                if (!searchTerm) {
-                    faqCategories.forEach(category => {
-                        const questions = category.querySelectorAll('.faq-item');
-                        questions.forEach(item => {
-                            item.style.display = 'block'; // إظهار جميع الأسئلة
-                        });
-                        category.style.display = 'block'; // إظهار الفئة إذا كانت فارغة من الأسئلة
-                    });
-                    return; // خروج من الدالة إذا كان الحقل فارغًا
-                }
-
-                faqCategories.forEach(category => {
-                    const questions = category.querySelectorAll('.faq-item');
-                    let categoryMatch = false;
-
-                    questions.forEach(item => {
-                        const question = item.querySelector('.faq-question h5').textContent.trim().toLowerCase();
-
-                        // البحث في السؤال فقط وليس في الإجابة
-                        if (question.indexOf(searchTerm) !== -1) {
-                            item.style.display = 'block'; // إظهار العنصر إذا تم العثور على المطابقة
-                            categoryMatch = true; // تعيين فئة البحث إلى مطابقة
-                        } else {
-                            item.style.display = 'none'; // إخفاء العنصر إذا لم يتم العثور على المطابقة
+                    <script>
+                        function toggleFAQ(element) {
+                            element.classList.toggle("active");
+                            const answer = element.nextElementSibling;
+                            answer.classList.toggle("show");
                         }
-                    });
 
-                    // إخفاء الفئة بالكامل إذا لم تكن هناك نتائج مطابقة
-                    if (!categoryMatch) {
-                        category.style.display = 'none';
-                    } else {
-                        category.style.display = 'block';
-                    }
-                });
-            }
+                            function searchFAQ() {
+                                const searchTerm = document.getElementById('faqSearch').value.trim().toLowerCase();
+                                const faqCategories = document.querySelectorAll('.faq-category');
+
+                                // إذا كان حقل البحث فارغًا، يتم إظهار جميع الأسئلة مرة أخرى
+                                if (!searchTerm) {
+                                    faqCategories.forEach(category => {
+                                        const questions = category.querySelectorAll('.faq-item');
+                                        questions.forEach(item => {
+                                            item.style.display = 'block'; // إظهار جميع الأسئلة
+                                        });
+                                        category.style.display = 'block'; // إظهار الفئة إذا كانت فارغة من الأسئلة
+                                    });
+                                    return; // خروج من الدالة إذا كان الحقل فارغًا
+                                }
+
+                                faqCategories.forEach(category => {
+                                    const questions = category.querySelectorAll('.faq-item');
+                                    let categoryMatch = false;
+
+                                    questions.forEach(item => {
+                                        const question = item.querySelector('.faq-question h5').textContent.trim().toLowerCase();
+
+                                        // البحث في السؤال فقط وليس في الإجابة
+                                        if (question.indexOf(searchTerm) !== -1) {
+                                            item.style.display = 'block'; // إظهار العنصر إذا تم العثور على المطابقة
+                                            categoryMatch = true; // تعيين فئة البحث إلى مطابقة
+                                        } else {
+                                            item.style.display = 'none'; // إخفاء العنصر إذا لم يتم العثور على المطابقة
+                                        }
+                                    });
+
+                                    // إخفاء الفئة بالكامل إذا لم تكن هناك نتائج مطابقة
+                                    if (!categoryMatch) {
+                                        category.style.display = 'none';
+                                    } else {
+                                        category.style.display = 'block';
+                                    }
+                                });
+                            }
 
 
 
-    </script>
+                    </script>
 }
 

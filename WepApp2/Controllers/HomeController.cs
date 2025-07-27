@@ -53,7 +53,7 @@ namespace WepApp2.Controllers
 
             // الإحصائيات
             var totalDevices = _context.Devices.Count(d => !d.IsDeleted);
-            var totalUsers = _context.Users.Count(u => !u.IsActive);
+            var totalUsers = _context.Users.Count(u => u.IsActive);
             var totalBookings = _context.BookingDevices.Count();
             var totalVisits = _context.LabVisits.Count();
 

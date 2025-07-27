@@ -33,7 +33,7 @@ Description: Form to input new device information into the system
     @if (!ViewData.ModelState.IsValid)
     {
         <div class="alert alert-danger">
-            <strong>⚠️ حدثت أخطاء:</strong>
+            <strong>⚠ حدثت أخطاء:</strong>
             <ul>
                 @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
                 {
@@ -66,7 +66,7 @@ Description: Form to input new device information into the system
             <div class="col-md-6">
                 @Html.LabelFor(m => m.TechnologyId, "نوع التقنية")
                 @Html.DropDownListFor(m => m.TechnologyId,
-                new SelectList(ViewBag.Technologies as List<Technology>, "TechnologyID", "TechnologyName"),
+                new SelectList(ViewBag.Technologies as List<Technology>, "TechnologyId", "TechnologyName"),
                         "اختر نوع التقنية",
                         new { @class = "form-select", required = "required" })
 

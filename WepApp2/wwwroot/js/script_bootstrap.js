@@ -153,21 +153,22 @@ function showNotification(message, type = 'success') {
 }
 
 
-
+// ✅ دالة ترجمة النص المعروض للحالة
 function getDeviceStatusText(status) {
     const statusMap = {
-        'متاح': 'متاح ',
-        'محجوز': 'محجوز',
-        'تحت الصيانة': 'تحت الصيانة'
+        'active': 'متاح',
+        'inactive': 'محجوز',
+        'maintenance': 'تحت الصيانة'
     };
     return statusMap[status] || status;
 }
 
+// ✅ دالة تحدد كلاس CSS بناءً على الحالة
 function getDeviceStatusClass(status) {
     const statusClassMap = {
-        'متاح': 'status-available',
-        'محجوز': 'status-busy',
-        'تحت الصيانة': 'status-maintenance'
+        'active': 'status-available',
+        'inactive': 'status-busy',
+        'maintenance': 'status-maintenance'
     };
     return statusClassMap[status] || 'status-available';
 }
@@ -176,12 +177,12 @@ function getDeviceStatusClass(status) {
 // Function to get appropriate icon for each category
 function getIconClassByTechnologyId(type) {
     switch (type) {
-        case 1: return "fas fa-brain";       // الذكاء الاصطناعي
-        case 2: return "fas fa-video";       // الاستوديو
-        case 3: return "fas fa-cube";        // الطابعات ثلاثية
-        case 4: return "fas fa-robot";       // الروبوتات
-        case 5: return "fas fa-mobile-alt";  // الواقع المعزز
-        case 6: return "fas fa-vr-cardboard";// الواقع الافتراضي
+        case 6: return "fas fa-brain";       // الذكاء الاصطناعي
+        case 5: return "fas fa-video";       // الاستوديو
+        case 4: return "fas fa-cube";        // الطابعات ثلاثية
+        case 3: return "fas fa-robot";       // الروبوتات
+        case 2: return "fas fa-mobile-alt";  // الواقع المعزز
+        case 1: return "fas fa-vr-cardboard";// الواقع الافتراضي
         default: return "fas fa-cogs";       // افتراضي
     }
 }
@@ -190,12 +191,12 @@ function getIconClassByTechnologyId(type) {
 // Function to get gradient colors for each category
 function getCategoryGradient(categoryKey) {
     const gradientMap = {
-        'vr': 'linear-gradient(45deg, #006C35, #10B981)',
-        'ar': 'linear-gradient(45deg, #1E3A8A, #3B82F6)',
-        'robot': 'linear-gradient(45deg, #F59E0B, #FCD34D)',
-        '3d': 'linear-gradient(45deg, #EF4444, #F87171)',
-        'studio': 'linear-gradient(45deg, #8B5CF6, #A78BFA)',
-        'ai': 'linear-gradient(45deg, #06B6D4, #67E8F9)'
+        '1': 'linear-gradient(45deg, #006C35, #10B981)',
+        '2': 'linear-gradient(45deg, #1E3A8A, #3B82F6)',
+        '3': 'linear-gradient(45deg, #F59E0B, #FCD34D)',
+        '4': 'linear-gradient(45deg, #EF4444, #F87171)',
+        '5': 'linear-gradient(45deg, #8B5CF6, #A78BFA)',
+        '6': 'linear-gradient(45deg, #06B6D4, #67E8F9)'
     };
     return gradientMap[categoryKey] || 'linear-gradient(45deg, #6B7280, #9CA3AF)';
 }
