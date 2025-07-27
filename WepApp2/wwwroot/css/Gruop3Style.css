@@ -1,4 +1,4 @@
-/*/* أنماط الفلاتر */
+﻿/*/* أنماط الفلاتر */
 .supervisor-filters-container {
     background-color: #f8f9fa;
     border: 1px solid #dee2e6;
@@ -2640,6 +2640,9 @@ body {
 .print-report-status-rejected {
     background-color: #e74c3c;
 }
+.print-report-status-rejected-supervisor {
+    background-color: #f4a261;
+}
 
 .print-report-status-completed {
     background-color: #95a5a6;
@@ -2795,7 +2798,7 @@ body {
             padding: 4px;
         }
 }
-/* Print Media Styles */
+/* Print Media Styles - الحل المحدث لتثبيت Header */
 @media print {
     @page {
         size: A4 landscape;
@@ -2835,13 +2838,34 @@ body {
         margin-bottom: 15px;
     }
 
-    /* تحسين الجدول للطباعة */
+    /* الحل المحدث لتثبيت Header الجدول */
     .print-report-data-table {
         font-size: 10px;
-        width: 100%;
-        table-layout: auto;
+        width: 100% !important;
+        table-layout: fixed !important;
         box-shadow: none;
+        border-collapse: collapse !important;
+        page-break-inside: auto;
+        border-spacing: 0 !important;
+        position: static !important;
     }
+
+        /* إعداد محسن للـ table sections */
+        .print-report-data-table thead {
+            display: table-header-group !important;
+            break-inside: avoid !important;
+            break-after: avoid !important;
+            page-break-inside: avoid !important;
+            page-break-after: avoid !important;
+        }
+
+        .print-report-data-table tbody {
+            display: table-row-group !important;
+        }
+
+        .print-report-data-table tfoot {
+            display: table-footer-group !important;
+        }
 
         .print-report-data-table th,
         .print-report-data-table td {
@@ -2851,12 +2875,19 @@ body {
             overflow: hidden;
             text-overflow: ellipsis;
             border: 1px solid #ccc;
+            position: static !important;
+            transform: none !important;
         }
 
         .print-report-data-table th {
             background-color: #e9ecef !important;
-            -webkit-print-color-adjust: exact;
-            print-color-adjust: exact;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+            color-adjust: exact !important;
+            font-weight: bold !important;
+            position: static !important;
+            top: auto !important;
+            z-index: auto !important;
         }
 
     /* تحسين badges الحالة للطباعة */
@@ -2895,10 +2926,10 @@ body {
     }
 
     /* تحسين فواصل الصفحات */
-        .print-report-data-table tr {
-            page-break-inside: avoid;
-            page-break-after: auto;
-        }
+    .print-report-data-table tr {
+        page-break-inside: avoid;
+        page-break-after: auto;
+    }
 
     /* منع كسر الصفحة داخل الجدول بشكل غير مناسب */
     .print-report-data-table tbody tr {
@@ -2912,7 +2943,7 @@ body {
         animation: none !important;
         transition: none !important;
     }
-        }
+}
 .wil-password-input {
     position: relative;
 }
@@ -2948,7 +2979,7 @@ body {
     direction: rtl;
     text-align: right;
 }
-
+}
 html, body {
     overflow-x: hidden !important;
     width: 100% !important;
