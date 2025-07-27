@@ -231,23 +231,20 @@
                 </div>
 
 
-            <!-- تواصل معنا -->
-            <div class="faq-section">
-                <h3><i class="fas fa-question"></i> لم تجد إجابة لسؤالك؟</h3>
-                <p style="color: #666;">إذا لم تجد إجابة لسؤالك، يمكنك التواصل معنا مباشرة:</p>
-                <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-                        <a class="faq-btn faq-btn-primary" href="/Home/Index#contact">
+                <!-- في FAQ.cshtml - الرابط المُصحح -->
+                <!-- تواصل معنا -->
+                <div class="faq-section">
+                    <h3><i class="fas fa-question"></i> لم تجد إجابة لسؤالك؟</h3>
+                    <p style="color: #666;">إذا لم تجد إجابة لسؤالك، يمكنك التواصل معنا مباشرة:</p>
+                    <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                        <!-- الرابط المُحدث للتوجيه إلى قسم التواصل -->
+                        <a class="faq-btn faq-btn-primary"
+                           href="@Url.Action("Index", "Home")"
+                           onclick="localStorage.setItem('showContactOnLoad', 'true');">
                             <i class="fas fa-envelope"></i> اتصل بنا
                         </a>
-
+                    </div>
                 </div>
-            </div> 
-
-        </div>
-    </div>
-</div>
-
-
 
 @section Scripts {
     <script>

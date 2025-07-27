@@ -301,8 +301,7 @@
                         <!-- Contact Form -->
                         <div class="contact-form-section">
                             <div class="contact-header">
-                                <h2><i class="fas fa-envelope"></i> تواصل</h2>
-                                <p>نحن هنا لمساعدتك! تواصل معنا عبر أي من الطرق التالية أو أرسل لنا رسالة</p>
+                                <a class="nav-link" href="#contact" onclick="showPage('contact')">تواصـل</a>                                <p>نحن هنا لمساعدتك! تواصل معنا عبر أي من الطرق التالية أو أرسل لنا رسالة</p>
                             </div>
 
                             <form class="contact-form">
@@ -346,9 +345,8 @@
                                 </button>
                             </form>
                         </div>
-
-                        <!-- Contact Information -->
-                        <div class="contact-info-section">
+                        <!-- Contact Information Section -->
+                        <div id="contactInfoSection" class="contact-info-section">
                             <h3><i class="fas fa-map-marker-alt"></i> معلومات التواصل</h3>
 
                             <div class="contact-info-cards">
@@ -395,7 +393,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+
 
                     <!-- Map Section -->
                     <div class="map-section">
@@ -410,45 +408,9 @@
                                     <p>يمكن إضافة خريطة تفاعلية هنا لتوضيح موقع المعمل داخل الجامعة</p>
                                 </div>
                             </div>
-                        </div>
+                        </div
                     </div>
 
-                    @*   <!-- FAQ Section -->
-                    <div class="faq-section">
-                        <h3><i class="fas fa-question-circle"></i> الأسئلة الشائعة السريعة</h3>
-                        <div class="faq-items">
-                            <div class="faq-item">
-                                <div class="faq-icon">
-                                    <i class="fas fa-question-circle"></i>
-                                </div>
-                                <div class="faq-content">
-                                    <h4>كيف أقوم بحجز جهاز؟</h4>
-                                    <p>قم بتسجيل الدخول ثم اضغط على "احجز الآن" واختر نوع الجهاز المطلوب.</p>
-                                </div>
-                            </div>
-
-                            <div class="faq-item">
-                                <div class="faq-icon">
-                                    <i class="fas fa-question-circle"></i>
-                                </div>
-                                <div class="faq-content">
-                                    <h4>كم ستستغرق مراجعة الحجز؟</h4>
-                                    <p>عادة ما تتم المراجعة خلال 24 ساعة عمل من تاريخ الإرسال.</p>
-                                </div>
-                            </div>
-
-                            <div class="faq-item">
-                                <div class="faq-icon">
-                                    <i class="fas fa-question-circle"></i>
-                                </div>
-                                <div class="faq-content">
-                                    <h4>هل يمكنني إلغاء الحجز؟</h4>
-                                    <p>نعم، يمكن إلغاء الحجز من صفحة "حجوزاتي" قبل الموافقة عليه.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div> *@ 
             </section>
         </div>
 
@@ -465,4 +427,11 @@
 </html>
 
 
-
+<script>
+    window.addEventListener('load', function() {
+        if (localStorage.getItem('showContactOnLoad') === 'true') {
+            localStorage.removeItem('showContactOnLoad');
+            showPage('contact');
+        }
+    });
+</script>
