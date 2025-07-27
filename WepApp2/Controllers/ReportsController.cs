@@ -110,54 +110,67 @@ namespace WepApp2.Controllers
 
                 if (reportType == "تقرير الطلبات")
                 {
-                    // جلب البيانات من قاعدة البيانات
+                    // الخطوة 1: جلب البيانات الأساسية من قاعدة البيانات
                     var requestsQuery = _context.Requests
                         .Include(r => r.User)
                         .Include(r => r.Service)
                         .Include(r => r.Device)
                         .AsQueryable();
 
-                    // تطبيق فلتر التاريخ إذا تم تحديده
+                    // الخطوة 2: تطبيق فلاتر التاريخ
                     if (fromDate.HasValue)
                     {
                         requestsQuery = requestsQuery.Where(r => r.RequestDate >= fromDate.Value);
                     }
                     if (toDate.HasValue)
                     {
-                        requestsQuery = requestsQuery.Where(r => r.RequestDate <= toDate.Value);
+                        // نضيف يومًا واحدًا ونجعل البحث "أقل من" لتضمين اليوم المحدد بالكامل
+                        requestsQuery = requestsQuery.Where(r => r.RequestDate < toDate.Value.AddDays(1));
                     }
 
-                    // تطبيق فلتر حالة الطلب إذا تم تحديده
+                    // الخطوة 3: تطبيق فلتر حالة الطلب إذا تم تحديده
                     if (!string.IsNullOrEmpty(requestStatus))
                     {
+                        // يتم الفلترة بناءً على الحالة النهائية (إما حالة الأدمن أو حالة المشرف)
                         requestsQuery = requestsQuery.Where(r =>
-                            r.AdminStatus == requestStatus ||
-                            r.SupervisorStatus == requestStatus);
+                            (r.AdminStatus ?? r.SupervisorStatus) == requestStatus);
                     }
 
-                    var requests = requestsQuery.ToList();
+                    // الخطوة 4: جلب جميع المشرفين مرة واحدة لتحسين الأداء
+                    // نقوم بتنفيذ هذا الجزء بعد الفلترة للحصول على قائمة المشرفين ذات الصلة فقط
+                    var supervisorIds = requestsQuery.Select(r => r.SupervisorAssigned)
+                                                     .Where(id => id.HasValue)
+                                                     .Distinct()
+                                                     .Select(id => id.Value)
+                                                     .ToList();
 
-                    // جلب جميع المشرفين مرة واحدة لتحسين الأداء
-                    var supervisorIds = requests.Select(r => r.SupervisorAssigned).Distinct().ToList();
                     var supervisors = _context.Users
                         .Where(u => supervisorIds.Contains(u.UserId))
                         .ToDictionary(u => u.UserId, u => u.FirstName + " " + u.LastName);
 
-                    // تحويل البيانات إلى كائن ديناميكي للعرض
-                    var reportData = requests.Select(r => new
+                    // الخطوة 5: تحويل البيانات إلى الشكل النهائي للعرض مع حساب الحالة المطلوبة
+                    var reportData = requestsQuery.Select(r => new
                     {
                         Id = r.RequestId,
-                        المستفيد = GetUserFullName(r.User),
-                        نوع_الخدمة = GetServiceName(r),
-                        الجهاز = r.Device?.DeviceName ?? "لا يوجد",
+                        المستفيد = (r.User.FirstName ?? "") + " " + (r.User.LastName ?? ""),
+                        نوع_الخدمة = r.Service.ServiceName, // افتراض أن ServiceType موجود دائمًا
+                        الجهاز = r.Device != null ? r.Device.DeviceName : "لا يوجد",
                         التاريخ = r.RequestDate.ToString("yyyy-MM-dd"),
                         الوقت = r.RequestDate.ToString("HH:mm"),
+
+                        // استخدام Dictionary مباشرة للبحث عن اسم المشرف
                         المشرف_المسند = r.SupervisorAssigned.HasValue && supervisors.ContainsKey(r.SupervisorAssigned.Value)
                             ? supervisors[r.SupervisorAssigned.Value]
                             : "غير مسند",
-                        الحالة = GetRequestStatus(r)
-                    }).ToList();
 
+                        // ======================= التعديل الأساسي هنا =======================
+                        // يتم تحديد الحالة: إذا كانت حالة الأدمن موجودة، استخدمها. وإلا، استخدم حالة المشرف.
+                        الحالة = r.AdminStatus ?? r.SupervisorStatus ?? "غير محدد"
+                        // =================================================================
+
+                    }).ToList(); // تنفيذ الاستعلام وتحويله إلى قائمة
+
+                    // إعداد البيانات للعرض
                     ViewBag.ReportTitle = reportTitle;
                     ViewBag.ReportType = reportType;
                     ViewBag.FromDate = fromDate?.ToString("yyyy-MM-dd");
@@ -166,6 +179,7 @@ namespace WepApp2.Controllers
 
                     return View("PrintReport", reportData);
                 }
+
                 else if (reportType == "تقرير الأجهزة")
                 {
                     // جلب بيانات الأجهزة من قاعدة البيانات
