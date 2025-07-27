@@ -1,188 +1,0 @@
-﻿@{
-    ViewBag.Title = "الأسئلة الشائعة - معمل الابتكارات";
-    Layout = "~/Views/Shared/_Layout_Bootstrap.cshtml";
-}
-
-@section Styles {
-    <link href="~/css/Gruop3Style.css" rel="stylesheet" />
-}
-
-<meta charset="utf-8" />
-<meta content="width=device-width, initial-scale=1.0" name="viewport" />
-<title>معمل الابتكارات - جامعة الملك عبدالعزيز</title>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
-
-<link href="~/css/site_bootstrap.css" rel="stylesheet" />
-
-<div class="faq-page">
-
-
-    <div class="faq-breadcrumb">
-        <div class="faq-breadcrumb-container">
-            <nav class="faq-breadcrumb-nav">
-                <a href="#" onclick="showPage('home')">
-                    <i class="fas fa-home"></i> الرئيسية
-                </a>
-                <span class="faq-breadcrumb-separator">/</span>
-                <span class="faq-breadcrumb-current">الأسئلة الشائعة</span>
-            </nav>
-        </div>
-    </div>
-
-    <div class="faq-main">
-        <div class="faq-container">
-
-            <div class="faq-header">
-                <h1><i class="fas fa-question-circle"></i> الأسئلة الشائعة</h1>
-                <p>إجابات على الأسئلة الأكثر شيوعاً حول معمل الابتكارات وخدماته</p>
-            </div>
-
-            <!-- البحث -->
-            <div class="faq-section">
-                <h3><i class="fas fa-search"></i> البحث في الأسئلة الشائعة</h3>
-                <input type="text" id="faqSearch" placeholder="ابحث عن سؤال..." onkeyup="searchFAQ()" class="faq-search-input" />
-            </div>
-
-            <!-- الأقسام -->
-            <div id="faqCategories">
-
-                <!-- 🟢 قسم الحجز والاستخدام -->
-                <div class="faq-section faq-category">
-                    <h3><i class="fas fa-calendar-plus"></i> أسئلة الحجز والاستخدام</h3>
-                    <div class="faq-list">
-                        <div class="faq-item">
-                            <div class="faq-question" onclick="toggleFAQ(this)">
-                                <h5>كيف أقوم بحجز جهاز في المعمل؟</h5>
-                                <i class="fas fa-chevron-down"></i>
-                            </div>
-                            <div class="faq-answer">
-                                <p>لحجز جهاز، يجب عليك:</p>
-                                <ol>
-                                    <li>تسجيل الدخول بحسابك الجامعي</li>
-                                    <li>الضغط على زر "احجز الآن"</li>
-                                    <li>اختيار نوع الطلب "حجز"</li>
-                                    <li>اختيار فئة الجهاز والجهاز المحدد</li>
-                                    <li>تحديد التاريخ والوقت المطلوب</li>
-                                    <li>ملء تفاصيل الحجز وإرساله</li>
-                                </ol>
-                            </div>
-                        </div>
-
-                        <div class="faq-item">
-                            <div class="faq-question" onclick="toggleFAQ(this)">
-                                <h5>كم تستغرق مراجعة طلب الحجز؟</h5>
-                                <i class="fas fa-chevron-down"></i>
-                            </div>
-                            <div class="faq-answer">
-                                <p>عادة ما تتم مراجعة طلبات الحجز خلال 24 ساعة عمل. في الحالات العاجلة، قد تتم المراجعة خلال ساعات قليلة.</p>
-                            </div>
-                        </div>
-
-                        <div class="faq-item">
-                            <div class="faq-question" onclick="toggleFAQ(this)">
-                                <h5>هل يمكنني تعديل أو إلغاء حجزي؟</h5>
-                                <i class="fas fa-chevron-down"></i>
-                            </div>
-                            <div class="faq-answer">
-                                <p>نعم، يمكنك تعديل أو إلغاء حجزك من خلال:</p>
-                                <ul>
-                                    <li>الدخول إلى صفحة "حجوزاتي"</li>
-                                    <li>اختيار الحجز المطلوب</li>
-                                    <li>الضغط على "تعديل" أو "إلغاء"</li>
-                                </ul>
-                                <p><strong>ملاحظة:</strong> يمكن التعديل أو الإلغاء فقط للحجوزات التي لم يتم الموافقة عليها بعد.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 🟡 قسم الأجهزة والتقنيات -->
-                <div class="faq-section faq-category">
-                    <h3><i class="fas fa-laptop"></i> أسئلة الأجهزة والتقنيات</h3>
-                    <div class="faq-list">
-                        <div class="faq-item">
-                            <div class="faq-question" onclick="toggleFAQ(this)">
-                                <h5>ما الأجهزة المتوفرة؟</h5>
-                                <i class="fas fa-chevron-down"></i>
-                            </div>
-                            <div class="faq-answer">
-                                <p>يوفر المعمل مجموعة متنوعة من الأجهزة:</p>
-                                <ul>
-                                    <li><strong>VR:</strong> Oculus Quest 2, HTC Vive Pro 2</li>
-                                    <li><strong>AR:</strong> HoloLens 2, Magic Leap 2</li>
-                                    <li><strong>روبوتات:</strong> NAO, Pepper, Arduino</li>
-                                    <li><strong>طابعات 3D:</strong> Ultimaker, Prusa i3</li>
-                                    <li><strong>ذكاء صناعي:</strong> Jetson Xavier</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 🔵 قسم الدعم التقني -->
-                <div class="faq-section faq-category">
-                    <h3><i class="fas fa-tools"></i> الدعم التقني والمساعدة</h3>
-                    <div class="faq-list">
-                        <div class="faq-item">
-                            <div class="faq-question" onclick="toggleFAQ(this)">
-                                <h5>هل يوجد دعم فني؟</h5>
-                                <i class="fas fa-chevron-down"></i>
-                            </div>
-                            <div class="faq-answer">
-                                <p>نعم، يتوفر دعم فني لتشغيل الأجهزة، المساعدة في الأعطال، والتوجيه الفني للمستخدمين.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 🟣 قسم الأسئلة العامة -->
-                <div class="faq-section faq-category">
-                    <h3><i class="fas fa-info-circle"></i> أسئلة عامة</h3>
-                    <div class="faq-list">
-                        <div class="faq-item">
-                            <div class="faq-question" onclick="toggleFAQ(this)">
-                                <h5>من يحق له استخدام المعمل؟</h5>
-                                <i class="fas fa-chevron-down"></i>
-                            </div>
-                            <div class="faq-answer">
-                                <p>يحق لجميع منسوبي جامعة الملك عبدالعزيز استخدام المعمل.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- تواصل معنا -->
-            <div class="faq-section">
-                <h3><i class="fas fa-question"></i> لم تجد إجابة؟</h3>
-                <p style="color: #666;">إذا لم تجد إجابة لسؤالك، يمكنك التواصل معنا مباشرة:</p>
-                <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-                    <button class="faq-btn faq-btn-primary" onclick="showPage('contact')">
-                        <i class="fas fa-envelope"></i> اتصل بنا
-                    </button>
-                </div>
-            </div>
-
-        </div>
-    </div>
-</div>
-
-@section Scripts {
-    <script>
-        function toggleFAQ(element) {
-            element.classList.toggle("active");
-            const answer = element.nextElementSibling;
-            answer.classList.toggle("show");
-        }
-
-        function searchFAQ() {
-            const input = document.getElementById("faqSearch").value.toLowerCase();
-            const items = document.querySelectorAll(".faq-item");
-            items.forEach(item => {
-                const question = item.querySelector(".faq-question h5").innerText.toLowerCase();
-                item.style.display = question.includes(input) ? "block" : "none";
-            });
-        }
-    </script>
-}

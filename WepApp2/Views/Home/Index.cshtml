@@ -6,7 +6,7 @@
 }
 
 @{
-  
+
     var vrCount = Model.Count(d => d.Technology != null && d.Technology.TechnologyName == "أجهزة الواقع الافتراضي" && d.DeviceStatus == "متاح");
     var arCount = Model.Count(d => d.Technology != null && d.Technology.TechnologyName == "أجهزة الواقع المعزز" && d.DeviceStatus == "متاح");
     var robotCount = Model.Count(d => d.Technology != null && d.Technology.TechnologyName == "الروبوتات التعليمية" && d.DeviceStatus == "متاح");
@@ -46,14 +46,15 @@
             <!-- روابط النافبار -->
             <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
                 <div class="navbar-nav d-flex align-items-center gap-3">
-                    <a class="nav-link" href="#" onclick="showPage('home')">الرئيسية</a>
-                    <a class="nav-link" href="#services" onclick="showPage('home'); setTimeout(() => scrollToSection('services'), 100)">الخدمات</a>
-                    <a class="nav-link" href="#devices" onclick="showPage('home'); setTimeout(() => scrollToSection('devices'), 100)">الأجهزة</a>
-                    <a class="nav-link" href="#about" onclick="showPage('home'); setTimeout(() => scrollToSection('about'), 100)">عن المعمل</a>
-                    <a class="nav-link" href="/FAQ/FAQ">الأسئلة الشائعة</a>
-                    <a class="nav-link" href="#contact" onclick="showPage('contact')">اتصل بنا</a>
+                    <a class="nav-link" href="/Home/Index" onclick="showPage('home')">الرئيسية</a>
+                    <a class="nav-link" href="/Home/Index" onclick="showPage('home'); setTimeout(() => scrollToSection('services'), 100)">الخدمات</a>
+                    <a class="nav-link" href="/Home/Index" onclick="showPage('home'); setTimeout(() => scrollToSection('devices'), 100)">الأجهزة</a>
+                    <a class="nav-link" href="/Home/Index" onclick="showPage('home'); setTimeout(() => scrollToSection('about'), 100)">عن المعمل</a>
+                    <a class="nav-link" href="/Home/FAQ">الأسئلة الشائعة</a>
+                    <a class="nav-link" href="/Home/Index#contact" onclick="showPage('contact')">تواصـل</a>
                 </div>
             </div>
+
 
             <!-- زر الهامبرجر للجوال -->
             <button class="navbar-toggler ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -68,7 +69,7 @@
                 </a>
                 <!-- زر التسجيل جوال -->
                 <a class="btn btn-primary btn-sm d-block d-lg-none ms-2" href="/Auth/Login">
-                    <i class="fas fa-user"></i> تسجيل 
+                    <i class="fas fa-user"></i> تسجيل
                 </a>
             </div>
 
@@ -167,7 +168,7 @@
                 </div>
             </section> *@
 
-             <<!-- Devices Section -->
+            <<!-- Devices Section -->
             <section class="devices" id="devices">
                 <div class="container">
                     <div class="section-title">
@@ -175,7 +176,7 @@
                         <p>مجموعة متنوعة من أحدث الأجهزة والتقنيات المتقدمة في خدمتكم - انقر على أي فئة لعرض الأجهزة المتاحة</p>
                     </div>
                     <div class="devices-grid">
-                        <div class="device-card" onclick="displayDevicesForCategory(6)" style="cursor:pointer;">
+                        <div class="device-card" onclick="displayDevicesForCategory(11)" style="cursor:pointer;">
                             <div class="device-image">
                                 <i class="fas fa-vr-cardboard"></i>
                             </div>
@@ -189,7 +190,7 @@
                             </div>
                         </div>
 
-                        <div class="device-card" onclick="displayDevicesForCategory(5)" style="cursor:pointer;">
+                        <div class="device-card" onclick="displayDevicesForCategory(10)" style="cursor:pointer;">
                             <div class="device-image">
                                 <i class="fas fa-mobile-alt"></i>
                             </div>
@@ -203,7 +204,7 @@
                             </div>
                         </div>
 
-                        <div class="device-card" onclick="displayDevicesForCategory(4)" style="cursor:pointer;">
+                        <div class="device-card" onclick="displayDevicesForCategory(9)" style="cursor:pointer;">
                             <div class="device-image">
                                 <i class="fas fa-robot"></i>
                             </div>
@@ -217,7 +218,7 @@
                             </div>
                         </div>
 
-                        <div class="device-card" onclick="displayDevicesForCategory(3)" style="cursor:pointer;">
+                        <div class="device-card" onclick="displayDevicesForCategory(8)" style="cursor:pointer;">
                             <div class="device-image">
                                 <i class="fas fa-cube"></i>
                             </div>
@@ -231,7 +232,7 @@
                             </div>
                         </div>
 
-                        <div class="device-card" onclick="displayDevicesForCategory(2)" style="cursor:pointer;">
+                        <div class="device-card" onclick="displayDevicesForCategory(7)" style="cursor:pointer;">
                             <div class="device-image">
                                 <i class="fas fa-video"></i>
                             </div>
@@ -245,7 +246,7 @@
                             </div>
                         </div>
 
-                        <div class="device-card" onclick="displayDevicesForCategory(1)" style="cursor:pointer;">
+                        <div class="device-card" onclick="displayDevicesForCategory(6)" style="cursor:pointer;">
                             <div class="device-image">
                                 <i class="fas fa-brain"></i>
                             </div>
@@ -290,8 +291,9 @@
                 </div>
             </section>
 
-            <!-- Footer -->
+            <!-- contact -->
         </div>
+
         <div class="main-content" id="contactPage">
             <section id="contact" class="contact-section">
                 <div class="container">
@@ -299,7 +301,7 @@
                         <!-- Contact Form -->
                         <div class="contact-form-section">
                             <div class="contact-header">
-                                <h2><i class="fas fa-envelope"></i> اتصل بنا</h2>
+                                <h2><i class="fas fa-envelope"></i> تواصل</h2>
                                 <p>نحن هنا لمساعدتك! تواصل معنا عبر أي من الطرق التالية أو أرسل لنا رسالة</p>
                             </div>
 
@@ -335,7 +337,7 @@
 
                                 <div class="form-group">
                                     <label>الرسالة:</label>
-<textarea placeholder="اكتب رسالتك هنا..." rows="5" required></textarea>
+                                    <textarea placeholder="اكتب رسالتك هنا..." rows="5" required></textarea>
                                 </div>
 
                                 <button type="submit" class="btn-send">
@@ -411,7 +413,7 @@
                         </div>
                     </div>
 
-                    <!-- FAQ Section -->
+                    @*   <!-- FAQ Section -->
                     <div class="faq-section">
                         <h3><i class="fas fa-question-circle"></i> الأسئلة الشائعة السريعة</h3>
                         <div class="faq-items">
@@ -446,7 +448,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> *@ 
             </section>
         </div>
 
@@ -457,36 +459,10 @@
         </footer>
 
 
-         <footer class="footer main-footer" id="footer">
-            <div class="container">
-                <div class="footer-content">
-                    <div class="footer-section">
-                        <h4>معمل الابتكارات</h4>
-                        <p>معمل متطور يهدف إلى توفير أحدث التقنيات والأجهزة لدعم الطلاب والباحثين في مشاريعهم الابتكارية والبحثية</p>
-                    </div>
-                    <div class="footer-section">
-                        <h4>روابط مهمة</h4>
-                        <p><a href="#">دليل الاستخدام</a></p>
-                        <p><a href="#">الشروط والأحكام</a></p>
-                        <p><a href="#">سياسة الخصوصية</a></p>
-                        <p><a href="#">الأسئلة الشائعة</a></p>
-                    </div>
-                    <div class="footer-section">
-                        <h4>تواصل معنا</h4>
-                        <p><i class="fas fa-envelope"></i> innovationlab@kau.edu.sa</p>
-                        <p><i class="fas fa-phone"></i> +966 12 640 0000</p>
-                        <p><i class="fas fa-map-marker-alt"></i> جامعة الملك عبدالعزيز، جدة</p>
-                    </div>
-                </div>
-                <div class="footer-bottom">
-                    <p>© 2025 معمل الابتكارات - جامعة الملك عبدالعزيز. جميع الحقوق محفوظة.</p>
-                </div>
-            </div>
-        </footer> 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
         <script src="~/js/script_bootstrap.js"></script>
 </body>
 </html>
-     
+
 
 

@@ -2640,6 +2640,7 @@ body {
 .print-report-status-rejected {
     background-color: #e74c3c;
 }
+
 .print-report-status-rejected-supervisor {
     background-color: #f4a261;
 }
@@ -2944,6 +2945,7 @@ body {
         transition: none !important;
     }
 }
+
 .wil-password-input {
     position: relative;
 }
@@ -2979,7 +2981,9 @@ body {
     direction: rtl;
     text-align: right;
 }
+
 }
+
 html, body {
     overflow-x: hidden !important;
     width: 100% !important;

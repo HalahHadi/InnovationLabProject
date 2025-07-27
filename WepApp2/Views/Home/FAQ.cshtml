@@ -1,0 +1,305 @@
+﻿@{
+    ViewBag.Title = "الأسئلة الشائعة - معمل الابتكارات";
+    Layout = "~/Views/Shared/_Layout_Bootstrap.cshtml";
+}
+
+@section Styles {
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/css/site_bootstrap.css" rel="stylesheet" />
+}
+
+
+
+<!DOCTYPE html>
+
+<html dir="rtl" lang="ar">
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>معمل الابتكارات - جامعة الملك عبدالعزيز</title>
+</head>
+
+<div class="faq-page mt-5">
+
+
+
+
+    <div class="faq-main">
+        <div class="faq-container">
+
+            <div class="faq-header">
+                <h1><i class="fas fa-question-circle"></i> الأسئلة الشائعة</h1>
+                <p>إجابات على الأسئلة الأكثر شيوعاً حول معمل الابتكارات وخدماته</p>
+            </div>
+
+            <!-- البحث -->
+            <div class="faq-section">
+                <h3><i class="fas fa-search"></i> البحث في الأسئلة الشائعة</h3>
+                <input type="text" id="faqSearch" placeholder="ابحث عن سؤال..." onkeyup="searchFAQ()" class="faq-search-input" />
+            </div>
+
+            <!-- الأقسام -->
+            <div id="faqCategories">
+
+                <!-- 🟢 قسم الحجز والاستخدام -->
+                <div class="faq-section faq-category">
+                    <h3><i class="fas fa-calendar-plus"></i> أسئلة الحجز والاستخدام</h3>
+                    <div class="faq-list">
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFAQ(this)">
+                                <h5>كيف أقوم بحجز جهاز في المعمل؟</h5>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="faq-answer">
+                                <p>لحجز جهاز، يجب عليك:</p>
+                                <ol>
+                                    <li>تسجيل الدخول بحسابك الجامعي</li>
+                                    <li>الضغط على زر "احجز الآن"</li>
+                                    <li>اختيار نوع الطلب "حجز"</li>
+                                    <li>اختيار فئة الجهاز والجهاز المحدد</li>
+                                    <li>تحديد التاريخ والوقت المطلوب</li>
+                                    <li>ملء تفاصيل الحجز وإرساله</li>
+                                </ol>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFAQ(this)">
+                                <h5>كم تستغرق مراجعة طلب الحجز؟</h5>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="faq-answer">
+                                <p>عادة ما تتم مراجعة طلبات الحجز خلال 24 ساعة عمل. في الحالات العاجلة، قد تتم المراجعة خلال ساعات قليلة.</p>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFAQ(this)">
+                                <h5>هل يمكنني تعديل أو إلغاء حجزي؟</h5>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="faq-answer">
+                                <p>نعم، يمكنك تعديل أو إلغاء حجزك من خلال:</p>
+                                <ul>
+                                    <li>الدخول إلى صفحة "حجوزاتي"</li>
+                                    <li>اختيار الحجز المطلوب</li>
+                                    <li>الضغط على "تعديل" أو "إلغاء"</li>
+                                </ul>
+                                <p><strong>ملاحظة:</strong> يمكن التعديل أو الإلغاء فقط للحجوزات التي لم يتم الموافقة عليها بعد.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 🟡 قسم الأجهزة والتقنيات -->
+                <div class="faq-section faq-category">
+                    <h3><i class="fas fa-laptop"></i> أسئلة الأجهزة والتقنيات</h3>
+                    <div class="faq-list">
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFAQ(this)">
+                                <h5>ما الأجهزة المتاحة في المعمل؟</h5>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="faq-answer">
+                                <p>يوفر المعمل مجموعة متنوعة من الأجهزة:</p>
+                                <ul>
+                                    <li><strong>أجهزة الواقع الافتراضي:</strong> Oculus Quest 2, HTC Vive Pro 2, PlayStation VR2</li>
+                                    <li><strong>أجهزة الواقع المعزز:</strong> Microsoft HoloLens 2, Magic Leap 2, iPad Pro AR Kit</li>
+                                    <li><strong>الروبوتات:</strong> NAO Robot, Pepper Robot, Arduino Robot Kit</li>
+                                    <li><strong>الطابعات ثلاثية الأبعاد:</strong> Ultimaker S3, Formlabs Form 3, Prusa i3 MK3S+</li>
+                                    <li><strong>معدات الاستوديو:</strong> كاميرات احترافية، إضاءة، معدات تسجيل</li>
+                                    <li><strong>أجهزة الذكاء الاصطناعي:</strong> Jetson AGX Xavier, Intel Neural Compute Stick</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFAQ(this)">
+                                <h5>هل يمكنني استعارة الأجهزة خارج المعمل؟</h5>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="faq-answer">
+                                <p>نعم، بعض الأجهزة المحمولة يمكن استعارتها خارج المعمل مثل:</p>
+                                <ul>
+                                    <li>أجهزة iPad Pro للواقع المعزز</li>
+                                    <li>مجموعات Arduino والروبوتات الصغيرة</li>
+                                    <li>الكاميرات المحمولة</li>
+                                </ul>
+                                <p>يتطلب الاستعارة موافقة خاصة وقد تحتاج لضمانة أو كفالة.</p>
+                            </div>
+                        </div>
+
+                        
+                    </div>
+                </div>
+
+
+                <!-- 🔵 قسم الدعم التقني -->
+                <div class="faq-section faq-category">
+                    <h3><i class="fas fa-tools"></i> الدعم التقني والمساعدة</h3>
+                    <div class="faq-list">
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFAQ(this)">
+                                <h5>هل يوجد مساعدة تقنية أثناء الاستخدام؟</h5>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="faq-answer">
+                                <p>نعم، يتوفر فنيون مختصون في المعمل لمساعدتك في:</p>
+                                <ul>
+                                    <li>تشغيل الأجهزة وإعدادها</li>
+                                    <li>حل المشاكل التقنية</li>
+                                    <li>تقديم النصائح والإرشادات</li>
+                                    <li>التدريب على استخدام التقنيات الجديدة</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFAQ(this)">
+                                <h5>كيف أحصل على استشارة تقنية؟</h5>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="faq-answer">
+                                <p>يمكنك حجز استشارة تقنية من خلال:</p>
+                                <ol>
+                                    <li>اختيار "استشارة" كنوع الطلب</li>
+                                    <li>تحديد نوع الاستشارة المطلوبة</li>
+                                    <li>شرح التحدي أو المشروع الذي تعمل عليه</li>
+                                    <li>تحديد موعد مناسب للقاء</li>
+                                </ol>
+                            </div>
+                        </div>
+
+                      
+                    </div>
+                </div>
+
+
+                <!-- 🟣 قسم الأسئلة العامة -->
+                <div class="faq-section faq-category">
+                    <h3><i class="fas fa-info-circle"></i> أسئلة عامة</h3>
+                    <div class="faq-list">
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFAQ(this)">
+                                <h5>من يمكنه استخدام المعمل؟</h5>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="faq-answer">
+                                <p>يمكن لجميع منسوبي جامعة الملك عبدالعزيز استخدام المعمل:</p>
+                                <ul>
+                                    <li>الطلاب الجامعيين وطلاب الدراسات العليا</li>
+                                    <li>أعضاء هيئة التدريس</li>
+                                    <li>الموظفين والفنيين</li>
+                                    <li>الباحثين المتعاونين مع الجامعة</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFAQ(this)">
+                                <h5>ما ساعات عمل المعمل؟</h5>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="faq-answer">
+                                <p>ساعات عمل المعمل:</p>
+                                <ul>
+                                    <li><strong>الأحد - الخميس:</strong> 8:00 صباحاً - 4:00 مساءً</li>
+                                    <li><strong>الجمعة - السبت:</strong> مغلق</li>
+                                </ul>
+                                <p>قد تتوفر مواعيد خاصة خارج ساعات العمل للمشاريع الهامة.</p>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFAQ(this)">
+                                <h5>هل هناك رسوم للاستخدام؟</h5>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="faq-answer">
+                                <p>الخدمات الأساسية مجانية لمنسوبي الجامعة، ولكن:</p>
+                                <ul>
+                                    <li>قد تطبق رسوم رمزية على المواد الاستهلاكية (خامات الطباعة ثلاثية الأبعاد)</li>
+                                    <li>الاستشارات المتقدمة قد تحتاج موافقة خاصة</li>
+                                    <li>الاستعارة طويلة المدى قد تتطلب رسوم ضمان</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                       
+                    </div>
+                </div>
+
+
+            <!-- تواصل معنا -->
+            @* <div class="faq-section">
+                <h3><i class="fas fa-question"></i> لم تجد إجابة لسؤالك؟</h3>
+                <p style="color: #666;">إذا لم تجد إجابة لسؤالك، يمكنك التواصل معنا مباشرة:</p>
+                <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                        <a class="faq-btn faq-btn-primary" href="/Home/Index#contact">
+                            <i class="fas fa-envelope"></i> اتصل بنا
+                        </a>
+
+                </div>
+            </div> *@
+
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    <script>
+        function toggleFAQ(element) {
+            element.classList.toggle("active");
+            const answer = element.nextElementSibling;
+            answer.classList.toggle("show");
+        }
+
+            function searchFAQ() {
+                const searchTerm = document.getElementById('faqSearch').value.trim().toLowerCase();
+                const faqCategories = document.querySelectorAll('.faq-category');
+
+                // إذا كان حقل البحث فارغًا، يتم إظهار جميع الأسئلة مرة أخرى
+                if (!searchTerm) {
+                    faqCategories.forEach(category => {
+                        const questions = category.querySelectorAll('.faq-item');
+                        questions.forEach(item => {
+                            item.style.display = 'block'; // إظهار جميع الأسئلة
+                        });
+                        category.style.display = 'block'; // إظهار الفئة إذا كانت فارغة من الأسئلة
+                    });
+                    return; // خروج من الدالة إذا كان الحقل فارغًا
+                }
+
+                faqCategories.forEach(category => {
+                    const questions = category.querySelectorAll('.faq-item');
+                    let categoryMatch = false;
+
+                    questions.forEach(item => {
+                        const question = item.querySelector('.faq-question h5').textContent.trim().toLowerCase();
+
+                        // البحث في السؤال فقط وليس في الإجابة
+                        if (question.indexOf(searchTerm) !== -1) {
+                            item.style.display = 'block'; // إظهار العنصر إذا تم العثور على المطابقة
+                            categoryMatch = true; // تعيين فئة البحث إلى مطابقة
+                        } else {
+                            item.style.display = 'none'; // إخفاء العنصر إذا لم يتم العثور على المطابقة
+                        }
+                    });
+
+                    // إخفاء الفئة بالكامل إذا لم تكن هناك نتائج مطابقة
+                    if (!categoryMatch) {
+                        category.style.display = 'none';
+                    } else {
+                        category.style.display = 'block';
+                    }
+                });
+            }
+
+
+
+    </script>
+}
+

@@ -14,53 +14,52 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
     <link href="~/css/site_bootstrap.css" rel="stylesheet" />
 
-
-
     @RenderSection("Styles", required: false)
 </head>
 <body>
 
-    <!-- ✅ Navbar with hamburger -->
-    <nav class="navbar navbar-expand-lg">
-        <div class="nav-container container-fluid">
+    <!-- ✅ Navbar المعدّل -->
+    <nav class="navbar navbar-expand-lg bg-white shadow-sm">
+        <div class="container d-flex align-items-center justify-content-between position-relative">
 
             <!-- Logo -->
-            <div class="logo navbar-brand">
+            <a class="navbar-brand d-flex align-items-center gap-2" href="/Home/Index">
                 <div class="logo-icon">
-                    <i class="fas fa-flask"></i>
+                    <img src="~/Images/limg.jpg" alt="شعار معمل الابتكارات" style="height: 50px;">
                 </div>
-                <div class="logo-text">
-                    <h2>معمل الابتكارات</h2>
-                    <span>بوابتك للتقنيات الحديثة</span><br />
+            </a>
+
+            <!-- روابط النافبار -->
+
+            <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+                <div class="navbar-nav d-flex align-items-center gap-3">
+                    <a class="nav-link" href="/Home/Index" onclick="showPage('home')">الرئيسية</a>
+                    <a class="nav-link" href="/Home/Index" onclick="showPage('home'); setTimeout(() => scrollToSection('services'), 100)">الخدمات</a>
+                    <a class="nav-link" href="/Home/Index" onclick="showPage('home'); setTimeout(() => scrollToSection('devices'), 100)">الأجهزة</a>
+                    <a class="nav-link" href="/Home/Index" onclick="showPage('home'); setTimeout(() => scrollToSection('about'), 100)">عن المعمل</a>
+                    <a class="nav-link" href="/Home/FAQ">الأسئلة الشائعة</a>
+                    <a class="nav-link" href="/Home/Index#contact" onclick="showPage('contact')">تواصـل</a>
                 </div>
             </div>
 
-            <!-- Bootstrap Hamburger Toggle Button -->
-            <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <!-- زر الهامبرجر للجوال -->
+            <button class="navbar-toggler ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <i class="fas fa-bars"></i>
             </button>
 
-            <!-- Collapsible Navigation Links -->
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <div class="nav-links navbar-nav ms-auto">
-                    <a class="nav-link" href="#" onclick="showPage('home')">الرئيسية</a>
-                    <a class="nav-link" href="#services" onclick="showPage('home'); setTimeout(() => scrollToSection('services'), 100)">الخدمات</a>
-                    <a class="nav-link" href="#devices" onclick="showPage('home'); setTimeout(() => scrollToSection('devices'), 100)">الأجهزة</a>
-                    <a class="nav-link" href="#about" onclick="showPage('home'); setTimeout(() => scrollToSection('about'), 100)">عن المعمل</a>
-                    <a class="nav-link" href="#faq" onclick="showPage('faq')">الأسئلة الشائعة</a>
-                    <a class="nav-link" href="#contact" onclick="showPage('contact')">اتصل بنا</a>
-                </div>
-                <div class="auth-buttons navbar-nav" id="authButtons">
-                    <a class="btn btn-primary nav-link" href="#">
-                        <i class="fas fa-user"></i>
-                        تسجيل
-                    </a>
-                </div>
+            <!-- زر التسجيل -->
+            <div class="auth-buttons position-absolute start-0 d-flex align-items-center">
+                <a class="btn btn-primary d-none d-lg-block" href="/Auth/Login">
+                    <i class="fas fa-user"></i> تسجيل
+                </a>
+                <a class="btn btn-primary btn-sm d-block d-lg-none ms-2" href="/Auth/Login">
+                    <i class="fas fa-user"></i> تسجيل
+                </a>
             </div>
         </div>
     </nav>
 
-    <!-- Main page content -->
+    <!-- 👇 هذا هو الجسم الأساسي للصفحة -->
     @RenderBody()
 
     <!-- Scripts -->
