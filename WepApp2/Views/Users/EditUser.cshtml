@@ -114,7 +114,7 @@ Description: Form to update existing user information in the system
             <div class="col-md-6">
                 <label>كلمة المرور</label>
                 <div class="input-group">
-                    @Html.PasswordFor(m => m.UserPassWord, new { @class = "form-control", @id = "editPasswordInput" })
+                    <input type="text" name="UserPassWord" class="form-control" id="editPasswordInput" value="@Model.UserPassWord" />
                     <button class="btn btn-outline-secondary" type="button" id="toggleEditPassword">
                         <i class="bi bi-eye" id="editPasswordIcon"></i>
                     </button>

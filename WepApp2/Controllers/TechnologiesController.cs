@@ -5,9 +5,10 @@
 // Purpose: Manage technology categories (Add, Edit, Delete)
 // ===========================================================
 
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using WepApp2.Data;
 using WepApp2.Models;
-using Microsoft.AspNetCore.Mvc;
 
 namespace WepApp2.Controllers
 {
@@ -156,9 +157,21 @@ namespace WepApp2.Controllers
             if (tech == null)
                 return NotFound();
 
-            _context.Technologies.Remove(tech);
-            _context.SaveChanges();
+            try
+            {
+                _context.Technologies.Remove(tech);
+                _context.SaveChanges();
+
+                TempData["Message"] = "✅ تم حذف الفئة بنجاح.";
+            }
+            catch (DbUpdateException ex)
+            {
+                // حدث خطأ بسبب وجود علاقات مع أجهزة مرتبطة
+                TempData["Error"] = "❌ لا يمكن حذف الفئة لأنها مرتبطة بأجهزة موجودة في النظام.";
+            }
+
             return RedirectToAction("Index");
         }
+
     }
 }

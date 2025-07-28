@@ -144,6 +144,8 @@ public class UsersController : Controller
             updatedUser.Faculty = updatedUser.OtherFaculty;
         }
 
+
+
         // ✅ إعادة عرض الصفحة في حال وجود أخطاء
         // ✅ Redisplay form if validation fails
         if (!ModelState.IsValid)

@@ -19,7 +19,7 @@ public partial class User
     public string PhoneNumber { get; set; } = null!;
 
     public string UserRole { get; set; } = null!;
-
+    
     public string Faculty { get; set; } = null!;
 
     public string Department { get; set; } = null!;
