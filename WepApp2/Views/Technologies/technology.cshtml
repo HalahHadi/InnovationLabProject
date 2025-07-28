@@ -25,6 +25,17 @@ Description: Page to create, edit, and delete technology categories used in devi
 <!-- حاوية الصفحة الرئيسية -->
 <!-- Main page container -->
 <div class="container">
+
+    <!-- عرض الرسائل -->
+    @if (TempData["Message"] != null)
+    {
+        <div class="alert alert-success">@TempData["Message"]</div>
+    }
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger">@TempData["Error"]</div>
+    }
+
     <h2 class="mb-4 d-flex justify-content-between align-items-center">
         <span>إدارة الفئات التقنية</span>
 
