@@ -67,12 +67,12 @@ namespace InnovationLabFinal.Controllers
                 if (data.decision == "مقبول")
                 {
                     req.SupervisorStatus = "موافق عليه من قبل المسؤول";
-                    req.AdminStatus = "مقبول";
+                    req.AdminStatus = "موافق عليه من قبل المسؤول";
                 }
                 else if (data.decision == "مرفوض")
                 {
                     req.SupervisorStatus = "مرفوض من قبل المسؤول";
-                    req.AdminStatus = "مرفوض";
+                    req.AdminStatus = "مرفوض من قبل المسؤول";
                     req.SupervisorAssigned = null;
                 }
 
