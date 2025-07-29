@@ -1,7 +1,7 @@
 ﻿@model WepApp2.Models.User
 
 @{
-    string layoutPath = null;
+    string layoutPath;
 
     if (Model.UserRole == "مدير")
     {
@@ -11,8 +11,12 @@
     {
         layoutPath = "~/Views/Shared/_LayoutSupervisor.cshtml";
     }
+    else
+    {
+        layoutPath = "~/Views/Shared/_UserLayout.cshtml";
+    }
 
-    Layout = "~/Views/Shared/_UserLayout.cshtml";
+    Layout = layoutPath;
     ViewBag.Title = "البيانات الشخصية";
 }
 <!-- ربط CSS -->
