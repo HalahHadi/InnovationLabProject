@@ -43,7 +43,7 @@ public partial class InnvoationLabDbgroup2Context : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-         => optionsBuilder.UseSqlServer("Server=localhost\\SQLEXPRESS;Database=InnvoationLabDBGroup2;Trusted_Connection=True;Encrypt=False;TrustServerCertificate=True");
+        => optionsBuilder.UseSqlServer("Server=DESKTOP-8TUQ3UB;Database=InnvoationLabDBGroup2;Integrated Security=True;TrustServerCertificate=True");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -199,7 +199,7 @@ public partial class InnvoationLabDbgroup2Context : DbContext
             entity.Property(e => e.ServiceId).HasColumnName("ServiceID");
             entity.Property(e => e.SupervisorStatus)
                 .HasMaxLength(255)
-                .HasDefaultValue("بإنتظار إسناد المشرف");
+                .HasDefaultValue("بانتظار اسناد المشرف");
             entity.Property(e => e.UserId).HasColumnName("UserID");
 
             entity.HasOne(d => d.Course).WithMany(p => p.Requests)
