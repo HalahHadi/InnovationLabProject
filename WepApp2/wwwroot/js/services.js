@@ -1,6 +1,6 @@
 ﻿
 // ================================
-// Done By The Best Group (Group2)
+// Done By (Group2)
 // ================================
 
 // wwwroot/js/services.js
