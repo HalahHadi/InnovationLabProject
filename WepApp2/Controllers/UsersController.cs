@@ -46,6 +46,14 @@ public class UsersController : Controller
             return View(user);
         }
 
+
+        // ✅ التحقق من التكرار
+        if (_context.Users.Any(u => u.UserName == user.UserName))
+        {
+            ModelState.AddModelError("UserName", "الرقم الجامعي مستخدم مسبقًا.");
+            return View(user);
+        }
+
         // ✅ إذا اختار المستخدم "أخرى"، يتم استخدام النص المدخل
         // ✅ Handle "Other" faculty case
         if (user.Faculty == "أخرى")
