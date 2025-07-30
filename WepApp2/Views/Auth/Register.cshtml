@@ -104,14 +104,14 @@
                             <i class="fas fa-phone wil-icon-spacing-sm"></i>
                             رقم الهاتف:
                         </label>
-                        <input asp-for="PhoneNumber" class="form-control wil-form-control" placeholder="+966 5xxxxxxxx" />
+                        <input asp-for="PhoneNumber" class="form-control wil-form-control" placeholder="5xxxxxxxx" maxlength="10" pattern="[0-9]{10}" />
                     </div>
                     <div class="col-md-12 wil-mb-3">
                         <label asp-for="UserName" class="wil-form-label">
                             <i class="fas fa-id-card wil-icon-spacing-sm"></i>
                             اسم المستخدم:
                         </label>
-                        <input asp-for="UserName" class="form-control wil-form-control" placeholder="الرقم الجامعي/الوظيفي" />
+                        <input asp-for="UserName" class="form-control wil-form-control" placeholder="الرقم الجامعي/الوظيفي" maxlength="7" pattern="[0-9]{7}" />
                     </div>
                     <div class="col-md-6 wil-mb-3">
                         <label asp-for="Faculty" class="wil-form-label">
@@ -261,19 +261,44 @@
                     document.getElementById('wil-terms-error').scrollIntoView({ behavior: 'smooth' });
                 }
             });
+
+            // إضافة التحقق من اسم المستخدم - فقط أرقام و 7 خانات
+            const userNameInput = document.querySelector('input[name="UserName"]');
+            userNameInput.addEventListener('input', function(e) {
+                // إزالة أي حروف غير رقمية
+                this.value = this.value.replace(/[^0-9]/g, '');
+                // تحديد الطول إلى 7 أرقام
+                if (this.value.length > 7) {
+                    this.value = this.value.slice(0, 7);
+                }
+            });
+
+            // إضافة التحقق من رقم الهاتف - فقط أرقام و 10 خانات
+            const phoneInput = document.querySelector('input[name="PhoneNumber"]');
+            phoneInput.addEventListener('input', function(e) {
+                // إزالة أي حروف غير رقمية
+                this.value = this.value.replace(/[^0-9]/g, '');
+                // تحديد الطول إلى 10 أرقام
+                if (this.value.length > 10) {
+                    this.value = this.value.slice(0, 10);
+                }
+            });
         });
 
-
-                const form = document.querySelector('form');
+        const form = document.querySelector('form');
         form.addEventListener('submit', function (e) {
             const passwordInput = document.querySelector('input[name="UserPassWord"]');
             const password = passwordInput.value.trim();
+            const userNameInput = document.querySelector('input[name="UserName"]');
+            const phoneInput = document.querySelector('input[name="PhoneNumber"]');
 
-            // إذا كانت كلمة المرور أقل من 8 حروف
+            let hasError = false;
+
+            // التحقق من كلمة المرور
             if (password.length < 8) {
-                e.preventDefault(); // منع إرسال النموذج
+                e.preventDefault();
+                hasError = true;
 
-                // إظهار رسالة الخطأ الجديدة
                 let errorDiv = document.querySelector('.wil-alert--short-password');
                 if (!errorDiv) {
                     errorDiv = document.createElement('div');
@@ -281,12 +306,49 @@
                     errorDiv.innerHTML = '<i class="fas fa-exclamation-triangle wil-icon-spacing-sm"></i> كلمة المرور يجب أن تكون 8 خانات على الأقل.';
                     form.parentNode.insertBefore(errorDiv, form);
                 }
-
-                // تمرير الشاشة لأعلى لعرض الخطأ
                 errorDiv.scrollIntoView({ behavior: 'smooth' });
             } else {
-                // إذا تم تصحيح الخطأ، نحذف التنبيه السابق (لو كان موجود)
                 const existingError = document.querySelector('.wil-alert--short-password');
+                if (existingError) {
+                    existingError.remove();
+                }
+            }
+
+            // التحقق من اسم المستخدم - يجب أن يكون 7 أرقام فقط
+            if (userNameInput.value.length !== 7 || !/^[0-9]{7}$/.test(userNameInput.value)) {
+                e.preventDefault();
+                hasError = true;
+
+                let errorDiv = document.querySelector('.wil-alert--username-error');
+                if (!errorDiv) {
+                    errorDiv = document.createElement('div');
+                    errorDiv.className = 'wil-alert wil-alert--danger wil-alert--username-error';
+                    errorDiv.innerHTML = '<i class="fas fa-exclamation-triangle wil-icon-spacing-sm"></i> اسم المستخدم يجب أن يكون 7 أرقام فقط.';
+                    form.parentNode.insertBefore(errorDiv, form);
+                }
+                if (!hasError) errorDiv.scrollIntoView({ behavior: 'smooth' });
+            } else {
+                const existingError = document.querySelector('.wil-alert--username-error');
+                if (existingError) {
+                    existingError.remove();
+                }
+            }
+
+            // التحقق من رقم الهاتف - يجب أن يكون 10 أرقام فقط
+            if (phoneInput.value.length !== 10 || !/^[0-9]{10}$/.test(phoneInput.value)) {
+                e.preventDefault();
+                hasError = true;
+
+                let errorDiv = document.querySelector('.wil-alert--phone-error');
+                if (!errorDiv) {
+                    errorDiv = document.createElement('div');
+                    errorDiv.className = 'wil-alert wil-alert--danger wil-alert--phone-error';
+                    errorDiv.innerHTML = '<i class="fas fa-exclamation-triangle wil-icon-spacing-sm"></i> رقم الهاتف يجب أن يكون 10 أرقام فقط.';
+                    form.parentNode.insertBefore(errorDiv, form);
+                }
+                if (!hasError) errorDiv.scrollIntoView({ behavior: 'smooth' });
+            } else {
+                const existingError = document.querySelector('.wil-alert--phone-error');
                 if (existingError) {
                     existingError.remove();
                 }
