@@ -82,7 +82,9 @@ Description: Form to input new user information into the system
         <div class="col-md-6">
             <label>الرقم الجامعي *</label>
             <input type="text" class="form-control" name="UserName" value="@Model.UserName" required />
+            @Html.ValidationMessage("UserName", "", new { @class = "text-danger" })
         </div>
+
         <div class="col-md-6">
             <label>البريد الإلكتروني *</label>
             <input type="email" class="form-control" name="Email" value="@Model.Email" required />
