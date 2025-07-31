@@ -45,7 +45,7 @@ namespace InnovationLabFinal.Controllers
             // 3. ليست معينة بالفعل لهذه الخدمة (ServiceId المحدد)
             var availableDevices = _context.Devices
                 .Where(d => !d.IsDeleted
-                            && d.DeviceStatus == "متاح"
+                            && d.DeviceStatus == "active"
                             && !_context.ServiceDevices.Any(sd => sd.ServiceId == serviceId && sd.DeviceId == d.DeviceId))
                 .ToList();
 
@@ -86,7 +86,7 @@ namespace InnovationLabFinal.Controllers
                 ViewBag.ServiceId = serviceId;
                 var availableDevices = _context.Devices
                     .Where(d => !d.IsDeleted
-                                && d.DeviceStatus == "متاح"
+                                && d.DeviceStatus == "active"
                                 && !_context.ServiceDevices.Any(sd => sd.ServiceId == serviceId && sd.DeviceId == d.DeviceId))
                     .ToList();
                 ViewBag.AvailableDevices = new SelectList(availableDevices, "DeviceId", "DeviceName");
